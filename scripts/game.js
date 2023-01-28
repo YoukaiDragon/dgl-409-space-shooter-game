@@ -40,3 +40,16 @@ const viewport = {
 
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+setInterval((viewport, canvas, ctx) => {
+    update();
+    render(viewport, canvas, ctx);
+}, 30);
+
+function update() {
+
+}
+
+function render(viewport, canvas, ctx) {
+
+}
