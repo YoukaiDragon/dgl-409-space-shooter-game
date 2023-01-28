@@ -9,6 +9,14 @@ class Player {
         this.bombs = 3;
         this.shotType = 0;
     }
+
+    update() {
+
+    }
+
+    render(viewport, canvas, ctx) {
+
+    }
 }
 
 const canvas = document.getElementById("gameWindow");
