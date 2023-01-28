@@ -1,5 +1,11 @@
 "use strict";
 
+const GameStates = {
+    Menu: 0,
+    Playing: 1,
+    Paused: 2
+};
+
 class Player {
     constructor(x, y) {
         this.lives = 3;
@@ -23,6 +29,7 @@ class Player {
 
 const canvas = document.getElementById("gameWindow");
 const ctx = canvas.getContext("2d");
+let gameState = GameStates.Menu;
 
 const viewport = {
     width: canvas.width,
