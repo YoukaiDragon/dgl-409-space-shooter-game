@@ -79,7 +79,7 @@ function render(viewport, canvas, ctx) {
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6/8), canvas.height * (6/8));
         
         ctx.fillStyle = black;
-        ctx.font = "18px Arial";
+        ctx.font = "40px Arial";
         ctx.textAlign = "center";
         ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
     }
