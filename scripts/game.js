@@ -82,5 +82,15 @@ function render(viewport, canvas, ctx) {
         ctx.font = "40px Arial";
         ctx.textAlign = "center";
         ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
+
+        ctx.fillStyle = green;
+        ctx.strokeStyle = black;
+        ctx.lineWidth = 20;
+        ctx.rect(canvas.width / 4, canvas.height * 5/16, canvas.width / 2, canvas.height / 8);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = white;
+        ctx.fillText("Start Game", canvas.width/2, canvas.height * 51/128);
     }
 }
