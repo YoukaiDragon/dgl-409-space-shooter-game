@@ -33,7 +33,7 @@ let gameState = GameStates.Menu;
 
 
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
-let width  = 960;
+let width = 960;
 let height = 640;
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
@@ -77,36 +77,58 @@ function render(viewport, canvas, ctx) {
 
         // Draw menu backdrop
         ctx.fillStyle = lightBlue;
-        ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6/8), canvas.height * (6/8));
-        
+        ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
+
         // Draw Title
         ctx.fillStyle = black;
         ctx.font = "40px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
+        ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 2 / 8);
 
         // Draw "Start Game" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height * 5/16, canvas.width / 2, canvas.height / 8);
+        ctx.rect(canvas.width / 4, canvas.height * 5 / 16, canvas.width / 2, canvas.height / 8);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("Start Game", canvas.width/2, canvas.height * 51/128);
-        
+        ctx.fillText("Start Game", canvas.width / 2, canvas.height * 51 / 128);
+
         // Draw "How to Play" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height / 2, canvas.width /2, canvas.height / 8);
+        ctx.rect(canvas.width / 4, canvas.height / 2, canvas.width / 2, canvas.height / 8);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("How To Play", canvas.width/2, canvas.height * 75/128);
+        ctx.fillText("How To Play", canvas.width / 2, canvas.height * 75 / 128);
     }
 }
+
+canvas.addEventListener("click", (e) => {
+    let mouseX = e.offsetX;
+    let mouseY = e.offsetY;
+    if (gameState == GameStates.Menu) {
+        // Check if Start button was clicked
+        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
+            && (mouseY > canvas.height * 5 / 16) 
+            && (mouseY < canvas.height * 7 / 16)) {
+                console.log("START GAME");
+                // TODO: switch game state and start the game
+        }
+
+        // Check if Start button was clicked
+        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
+            && (mouseY > canvas.height * 8 / 16) 
+            && (mouseY < canvas.height * 10 / 16)) {
+                console.log("INSTRUCTIONS");
+                // TODO: switch game state and load instructions
+        }
+    }
+});
