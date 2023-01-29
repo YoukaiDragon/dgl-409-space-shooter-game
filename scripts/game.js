@@ -31,6 +31,18 @@ const canvas = document.getElementById("gameWindow");
 const ctx = canvas.getContext("2d");
 let gameState = GameStates.Menu;
 
+
+// Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
+let width  = 960;
+let height = 640;
+canvas.style.width = width + "px";
+canvas.style.height = height + "px";
+
+let scale = window.devicePixelRatio;
+canvas.width = Math.floor(width * scale);
+canvas.height = Math.floor(height * scale);
+ctx.scale(scale, scale);
+
 const viewport = {
     width: canvas.width,
     height: canvas.height,
@@ -57,7 +69,7 @@ function render(viewport, canvas, ctx) {
     let green = "rgb(0, 166, 81)";
     let orange = "rgb(248, 153, 29)";
     let red = "rgb(239, 59, 57)";
-    
+
     //draw the menu
     if (gameState == GameStates.Menu) {
         ctx.fillStyle = black;
