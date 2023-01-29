@@ -38,18 +38,32 @@ const viewport = {
     y: 0
 }
 
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+setInterval(gameFrame, 30, viewport, canvas, ctx);
 
-setInterval((viewport, canvas, ctx) => {
+function gameFrame(viewport, canvas, ctx) {
     update();
     render(viewport, canvas, ctx);
-}, 30);
+}
 
 function update() {
 
 }
 
 function render(viewport, canvas, ctx) {
+    //colours
+    let black = "rgb(0, 0, 0)";
+    let lightBlue = "rgb(118, 206, 222)";
+    //draw the menu
+    if (gameState == GameStates.Menu) {
+        ctx.fillStyle = black;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        ctx.fillStyle = lightBlue;
+        ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6/8), canvas.height * (6/8));
+        
+        ctx.fillStyle = black;
+        ctx.font = "18px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
+    }
 }
