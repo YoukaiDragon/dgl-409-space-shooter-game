@@ -52,7 +52,12 @@ function update() {
 function render(viewport, canvas, ctx) {
     //colours
     let black = "rgb(0, 0, 0)";
+    let white = "rgb(255, 255, 255)";
     let lightBlue = "rgb(118, 206, 222)";
+    let green = "rgb(0, 166, 81)";
+    let orange = "rgb(248, 153, 29)";
+    let red = "rgb(239, 59, 57)";
+    
     //draw the menu
     if (gameState == GameStates.Menu) {
         ctx.fillStyle = black;
