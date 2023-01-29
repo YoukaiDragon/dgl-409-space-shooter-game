@@ -75,14 +75,17 @@ function render(viewport, canvas, ctx) {
         ctx.fillStyle = black;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        // Draw menu backdrop
         ctx.fillStyle = lightBlue;
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6/8), canvas.height * (6/8));
         
+        // Draw Title
         ctx.fillStyle = black;
         ctx.font = "40px Arial";
         ctx.textAlign = "center";
         ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
 
+        // Draw "Start Game" button
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 20;
@@ -92,5 +95,7 @@ function render(viewport, canvas, ctx) {
 
         ctx.fillStyle = white;
         ctx.fillText("Start Game", canvas.width/2, canvas.height * 51/128);
+
+        
     }
 }
