@@ -86,16 +86,27 @@ function render(viewport, canvas, ctx) {
         ctx.fillText("Space Shooter", canvas.width/2, canvas.height * 2/8);
 
         // Draw "Start Game" button
+        ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
-        ctx.lineWidth = 20;
+        ctx.lineWidth = 30;
         ctx.rect(canvas.width / 4, canvas.height * 5/16, canvas.width / 2, canvas.height / 8);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
         ctx.fillText("Start Game", canvas.width/2, canvas.height * 51/128);
-
         
+        // Draw "How to Play" button
+        ctx.beginPath();
+        ctx.fillStyle = green;
+        ctx.strokeStyle = black;
+        ctx.lineWidth = 30;
+        ctx.rect(canvas.width / 4, canvas.height / 2, canvas.width /2, canvas.height / 8);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = white;
+        ctx.fillText("How To Play", canvas.width/2, canvas.height * 75/128);
     }
 }
