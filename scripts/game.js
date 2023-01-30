@@ -57,7 +57,7 @@ function render(viewport, canvas, ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = black;
-    ctx.lineWidth = 20;
+    ctx.lineWidth = 10;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions || gameState == GameStates.Options) {
