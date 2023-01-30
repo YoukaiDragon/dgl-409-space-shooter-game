@@ -90,24 +90,24 @@ function render(viewport, canvas, ctx) {
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height * 5 / 16, canvas.width / 2, canvas.height / 8);
+        ctx.rect(canvas.width / 4 , canvas.height * 10/32, canvas.width / 2, canvas.height * 3/32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("Start Game", canvas.width / 2, canvas.height * 51 / 128);
+        ctx.fillText("Start Game", canvas.width / 2, canvas.height * 49 / 128);
 
         // Draw "How to Play" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height / 2, canvas.width / 2, canvas.height / 8);
+        ctx.rect(canvas.width / 4, canvas.height *  15/32, canvas.width / 2, canvas.height *  3/32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("How To Play", canvas.width / 2, canvas.height * 75 / 128);
+        ctx.fillText("How To Play", canvas.width / 2, canvas.height * 69/128);
     }
 }
 
@@ -117,16 +117,16 @@ canvas.addEventListener("click", (e) => {
     if (gameState == GameStates.Menu) {
         // Check if Start button was clicked
         if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
-            && (mouseY > canvas.height * 5 / 16) 
-            && (mouseY < canvas.height * 7 / 16)) {
+            && (mouseY >= canvas.height * 10/32) 
+            && (mouseY <= canvas.height * 13/32)) {
                 console.log("START GAME");
                 // TODO: switch game state and start the game
         }
 
         // Check if Start button was clicked
         if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
-            && (mouseY > canvas.height * 8 / 16) 
-            && (mouseY < canvas.height * 10 / 16)) {
+            && (mouseY >= canvas.height * 15/32) 
+            && (mouseY <= canvas.height * 18/32)) {
                 console.log("INSTRUCTIONS");
                 // TODO: switch game state and load instructions
         }
