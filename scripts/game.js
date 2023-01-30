@@ -76,9 +76,23 @@ function render(viewport, canvas, ctx) {
                 break;
             case GameStates.Instructions:
                 ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7/32);
+                ctx.beginPath();
+                ctx.fillStyle = red;
+                ctx.rect(canvas.width * 5/32, canvas.height * 11/64, canvas.width / 16, canvas.height / 16);
+                ctx.stroke();
+                ctx.fill();
+                ctx.fillStyle = black;
+                ctx.fillText("X", canvas.width * 6/32, canvas.height * 29/128);
                 break;
             case GameStates.Options:
                 ctx.fillText("Options", canvas.width / 2, canvas.height * 7/32);
+                ctx.beginPath();
+                ctx.fillStyle = red;
+                ctx.rect(canvas.width * 5/32, canvas.height * 11/64, canvas.width / 16, canvas.height / 16);
+                ctx.stroke();
+                ctx.fill();
+                ctx.fillStyle = black;
+                ctx.fillText("X", canvas.width * 6/32, canvas.height * 29/128);
                 break;
         }
     }
