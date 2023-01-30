@@ -147,7 +147,7 @@ canvas.addEventListener("click", (e) => {
         // Check if Start button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
-            // TODO: switch game state and start the game
+            gameState = GameStates.Playing;
         }
 
         // Check if "How To Play" button was clicked
