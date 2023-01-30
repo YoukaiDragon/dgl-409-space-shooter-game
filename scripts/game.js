@@ -57,6 +57,7 @@ function render(viewport, canvas, ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = black;
+    ctx.lineWidth = 20;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions || gameState == GameStates.Options) {
@@ -88,7 +89,6 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
-        ctx.lineWidth = 30;
         ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -100,7 +100,6 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
-        ctx.lineWidth = 30;
         ctx.rect(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -112,7 +111,6 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
-        ctx.lineWidth = 30;
         ctx.rect(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
