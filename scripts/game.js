@@ -111,6 +111,18 @@ function render(viewport, canvas, ctx) {
 
         ctx.fillStyle = white;
         ctx.fillText("How To Play", canvas.width / 2, canvas.height * 69/128);
+
+        // Draw "Options" button
+        ctx.beginPath();
+        ctx.fillStyle = green;
+        ctx.strokeStyle = black;
+        ctx.lineWidth = 30;
+        ctx.rect(canvas.width / 4, canvas.height * 20/32, canvas.width / 2, canvas.height * 3/32);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = white;
+        ctx.fillText("Options", canvas.width / 2, canvas.height * 89/128);
     }
 }
 
@@ -126,12 +138,18 @@ canvas.addEventListener("click", (e) => {
                 // TODO: switch game state and start the game
         }
 
-        // Check if Start button was clicked
+        // Check if "How To Play" button was clicked
         if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
             && (mouseY >= canvas.height * 15/32) 
             && (mouseY <= canvas.height * 18/32)) {
                 console.log("INSTRUCTIONS");
                 // TODO: switch game state and load instructions
+        }
+
+        // Check if Options button was clicked
+        if ((mouseX > canvas.width / 4 && (mouseX < canvas.width * 3/4) && (mouseY >= canvas.height * 20/32) && mouseY <= canvas.height * 23/32)) {
+            console.log("OPTIONS");
+            // TODO: switch game state and load options
         }
     }
 });
