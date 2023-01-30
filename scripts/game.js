@@ -70,6 +70,9 @@ function render(viewport, canvas, ctx) {
     let orange = "rgb(248, 153, 29)";
     let red = "rgb(239, 59, 57)";
 
+    // clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     //draw the menu
     if (gameState == GameStates.Menu) {
         ctx.fillStyle = black;
