@@ -130,26 +130,24 @@ canvas.addEventListener("click", (e) => {
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
     if (gameState == GameStates.Menu) {
+        // return if mouse is not within the horizontal bounds of the menu buttons
+        if (mouseX < canvas.width / 4 || mouseX > canvas.width * 3 / 4) {
+            return;
+        }
         // Check if Start button was clicked
-        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4)
-            && (mouseY >= canvas.height * 9 / 32)
-            && (mouseY <= canvas.height * 12 / 32)) {
+        if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
             // TODO: switch game state and start the game
         }
 
         // Check if "How To Play" button was clicked
-        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4)
-            && (mouseY >= canvas.height * 14 / 32)
-            && (mouseY <= canvas.height * 17 / 32)) {
+        if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
             console.log("INSTRUCTIONS");
             // TODO: switch game state and load instructions
         }
 
         // Check if Options button was clicked
-        if ((mouseX > canvas.width / 4 && (mouseX < canvas.width * 3 / 4)
-            && (mouseY >= canvas.height * 19 / 32)
-            && mouseY <= canvas.height * 22 / 32)) {
+        if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
             // TODO: switch game state and load options
         }
