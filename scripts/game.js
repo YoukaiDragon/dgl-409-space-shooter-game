@@ -168,3 +168,15 @@ canvas.addEventListener("click", (e) => {
         }
     }
 });
+
+window.addEventListener("keydown", (e) => {
+    if(e.key ==="Escape") {
+        if (gameState == GameStates.Playing) {
+            gameState = GameStates.Paused;
+            console.log("PAUSED");
+        } else if (gameState == GameStates.Paused) {
+            gameState = GameStates.Playing;
+            console.log("PLAYING");
+        }
+    }
+});
