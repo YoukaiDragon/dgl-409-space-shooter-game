@@ -86,43 +86,43 @@ function render(viewport, canvas, ctx) {
         ctx.fillStyle = black;
         ctx.font = "40px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 2 / 8);
+        ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7 / 32);
 
         // Draw "Start Game" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4 , canvas.height * 10/32, canvas.width / 2, canvas.height * 3/32);
+        ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("Start Game", canvas.width / 2, canvas.height * 49 / 128);
+        ctx.fillText("Start Game", canvas.width / 2, canvas.height * 45 / 128);
 
         // Draw "How to Play" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height *  15/32, canvas.width / 2, canvas.height *  3/32);
+        ctx.rect(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("How To Play", canvas.width / 2, canvas.height * 69/128);
+        ctx.fillText("How To Play", canvas.width / 2, canvas.height * 65 / 128);
 
         // Draw "Options" button
         ctx.beginPath();
         ctx.fillStyle = green;
         ctx.strokeStyle = black;
         ctx.lineWidth = 30;
-        ctx.rect(canvas.width / 4, canvas.height * 20/32, canvas.width / 2, canvas.height * 3/32);
+        ctx.rect(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.fillText("Options", canvas.width / 2, canvas.height * 89/128);
+        ctx.fillText("Options", canvas.width / 2, canvas.height * 85 / 128);
     }
 }
 
@@ -131,23 +131,25 @@ canvas.addEventListener("click", (e) => {
     let mouseY = e.offsetY;
     if (gameState == GameStates.Menu) {
         // Check if Start button was clicked
-        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
-            && (mouseY >= canvas.height * 10/32) 
-            && (mouseY <= canvas.height * 13/32)) {
-                console.log("START GAME");
-                // TODO: switch game state and start the game
+        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4)
+            && (mouseY >= canvas.height * 9 / 32)
+            && (mouseY <= canvas.height * 12 / 32)) {
+            console.log("START GAME");
+            // TODO: switch game state and start the game
         }
 
         // Check if "How To Play" button was clicked
-        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4) 
-            && (mouseY >= canvas.height * 15/32) 
-            && (mouseY <= canvas.height * 18/32)) {
-                console.log("INSTRUCTIONS");
-                // TODO: switch game state and load instructions
+        if ((mouseX > canvas.width / 4) && (mouseX < canvas.width * 3 / 4)
+            && (mouseY >= canvas.height * 14 / 32)
+            && (mouseY <= canvas.height * 17 / 32)) {
+            console.log("INSTRUCTIONS");
+            // TODO: switch game state and load instructions
         }
 
         // Check if Options button was clicked
-        if ((mouseX > canvas.width / 4 && (mouseX < canvas.width * 3/4) && (mouseY >= canvas.height * 20/32) && mouseY <= canvas.height * 23/32)) {
+        if ((mouseX > canvas.width / 4 && (mouseX < canvas.width * 3 / 4)
+            && (mouseY >= canvas.height * 19 / 32)
+            && mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
             // TODO: switch game state and load options
         }
