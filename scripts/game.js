@@ -31,7 +31,7 @@ const viewport = {
     y: 0
 }
 
-let player = new Player();
+let player = new Player(canvas.width / 2, canvas.height / 2);
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -41,7 +41,7 @@ function gameFrame(viewport, canvas, ctx) {
 }
 
 function update() {
-
+    player.update();
 }
 
 function render(viewport, canvas, ctx) {
@@ -133,6 +133,15 @@ function render(viewport, canvas, ctx) {
 
         ctx.fillStyle = white;
         ctx.fillText("Options", canvas.width / 2, canvas.height * 85 / 128);
+    } else if (gameState == GameStates.Playing) {
+        let displayX;
+        let displayY;
+        // Render the player
+        displayX = player.x - viewport.x;
+        displayY = player.y - viewport.y;
+        if (isVisible(displayX, displayY)) {
+            player.render(viewport, canvas, ctx, displayX, displayY);
+        }
     }
 }
 
@@ -164,13 +173,13 @@ canvas.addEventListener("click", (e) => {
     } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
         if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
-                gameState = GameStates.Menu;
+            gameState = GameStates.Menu;
         }
     }
 });
 
 window.addEventListener("keydown", (e) => {
-    if(e.key ==="Escape") {
+    if (e.key === "Escape") {
         if (gameState == GameStates.Playing) {
             gameState = GameStates.Paused;
             console.log("PAUSED");
@@ -180,3 +189,11 @@ window.addEventListener("keydown", (e) => {
         }
     }
 });
+
+// Returns if an object is within the viewport
+function isVisible(x, y) {
+    if (x < 0 || y < 0 || x > viewport.width || y > viewport.height) {
+        return false;
+    }
+    return true;
+}
