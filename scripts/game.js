@@ -2,8 +2,10 @@
 
 const GameStates = {
     Menu: 0,
-    Playing: 1,
-    Paused: 2
+    Instructions: 1,
+    Options: 2,
+    Playing: 3,
+    Paused: 4
 };
 
 class Player {
