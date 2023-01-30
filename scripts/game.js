@@ -75,21 +75,34 @@ function render(viewport, canvas, ctx) {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //draw the menu
-    if (gameState == GameStates.Menu) {
-        ctx.fillStyle = black;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = black;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    if (gameState == GameStates.Menu || gameState == GameStates.Instructions || gameState == GameStates.Options) {
         // Draw menu backdrop
         ctx.fillStyle = lightBlue;
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
 
-        // Draw Title
+        // Draw Page Title
         ctx.fillStyle = black;
-        ctx.font = "40px Arial";
+        ctx.font = "40px Arial"
         ctx.textAlign = "center";
-        ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7 / 32);
 
+        switch(gameState) {
+            case GameStates.Menu:
+                ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7/32);
+                break;
+            case GameStates.Instructions:
+                ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7/32);
+                break;
+            case GameStates.Options:
+                ctx.fillText("Options", canvas.width / 2, canvas.height * 7/32);
+                break;
+        }
+    }
+
+    //draw the menu
+    if (gameState == GameStates.Menu) {
         // Draw "Start Game" button
         ctx.beginPath();
         ctx.fillStyle = green;
@@ -145,13 +158,13 @@ canvas.addEventListener("click", (e) => {
         // Check if "How To Play" button was clicked
         if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
             console.log("INSTRUCTIONS");
-            // TODO: switch game state and load instructions
+            gameState = GameStates.Instructions;
         }
 
         // Check if Options button was clicked
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
-            // TODO: switch game state and load options
+            gameState = GameStates.Options;
         }
     }
 });
