@@ -70,29 +70,31 @@ function render(viewport, canvas, ctx) {
         ctx.font = "40px Arial"
         ctx.textAlign = "center";
 
-        switch(gameState) {
+        switch (gameState) {
             case GameStates.Menu:
-                ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7/32);
+                ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7 / 32);
                 break;
             case GameStates.Instructions:
-                ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7/32);
+                ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7 / 32);
+                // Draw close button
                 ctx.beginPath();
                 ctx.fillStyle = red;
-                ctx.rect(canvas.width * 5/32, canvas.height * 11/64, canvas.width / 16, canvas.height / 16);
+                ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = black;
-                ctx.fillText("X", canvas.width * 6/32, canvas.height * 29/128);
+                ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
                 break;
             case GameStates.Options:
-                ctx.fillText("Options", canvas.width / 2, canvas.height * 7/32);
+                ctx.fillText("Options", canvas.width / 2, canvas.height * 7 / 32);
+                // Draw close button
                 ctx.beginPath();
                 ctx.fillStyle = red;
-                ctx.rect(canvas.width * 5/32, canvas.height * 11/64, canvas.width / 16, canvas.height / 16);
+                ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = black;
-                ctx.fillText("X", canvas.width * 6/32, canvas.height * 29/128);
+                ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
                 break;
         }
     }
@@ -158,6 +160,11 @@ canvas.addEventListener("click", (e) => {
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
             gameState = GameStates.Options;
+        }
+    } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
+        if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
+            mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
+                gameState = GameStates.Menu;
         }
     }
 });
