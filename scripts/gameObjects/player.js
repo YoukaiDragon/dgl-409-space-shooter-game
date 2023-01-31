@@ -12,7 +12,7 @@ class Player {
         this.angle = 0;
         this.shotType = 0;
         // Index of fireRates entry is the shot type it is used for
-        this.fireRates = [1];
+        this.fireRates = [4];
         this.bullets = [];
         this.nextShotTime = 0;
         this.bombs = 3;
@@ -52,8 +52,8 @@ class Player {
             // shoot bullets based on current shot type
             switch (this.shotType) {
                 case 0:
-                    this.bullets.push(new Bullet((this.x + this.width / 2),
-                        (this.y + this.height / 2), this.angle, 40, 10, 20, true));
+                    this.bullets.push(new Bullet((this.x),
+                        (this.y), this.angle, 10, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
             }
