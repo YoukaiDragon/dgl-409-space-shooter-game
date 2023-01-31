@@ -42,7 +42,7 @@ function gameFrame(viewport, canvas, ctx) {
 }
 
 function update() {
-    player.update();
+    player.update(controller);
 }
 
 function render(viewport, canvas, ctx) {
@@ -180,7 +180,6 @@ canvas.addEventListener("click", (e) => {
 });
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.key);
     // Pause game when escape is pressed
     if (e.key == "Escape") {
         if (gameState == GameStates.Playing) {
