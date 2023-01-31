@@ -32,6 +32,7 @@ const viewport = {
 }
 
 let player = new Player(canvas.width / 2, canvas.height / 2);
+let controller = new Controller();
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -179,7 +180,9 @@ canvas.addEventListener("click", (e) => {
 });
 
 window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
+    console.log(e.key);
+    // Pause game when escape is pressed
+    if (e.key == "Escape") {
         if (gameState == GameStates.Playing) {
             gameState = GameStates.Paused;
             console.log("PAUSED");
@@ -187,6 +190,36 @@ window.addEventListener("keydown", (e) => {
             gameState = GameStates.Playing;
             console.log("PLAYING");
         }
+    }
+
+    // Handle controller inputs
+    if (e.key == 'w' || e.key == 'W' || e.key == "ArrowUp") {
+        controller.upPressed = true;
+    }
+    if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
+        controller.leftPressed = true;
+    }
+    if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
+        controller.downPressed = true;
+    }
+    if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
+        controller.rightPressed = true;
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+    // Handle controller inputs
+    if (e.key == 'w' || e.key == 'W' || e.key == "ArrowUp") {
+        controller.upPressed = false;
+    }
+    if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
+        controller.leftPressed = false;
+    }
+    if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
+        controller.downPressed = false;
+    }
+    if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
+        controller.rightPressed = false;
     }
 });
 
