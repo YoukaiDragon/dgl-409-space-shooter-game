@@ -40,11 +40,11 @@ class Player {
         let height = width;
         ctx.beginPath();
         ctx.fillStyle = "white";
-        //ctx.translate(displayX + width/2, displayY + height/2);
+        ctx.translate(displayX, displayY);
         ctx.rotate(this.angle * Math.PI/180);
-        ctx.fillRect(displayX, displayY, width, height);
+        ctx.fillRect(-width/2, -height/2, width, height);
         ctx.rotate(-(this.angle * Math.PI/180));
-        //ctx.translate(-(displayX + width/2), displayY + height/2);
+        ctx.translate(-displayX, -displayY);
     }
 
     setPosition(x, y) {
