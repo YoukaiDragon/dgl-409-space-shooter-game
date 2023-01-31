@@ -20,13 +20,13 @@ class Player {
         }
 
         if(controller.leftPressed) {
-            this.angle--;
+            this.angle -= 4;
             // Keep angle within 360 degrees
             if (this.angle < 0) {
                 this.angle += 360;
             }
         } else if(controller.rightPressed) {
-            this.angle++;
+            this.angle += 4;
             // Keep angle within 360 degrees
             if (this.angle >= 360) {
                 this.angle -= 360;
