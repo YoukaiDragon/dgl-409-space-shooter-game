@@ -140,9 +140,7 @@ function render(viewport, canvas, ctx) {
         // Render the player
         displayX = player.x - viewport.x;
         displayY = player.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
-            player.render(viewport, canvas, ctx, displayX, displayY);
-        }
+        player.render(viewport, canvas, ctx, displayX, displayY);
     }
 }
 

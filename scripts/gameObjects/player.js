@@ -73,13 +73,16 @@ class Player {
 
     render(viewport, canvas, ctx, displayX, displayY) {
         // Square being used as placeholder for player
-        ctx.beginPath();
-        ctx.fillStyle = "white";
-        ctx.translate(displayX, displayY);
-        ctx.rotate(this.angle * Math.PI / 180);
-        ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
-        ctx.rotate(-(this.angle * Math.PI / 180));
-        ctx.translate(-displayX, -displayY);
+        if (isVisible(displayX, displayY)) {
+            ctx.beginPath();
+            ctx.fillStyle = "white";
+            ctx.translate(displayX, displayY);
+            ctx.rotate(this.angle * Math.PI / 180);
+            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.rotate(-(this.angle * Math.PI / 180));
+            ctx.translate(-displayX, -displayY);
+        }
+
 
         // Draw projectiles
         for (let i = 0; i < this.bullets.length; i++) {
