@@ -1,11 +1,11 @@
 class Bullet {
-    constructor(x, y, angle, speed, duration, size, playerOwned) {
+    constructor(x, y, angle, speed, duration, radius, playerOwned) {
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.speed = speed;
         this.duration = duration;
-        this.size = size;
+        this.radius = radius;
         this.playerOwned = playerOwned;
     }
 
@@ -21,7 +21,7 @@ class Bullet {
     render(viewport, canvas, ctx, displayX, displayY) {
         ctx.fillStyle = "white";
         ctx.beginPath();
-        ctx.arc(displayX + size/2, displayY + size/2);
+        ctx.arc(displayX + this.radius, displayY + this.radius, this.radius, 0, 2*Math.PI);
         ctx.fill();
     }
 }

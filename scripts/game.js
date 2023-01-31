@@ -204,6 +204,10 @@ window.addEventListener("keydown", (e) => {
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
     }
+    if (e.key == ' ') { 
+        e.preventDefault();
+        controller.firePressed = true;
+    }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -219,6 +223,9 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = false;
+    }
+    if (e.key == ' ') {
+        controller.firePressed = false;
     }
 });
 

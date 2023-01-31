@@ -3,4 +3,5 @@ class Controller {
     downPressed = false;
     leftPressed = false;
     rightPressed = false;
+    firePressed = false;
 }

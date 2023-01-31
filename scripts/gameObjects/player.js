@@ -1,31 +1,38 @@
 class Player {
+
     constructor(x, y) {
-        this.lives = 3;
-        this.score = 0;
         this.x = x;
         this.y = y;
-        this.speed = 0;
+        this.lives = 3;
+        this.score = 0;
         this.maxSpeed = 60;
+        this.width = viewport.width / 16;
+        this.height = this.width;
+        this.speed = 0;
         this.angle = 0;
-        this.bombs = 3;
         this.shotType = 0;
+        // Index of fireRates entry is the shot type it is used for
+        this.fireRates = [1];
+        this.bullets = [];
+        this.nextShotTime = 0;
+        this.bombs = 3;
     }
 
     update(controller) {
 
-        if(controller.upPressed && this.speed < this.maxSpeed) {
+        if (controller.upPressed && this.speed < this.maxSpeed) {
             this.speed++;
-        } else if(controller.downPressed && this.speed > 0) {
+        } else if (controller.downPressed && this.speed > 0) {
             this.speed--;
         }
 
-        if(controller.leftPressed) {
+        if (controller.leftPressed) {
             this.angle -= 4;
             // Keep angle within 360 degrees
             if (this.angle < 0) {
                 this.angle += 360;
             }
-        } else if(controller.rightPressed) {
+        } else if (controller.rightPressed) {
             this.angle += 4;
             // Keep angle within 360 degrees
             if (this.angle >= 360) {
@@ -35,21 +42,52 @@ class Player {
 
         // Move player based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
-        this.x += Math.cos(this.angle*(Math.PI/180)) * this.speed;
-        this.y += Math.sin(this.angle*(Math.PI/180)) * this.speed; 
+        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
+        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+
+        // Fire projectiles
+        if (this.nextShotTime > 0) {
+            this.nextShotTime--;
+        } else if (controller.firePressed) {
+            // shoot bullets based on current shot type
+            switch (this.shotType) {
+                case 0:
+                    this.bullets.push(new Bullet((this.x + this.width / 2),
+                        (this.y + this.height / 2), this.angle, 40, 10, 20, true));
+                    this.nextShotTime = this.fireRates[0];
+                    break;
+            }
+        }
+
+
+        if (this.bullets.length > 0) {
+            for (let i = this.bullets.length - 1; i >= 0; i--) {
+                this.bullets[i].update();
+                if (this.bullets[i].duration <= 0) {
+                    this.bullets.splice(i, 1);
+                }
+            }
+        }
+
     }
 
     render(viewport, canvas, ctx, displayX, displayY) {
         // Square being used as placeholder for player
-        let width = viewport.width / 16;
-        let height = width;
         ctx.beginPath();
         ctx.fillStyle = "white";
         ctx.translate(displayX, displayY);
-        ctx.rotate(this.angle * Math.PI/180);
-        ctx.fillRect(-width/2, -height/2, width, height);
-        ctx.rotate(-(this.angle * Math.PI/180));
+        ctx.rotate(this.angle * Math.PI / 180);
+        ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.rotate(-(this.angle * Math.PI / 180));
         ctx.translate(-displayX, -displayY);
+
+        // Draw projectiles
+        for (let i = 0; i < this.bullets.length; i++) {
+            if (isVisible(this.bullets[i].x, this.bullets[i].y)) {
+                this.bullets[i].render(viewport, canvas, ctx,
+                    (this.bullets[i].x - viewport.x), (this.bullets[i].y - viewport.y));
+            }
+        }
     }
 
     setPosition(x, y) {
