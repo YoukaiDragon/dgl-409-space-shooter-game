@@ -6,7 +6,7 @@ class Player {
         this.y = y;
         this.speed = 0;
         this.maxSpeed = 60;
-        this.angle = 10;
+        this.angle = 0;
         this.bombs = 3;
         this.shotType = 0;
     }
@@ -32,6 +32,11 @@ class Player {
                 this.angle -= 360;
             }
         }
+
+        // Move player based on speed and angle
+        // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
+        this.x += Math.cos(this.angle*(Math.PI/180)) * this.speed;
+        this.y += Math.sin(this.angle*(Math.PI/180)) * this.speed; 
     }
 
     render(viewport, canvas, ctx, displayX, displayY) {
