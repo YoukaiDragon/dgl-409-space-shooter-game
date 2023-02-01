@@ -72,8 +72,10 @@ class Player {
 
     }
 
-    render(viewport, canvas, ctx, displayX, displayY) {
+    render(viewport, canvas, ctx) {
         // Square being used as placeholder for player
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
             ctx.fillStyle = "white";

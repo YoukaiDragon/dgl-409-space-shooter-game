@@ -184,27 +184,18 @@ function render(viewport, canvas, ctx) {
         ctx.fillStyle = white;
         ctx.fillText("Options", canvas.width / 2, canvas.height * 85 / 128);
     } else if (gameState == GameStates.Playing) { // Render Gameplay
-        let displayX;
-        let displayY;
-
         // Render enemies
         for (let i = enemies.length - 1; i >= 0; i--) {
-            displayX = enemies[i].x - viewport.x;
-            displayY = enemies[i].y - viewport.y;
-            enemies[i].render(viewport, canvas, ctx, displayX, displayY);
+            enemies[i].render(viewport, canvas, ctx);
         }
         
         // Render pickups
         for (let i = pickups.length - 1; i >= 0; i--) {
-            displayX = pickups.x - viewport.x;
-            displayY = pickups.y - viewport.y;
-            pickups[i].render(viewport, canvas, ctx, displayX, displayY);
+            pickups[i].render(viewport, canvas, ctx);
         }
 
         // Render the player
-        displayX = player.x - viewport.x;
-        displayY = player.y - viewport.y;
-        player.render(viewport, canvas, ctx, displayX, displayY);
+        player.render(viewport, canvas, ctx);
     }
 
     // Draw the game UI
