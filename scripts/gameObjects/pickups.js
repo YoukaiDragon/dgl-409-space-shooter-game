@@ -4,10 +4,12 @@ class Pickup {
         this.y = y;
         this.width;
         this.height;
-        this.duration
+        this.duration = 2000;
     }
 
-    update() { }
+    update() {
+        this.duration--;
+    }
     render(viewport, canvas, ctx, displayX, displayY) { }
     onPickup() { }
 }
@@ -18,9 +20,9 @@ class timePickup extends Pickup {
     }
 
     update() {
-
+        super.update();
     }
-    
+
     render(viewport, canvas, ctx, displayX, displayY) {
 
     }
