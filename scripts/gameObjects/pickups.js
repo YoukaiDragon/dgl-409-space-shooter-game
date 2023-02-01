@@ -11,3 +11,21 @@ class Pickup {
     render(viewport, canvas, ctx, displayX, displayY) { }
     onPickup() { }
 }
+
+class timePickup extends Pickup {
+    constructor(x, y) {
+        super(x, y);
+    }
+
+    update() {
+
+    }
+    
+    render(viewport, canvas, ctx, displayX, displayY) {
+
+    }
+
+    onPickup() {
+        
+    }
+}
