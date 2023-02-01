@@ -1,4 +1,4 @@
-class ShooterEnemy {
+class Enemy {
 
     constructor(x, y) {
         this.x = x;
@@ -20,4 +20,9 @@ class ShooterEnemy {
     render() {
 
     }
+}
+
+class ShooterEnemy extends Enemy {
+    constructor(x, y)
+    super(x,y);
 }
