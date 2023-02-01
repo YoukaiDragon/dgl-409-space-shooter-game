@@ -53,7 +53,10 @@ function countDown() {
 }
 
 function update() {
-    player.update(controller);
+
+    if (gameState == GameStates.Playing) {
+        player.update(controller);
+    }
 }
 
 function addTime(time) {
@@ -220,7 +223,7 @@ window.addEventListener("keydown", (e) => {
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
     }
-    if (e.key == ' ') { 
+    if (e.key == ' ') {
         e.preventDefault();
         controller.firePressed = true;
     }
