@@ -14,11 +14,25 @@ class Enemy {
         this.nextShotTime = 0;
     }
 
-    update() {
-        // Move player based on speed and angle
+    update(player) {}
+    render(viewport, canvas, ctx, displayX, displayY) {}
+
+    damage() {
+        this.hp--;
+    }
+
+    getPlayerDistance(player) {
+        return Math.hypot(this.x - player.x, this.y - player.y);
+    }
+
+    move() {
+        // Move character based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
         this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
         this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+    }
+
+    moveBullets() {
         if (this.bullets.length > 0) {
             for (let i = this.bullets.length - 1; i >= 0; i--) {
                 this.bullets[i].update();
@@ -27,13 +41,6 @@ class Enemy {
                 }
             }
         }
-    }
-    render() {
-
-    }
-
-    damage() {
-        this.hp--;
     }
 }
 
