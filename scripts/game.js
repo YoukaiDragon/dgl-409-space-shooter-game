@@ -79,7 +79,8 @@ function render(viewport, canvas, ctx) {
     ctx.lineWidth = 10;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    if (gameState == GameStates.Menu || gameState == GameStates.Instructions || gameState == GameStates.Options) {
+    if (gameState == GameStates.Menu || gameState == GameStates.Instructions
+        || gameState == GameStates.Options || gameState == GameStates.Paused) {
         // Draw menu backdrop
         ctx.fillStyle = lightBlue;
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
@@ -114,6 +115,9 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
+                break;
+            case GameStates.Paused:
+                ctx.fillText("Paused", canvas.width / 2, canvas.height * 7 / 32);
                 break;
         }
     }
