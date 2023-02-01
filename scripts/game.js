@@ -36,6 +36,9 @@ let controller = new Controller();
 let enemies = [];
 let pickups = [];
 
+// TESTING: spawn time pickup
+pickups.push(new timePickup(560, 160));
+
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
 function gameFrame(viewport, canvas, ctx) {
