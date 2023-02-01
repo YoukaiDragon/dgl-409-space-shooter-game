@@ -11,6 +11,7 @@ class Player {
         this.speed = 0;
         this.angle = 0;
         this.shotType = 0;
+        this.ammo = 0; // Ammo for current special weapon
         // Index of fireRates entry is the shot type it is used for
         this.fireRates = [4];
         this.bullets = [];

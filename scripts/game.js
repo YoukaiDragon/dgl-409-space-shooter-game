@@ -44,6 +44,8 @@ function gameFrame(viewport, canvas, ctx) {
 let timer = 100;
 let timerIntervalId;
 
+let score = 0;
+
 function countDown() {
     timer--;
 
