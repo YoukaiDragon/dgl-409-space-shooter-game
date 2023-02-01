@@ -33,6 +33,8 @@ const viewport = {
 
 let player = new Player(canvas.width / 2, canvas.height / 2);
 let controller = new Controller();
+let enemies = [];
+let pickups = [];
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -58,6 +60,20 @@ function update() {
 
     if (gameState == GameStates.Playing) {
         player.update(controller);
+        for(let i = enemies.length-1; i >= 0; i--) {
+            if (enemies[i].health <= 0) { // Delete dead enemies
+                enemies.splice(i, 1);
+            } else {
+                enemies[i].update(player);
+            }
+        }
+        for(let i = pickups.length-1; i >= 0; i--) {
+            if (pickups[i].duration <= 0) {
+                pickups.splice(i, 1); // Delete expired pickups
+            } else {
+                pickups[i].update();
+            }
+        }
     }
 }
 
@@ -167,9 +183,24 @@ function render(viewport, canvas, ctx) {
 
         ctx.fillStyle = white;
         ctx.fillText("Options", canvas.width / 2, canvas.height * 85 / 128);
-    } else if (gameState == GameStates.Playing) {
+    } else if (gameState == GameStates.Playing) { // Render Gameplay
         let displayX;
         let displayY;
+
+        // Render enemies
+        for (let i = enemies.length - 1; i >= 0; i--) {
+            displayX = enemies[i].x - viewport.x;
+            displayY = enemies[i].y - viewport.y;
+            enemies[i].render(viewport, canvas, ctx, displayX, displayY);
+        }
+        
+        // Render pickups
+        for (let i = pickups.length - 1; i >= 0; i--) {
+            displayX = pickups.x - viewport.x;
+            displayY = pickups.y - viewport.y;
+            pickups[i].render(viewport, canvas, ctx, displayX, displayY);
+        }
+
         // Render the player
         displayX = player.x - viewport.x;
         displayY = player.y - viewport.y;
