@@ -164,6 +164,13 @@ function render(viewport, canvas, ctx) {
         displayY = player.y - viewport.y;
         player.render(viewport, canvas, ctx, displayX, displayY);
     }
+
+    // Draw the game UI
+    if (gameState == GameStates.Playing || gameState == GameStates.Paused) {
+        ctx.fillStyle = white;
+        ctx.font = "20px Arial";
+        ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 2 / 32);
+    }
 }
 
 canvas.addEventListener("click", (e) => {
