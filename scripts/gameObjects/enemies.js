@@ -31,6 +31,10 @@ class Enemy {
     render() {
 
     }
+
+    damage() {
+        this.hp--;
+    }
 }
 
 class ShooterEnemy extends Enemy {
