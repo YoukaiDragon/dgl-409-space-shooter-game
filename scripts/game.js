@@ -41,8 +41,23 @@ function gameFrame(viewport, canvas, ctx) {
     render(viewport, canvas, ctx);
 }
 
+let timer = 100;
+let timerIntervalId;
+
+function countDown() {
+    timer--;
+
+    if (timer <= 0) {
+        // TODO: Trigger game over
+    }
+}
+
 function update() {
     player.update(controller);
+}
+
+function addTime(time) {
+    timer += time;
 }
 
 function render(viewport, canvas, ctx) {
@@ -155,6 +170,7 @@ canvas.addEventListener("click", (e) => {
         // Check if Start button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
+            timerIntervalId = setInterval(countDown, 1000);
             gameState = GameStates.Playing;
         }
 
@@ -182,9 +198,11 @@ window.addEventListener("keydown", (e) => {
     if (e.key == "Escape") {
         if (gameState == GameStates.Playing) {
             gameState = GameStates.Paused;
+            clearInterval(timerIntervalId);
             console.log("PAUSED");
         } else if (gameState == GameStates.Paused) {
             gameState = GameStates.Playing;
+            timerIntervalId = setInterval(countDown, 1000);
             console.log("PLAYING");
         }
     }
