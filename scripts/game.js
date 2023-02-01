@@ -177,11 +177,22 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.textAlign = "left";
         ctx.fillText("Lives: " + player.lives, canvas.width / 64, canvas.height * 3 / 64);
-        ctx.fillText("Score: " + score,  canvas.width / 64, canvas.height * 6 / 64);
+        ctx.fillText("Score: " + score, canvas.width / 64, canvas.height * 6 / 64);
         ctx.fillText("Bombs: " + player.bombs, canvas.width / 64, canvas.height - (canvas.height / 64));
-        if(player.shotType != 0) {
+        if (player.shotType != 0) {
             ctx.fillText("Ammo: " + player.ammo, canvas.width / 64, canvas.height - (canvas.height * 3 / 64));
         }
+        if (gameState == GameStates.Playing) {
+            ctx.beginPath();
+            ctx.textAlign ="center";
+            ctx.strokeStyle = white;
+            ctx.lineWidth = 5;
+            ctx.rect(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
+                canvas.width * 12 / 256, canvas.width * 12 / 256);
+            ctx.stroke();
+            ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 16 / 256);
+        }
+        
     }
 }
 
@@ -216,6 +227,13 @@ canvas.addEventListener("click", (e) => {
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
             gameState = GameStates.Menu;
         }
+    } else if (gameState == GameStates.Playing) {
+        if (mouseX >= (canvas.width - canvas.width * 18 / 256) 
+            && mouseX <= (canvas.width - canvas.width * 6 / 256)
+            && mouseY >= (canvas.height * 5 / 256)
+            && mouseY <= (canvas.height * 5 / 256 + canvas.width + 12 / 256)) {
+                gameState = GameStates.Paused;
+            }
     }
 });
 
