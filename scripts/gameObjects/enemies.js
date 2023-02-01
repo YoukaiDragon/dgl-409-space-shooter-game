@@ -23,6 +23,10 @@ class Enemy {
 }
 
 class ShooterEnemy extends Enemy {
+    constructor(x, y) {
+        super(x,y);
+    }
+}
     constructor(x, y)
     super(x,y);
 }
