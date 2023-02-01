@@ -169,9 +169,19 @@ function render(viewport, canvas, ctx) {
 
     // Draw the game UI
     if (gameState == GameStates.Playing || gameState == GameStates.Paused) {
+        ctx.beginPath();
+        ctx.textAlign = "center";
         ctx.fillStyle = white;
         ctx.font = "20px Arial";
-        ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 2 / 32);
+        ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 3 / 64);
+        ctx.beginPath();
+        ctx.textAlign = "left";
+        ctx.fillText("Lives: " + player.lives, canvas.width / 64, canvas.height * 3 / 64);
+        ctx.fillText("Score: " + score,  canvas.width / 64, canvas.height * 6 / 64);
+        ctx.fillText("Bombs: " + player.bombs, canvas.width / 64, canvas.height - (canvas.height / 64));
+        if(player.shotType != 0) {
+            ctx.fillText("Ammo: " + player.ammo, canvas.width / 64, canvas.height - (canvas.height * 3 / 64));
+        }
     }
 }
 
