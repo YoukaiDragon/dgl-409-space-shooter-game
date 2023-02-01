@@ -26,6 +26,6 @@ class timePickup extends Pickup {
     }
 
     onPickup() {
-        
+        time += 10;
     }
 }
