@@ -38,6 +38,11 @@ class ShooterEnemy extends Enemy {
         super(x,y);
     }
 }
-    constructor(x, y)
-    super(x,y);
+
+class AdvancedShooterEnemy extends Enemy {
+    constructor(x, y) {
+        super(x, y);
+        this.hp = 10;
+        this.fireRate = 5;
+    }
 }
