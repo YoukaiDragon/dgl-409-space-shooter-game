@@ -242,6 +242,7 @@ canvas.addEventListener("click", (e) => {
             && mouseY >= (canvas.height * 5 / 256)
             && mouseY <= (canvas.height * 5 / 256 + canvas.width + 12 / 256)) {
             gameState = GameStates.Paused;
+            clearInterval(timerIntervalId);
         }
     } else if (gameState == GameStates.Paused) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
