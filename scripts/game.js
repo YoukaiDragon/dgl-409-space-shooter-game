@@ -120,6 +120,15 @@ function render(viewport, canvas, ctx) {
                 break;
             case GameStates.Paused:
                 ctx.fillText("Paused", canvas.width / 2, canvas.height * 7 / 32);
+                ctx.beginPath();
+                ctx.fillStyle = green;
+                ctx.strokeStyle = black;
+                ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
+                ctx.stroke();
+                ctx.fill();
+
+                ctx.fillStyle = white;
+                ctx.fillText("Resume", canvas.width / 2, canvas.height * 45 / 128);
                 break;
         }
     }
@@ -184,7 +193,7 @@ function render(viewport, canvas, ctx) {
         }
         if (gameState == GameStates.Playing) {
             ctx.beginPath();
-            ctx.textAlign ="center";
+            ctx.textAlign = "center";
             ctx.strokeStyle = white;
             ctx.lineWidth = 5;
             ctx.rect(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
@@ -192,7 +201,7 @@ function render(viewport, canvas, ctx) {
             ctx.stroke();
             ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 16 / 256);
         }
-        
+
     }
 }
 
@@ -228,11 +237,17 @@ canvas.addEventListener("click", (e) => {
             gameState = GameStates.Menu;
         }
     } else if (gameState == GameStates.Playing) {
-        if (mouseX >= (canvas.width - canvas.width * 18 / 256) 
+        if (mouseX >= (canvas.width - canvas.width * 18 / 256)
             && mouseX <= (canvas.width - canvas.width * 6 / 256)
             && mouseY >= (canvas.height * 5 / 256)
             && mouseY <= (canvas.height * 5 / 256 + canvas.width + 12 / 256)) {
-                gameState = GameStates.Paused;
+            gameState = GameStates.Paused;
+        }
+    } else if (gameState == GameStates.Paused) {
+        if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
+            && mouseY >= canvas.height * 9 / 32 && mouseY <= canvas.height * 12 / 32) {
+                gameState = GameStates.Playing;
+                timerIntervalId = setInterval(countDown, 1000);
             }
     }
 });
