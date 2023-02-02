@@ -5,7 +5,8 @@ const GameStates = {
     Instructions: 1,
     Options: 2,
     Playing: 3,
-    Paused: 4
+    Paused: 4,
+    GameOver: 5
 };
 
 const canvas = document.getElementById("gameWindow");
@@ -55,7 +56,8 @@ function countDown() {
     timer--;
 
     if (timer <= 0) {
-        // TODO: Trigger game over
+        gameState = GameStates.GameOver;
+        clearInterval(timerIntervalId);
     }
 }
 
