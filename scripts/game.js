@@ -72,7 +72,7 @@ function update() {
         }
         for (let i = pickups.length - 1; i >= 0; i--) {
             // Check if player has collected the pickup
-            if (checkCollision(player, pickups[i])) {
+            if (collectPickups(pickups[i], player)) {
                 pickups[i].onPickup();
                 pickups.splice(i, 1);
             } else if (pickups[i].duration <= 0) {
@@ -343,20 +343,20 @@ function isVisible(x, y) {
 }
 
 // Returns if two objects are colliding with each other
-function checkCollision(objectA, objectB) {
-    if (objectA.x > (objectB.x + objectB.width)) {
+function collectPickups(pickup, player) {
+    if (pickup.x > (player.x + (player.width / 2))) {
         // Object A is past Object B on the right
         return false;
     }
-    if ((objectA.x + objectA.width) < objectB.x) {
+    if ((pickup.x + pickup.width) < player.x - (player.width / 2)) {
         // Object A is past Object B on the left
         return false;
     }
-    if (objectA.y > (objectB.y + objectB.height)) {
+    if (pickup.y > (player.y + (player.height / 2))) {
         // Object A is fully below Object B
         return false;
     }
-    if ((objectA.y + objectA.height) < objectB.y) {
+    if ((pickup.y + pickup.height) < player.y - (player.height / 2)) {
         // Object A is fully above Object B
         return false;
     }
