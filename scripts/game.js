@@ -63,15 +63,19 @@ function update() {
 
     if (gameState == GameStates.Playing) {
         player.update(controller);
-        for(let i = enemies.length-1; i >= 0; i--) {
+        for (let i = enemies.length - 1; i >= 0; i--) {
             if (enemies[i].health <= 0) { // Delete dead enemies
                 enemies.splice(i, 1);
             } else {
                 enemies[i].update(player);
             }
         }
-        for(let i = pickups.length-1; i >= 0; i--) {
-            if (pickups[i].duration <= 0) {
+        for (let i = pickups.length - 1; i >= 0; i--) {
+            // Check if player has collected the pickup
+            if (checkCollision(player, pickups[i])) {
+                pickups[i].onPickup();
+                pickups.splice(i, 1);
+            } else if (pickups[i].duration <= 0) {
                 pickups.splice(i, 1); // Delete expired pickups
             } else {
                 pickups[i].update();
@@ -191,7 +195,7 @@ function render(viewport, canvas, ctx) {
         for (let i = enemies.length - 1; i >= 0; i--) {
             enemies[i].render(viewport, canvas, ctx);
         }
-        
+
         // Render pickups
         for (let i = pickups.length - 1; i >= 0; i--) {
             pickups[i].render(viewport, canvas, ctx);
@@ -272,9 +276,9 @@ canvas.addEventListener("click", (e) => {
     } else if (gameState == GameStates.Paused) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 9 / 32 && mouseY <= canvas.height * 12 / 32) {
-                gameState = GameStates.Playing;
-                timerIntervalId = setInterval(countDown, 1000);
-            }
+            gameState = GameStates.Playing;
+            timerIntervalId = setInterval(countDown, 1000);
+        }
     }
 });
 
@@ -333,6 +337,27 @@ window.addEventListener("keyup", (e) => {
 // Returns if an object is within the viewport
 function isVisible(x, y) {
     if (x < 0 || y < 0 || x > viewport.width || y > viewport.height) {
+        return false;
+    }
+    return true;
+}
+
+// Returns if two objects are colliding with each other
+function checkCollision(objectA, objectB) {
+    if (objectA.x > (objectB.x + objectB.width)) {
+        // Object A is past Object B on the right
+        return false;
+    }
+    if ((objectA.x + objectA.width) < objectB.x) {
+        // Object A is past Object B on the left
+        return false;
+    }
+    if (objectA.y > (objectB.y + objectB.height)) {
+        // Object A is fully below Object B
+        return false;
+    }
+    if ((objectA.y + objectA.height) < objectB.y) {
+        // Object A is fully above Object B
         return false;
     }
     return true;
