@@ -58,6 +58,8 @@ function newGame() {
     score = 0;
     timer = 100;
     player = new Player (gameWidth / 2, gameHeight / 2);
+    viewport.x = player.x - canvas.width / 2;
+    viewport.y = player.y - canvas.height / 2;
     pickups = [];
     enemies = [];
     timerIntervalId = setInterval(countDown, 1000);
