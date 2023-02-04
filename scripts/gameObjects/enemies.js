@@ -8,7 +8,7 @@ class Enemy {
         this.maxSpeed = 40;
         this.width = viewport.width / 32;
         this.height = this.width;
-        this.health = 1;
+        this.hp = 1;
         this.fireRate = 10;
         this.bullets = [];
         this.nextShotTime = 0;
