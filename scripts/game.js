@@ -123,7 +123,8 @@ function render(viewport, canvas, ctx) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions
-        || gameState == GameStates.Options || gameState == GameStates.Paused) {
+        || gameState == GameStates.Options || gameState == GameStates.Paused
+        || gameState == GameStates.GameOver) {
         // Draw menu backdrop
         ctx.fillStyle = lightBlue;
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
@@ -170,6 +171,10 @@ function render(viewport, canvas, ctx) {
 
                 ctx.fillStyle = white;
                 ctx.fillText("Resume", canvas.width / 2, canvas.height * 45 / 128);
+                break;
+            case GameStates.GameOver:
+                ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
+                ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 16 / 32);
                 break;
         }
     }
@@ -224,7 +229,8 @@ function render(viewport, canvas, ctx) {
     }
 
     // Draw the game UI
-    if (gameState == GameStates.Playing || gameState == GameStates.Paused) {
+    if (gameState == GameStates.Playing || gameState == GameStates.Paused
+        || gameState == GameStates.GameOver) {
         ctx.beginPath();
         ctx.textAlign = "center";
         ctx.fillStyle = white;
