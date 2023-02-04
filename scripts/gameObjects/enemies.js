@@ -15,7 +15,15 @@ class Enemy {
     }
 
     update(player) {}
-    render(viewport, canvas, ctx, displayX, displayY) {}
+    render(viewport, canvas, ctx) {
+        // Draw projectiles
+        for (let i = 0; i < this.bullets.length; i++) {
+            if (isVisible(this.bullets[i].x, this.bullets[i].y)) {
+                this.bullets[i].render(viewport, canvas, ctx,
+                    (this.bullets[i].x - viewport.x), (this.bullets[i].y - viewport.y));
+            }
+        }
+    }
 
     damage() {
         this.hp--;
@@ -47,6 +55,22 @@ class Enemy {
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
         super(x,y);
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (isVisible(displayX, displayY)) {
+            ctx.beginPath();
+            ctx.fillStyle = "green";
+            ctx.translate(displayX, displayY);
+            ctx.rotate(this.angle * Math.PI / 180);
+            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.rotate(-(this.angle * Math.PI / 180));
+            ctx.translate(-displayX, -displayY);
+        }
+
+        super.render(viewport, canvas, ctx);
     }
 }
 
