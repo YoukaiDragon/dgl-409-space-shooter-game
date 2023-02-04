@@ -32,6 +32,10 @@ const viewport = {
     y: 0
 }
 
+// Dimensions for the playable area
+let gameWidth = canvas.width;
+let gameHeight = canvas.height;
+
 let player = new Player(canvas.width / 2, canvas.height / 2);
 let controller = new Controller();
 let enemies = [];
@@ -269,8 +273,7 @@ canvas.addEventListener("click", (e) => {
         // Check if Start button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
-            timerIntervalId = setInterval(countDown, 1000);
-            gameState = GameStates.Playing;
+            newGame();
         }
 
         // Check if "How To Play" button was clicked
@@ -405,4 +408,15 @@ function bulletCollision(bullet, object) {
         return false;
     }
     return true;
+}
+
+// Resets game variables / entity holders for a new game
+function newGame() {
+    score = 0;
+    timer = 100;
+    player = new Player (gameWidth / 2, gameHeight / 2);
+    pickups = [];
+    enemies = [];
+    timerIntervalId = setInterval(countDown, 1000);
+    gameState = GameStates.Playing;
 }
