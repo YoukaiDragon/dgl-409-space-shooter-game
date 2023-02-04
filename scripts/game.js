@@ -92,7 +92,7 @@ function update() {
                     enemies[j].damage();
                     if(enemies[j].hp <= 0) {
                         // Kill enemy
-                        score += enemies.points;
+                        score += enemies[j].points;
                         enemies.splice(j, 1);
                     }
                     player.bullets.splice(i, 1);
