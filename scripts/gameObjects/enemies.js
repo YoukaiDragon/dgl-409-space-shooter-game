@@ -12,6 +12,7 @@ class Enemy {
         this.fireRate = 10;
         this.bullets = [];
         this.nextShotTime = 0;
+        this.points = 1; // Points gained when this enemy is killed
     }
 
     update(player) {}

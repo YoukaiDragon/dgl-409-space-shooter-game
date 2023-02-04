@@ -84,6 +84,21 @@ function update() {
                 pickups[i].update();
             }
         }
+
+        // Check collisions between player bullets and enemies
+        for(let i = player.bullets.length - 1; i >= 0; i--) {
+            for(let j = enemies.length - 1; j >= 0; j--) {
+                if (bulletCollision(player.bullets[i], enemies[j])) {
+                    enemies[j].damage();
+                    if(enemies[j].hp <= 0) {
+                        // Kill enemy
+                        score += enemies.points;
+                        enemies.splice(j, 1);
+                    }
+                    player.bullets.splice(i, 1);
+                }
+            }
+        }
     }
 }
 
@@ -361,6 +376,26 @@ function collectPickups(pickup, player) {
     }
     if ((pickup.y + pickup.height) < player.y - (player.height / 2)) {
         // Object A is fully above Object B
+        return false;
+    }
+    return true;
+}
+
+function bulletCollision(bullet, object) {
+    // Check if bullet is to the left of the object
+    if(bullet.x - bullet.radius > object.x + object.width / 2) {
+        return false;
+    }
+    // Check if bullet is to the right of the object
+    if(bullet.x + bullet.radius < object.x - object.width / 2) {
+        return false;
+    }
+    // Check if bullet is below the object
+    if(bullet.y - bullet.radius > object.y + object.height / 2) {
+        return false;
+    }
+    // Check if bullet is above the object
+    if(bullet.y + bullet.radius < object.y - object.height / 2) {
         return false;
     }
     return true;
