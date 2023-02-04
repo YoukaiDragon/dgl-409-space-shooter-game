@@ -39,6 +39,7 @@ let pickups = [];
 
 // TESTING: spawn time pickup
 pickups.push(new timePickup(560, 160));
+enemies.push(new ShooterEnemy(300, 400));
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
