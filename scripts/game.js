@@ -36,14 +36,10 @@ const viewport = {
 let gameWidth = canvas.width;
 let gameHeight = canvas.height;
 
-let player = new Player(canvas.width / 2, canvas.height / 2);
+let player;
 let controller = new Controller();
-let enemies = [];
-let pickups = [];
-
-// TESTING: spawn time pickup
-pickups.push(new timePickup(560, 160));
-enemies.push(new ShooterEnemy(300, 400));
+let enemies;
+let pickups;
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -52,10 +48,21 @@ function gameFrame(viewport, canvas, ctx) {
     render(viewport, canvas, ctx);
 }
 
-let timer = 100;
+let timer;
 let timerIntervalId;
 
-let score = 0;
+let score;
+
+// Resets game variables / entity holders for a new game
+function newGame() {
+    score = 0;
+    timer = 100;
+    player = new Player (gameWidth / 2, gameHeight / 2);
+    pickups = [];
+    enemies = [];
+    timerIntervalId = setInterval(countDown, 1000);
+    gameState = GameStates.Playing;
+}
 
 function countDown() {
     timer--;
@@ -422,15 +429,4 @@ function bulletCollision(bullet, object) {
         return false;
     }
     return true;
-}
-
-// Resets game variables / entity holders for a new game
-function newGame() {
-    score = 0;
-    timer = 100;
-    player = new Player (gameWidth / 2, gameHeight / 2);
-    pickups = [];
-    enemies = [];
-    timerIntervalId = setInterval(countDown, 1000);
-    gameState = GameStates.Playing;
 }
