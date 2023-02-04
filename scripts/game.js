@@ -179,6 +179,15 @@ function render(viewport, canvas, ctx) {
             case GameStates.GameOver:
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
                 ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 16 / 32);
+
+                ctx.beginPath();
+                ctx.fillStyle = green;
+                ctx.strokeStyle = black;
+                ctx.rect(canvas.width / 4, canvas.height * 20 / 32, canvas.width / 2, canvas.height * 3 / 32);
+                ctx.stroke();
+                ctx.fill();
+                ctx.fillStyle = white;
+                ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 89 / 128);
                 break;
         }
     }
@@ -306,6 +315,11 @@ canvas.addEventListener("click", (e) => {
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
         }
+    } else if (gameState == GameStates.GameOver) {
+        if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
+            && mouseY >= canvas.height * 20 / 32 && mouseY <= canvas.height * 23 / 32) {
+                gameState = GameStates.Menu;
+            }
     }
 });
 
