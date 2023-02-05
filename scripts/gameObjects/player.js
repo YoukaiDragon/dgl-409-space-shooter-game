@@ -46,6 +46,24 @@ class Player {
         this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
         this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
 
+        if(this.x > gameWidth) {
+            this.x = gameWidth;
+        }
+
+        if(this.x < 0) {
+            this.x = 0;
+        }
+
+        if(this.y > gameHeight) {
+            this.y = gameHeight;
+        }
+
+        if(this.y < 0) {
+            this.y = 0;
+        }
+
+        console.log(`X: ${this.x} Y: ${this.y}`)
+
         // Fire projectiles
         if (this.nextShotTime > 0) {
             this.nextShotTime--;

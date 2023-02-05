@@ -25,16 +25,16 @@ canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
 
+// Dimensions for the playable area
+let gameWidth = 10000;
+let gameHeight = 10000;
+
 const viewport = {
     width: canvas.width,
     height: canvas.height,
     x: 0,
     y: 0
 }
-
-// Dimensions for the playable area
-let gameWidth = canvas.width;
-let gameHeight = canvas.height;
 
 let player;
 let controller = new Controller();
@@ -79,6 +79,19 @@ function update() {
 
     if (gameState == GameStates.Playing) {
         player.update(controller);
+        // move the viewport if the player is too close to one edge
+        viewport.x = player.x - viewport.width / 2;
+        if(viewport.x < 0) {
+            viewport.x = 0;
+        } else if(viewport.x > gameWidth - viewport.width) {
+            viewport.x = gameWidth - viewport.width;
+        }
+        viewport.y = player.y - viewport.height / 2;
+        if(viewport.y < 0) {
+            viewport.y = 0;
+        } else if (viewport.y > gameHeight - viewport.height) {
+            viewport.y = gameHeight - viewport.height;
+        }
         for (let i = enemies.length - 1; i >= 0; i--) {
             if (enemies[i].health <= 0) { // Delete dead enemies
                 enemies.splice(i, 1);
