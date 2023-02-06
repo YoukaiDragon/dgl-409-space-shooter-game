@@ -40,6 +40,7 @@ let player;
 let controller = new Controller();
 let enemies;
 let pickups;
+let pickupSpawnTimer;
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -63,6 +64,7 @@ function newGame() {
     pickups = [];
     enemies = [];
     timerIntervalId = setInterval(countDown, 1000);
+    let pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     gameState = GameStates.Playing;
 }
 
@@ -124,6 +126,13 @@ function update() {
                     player.bullets.splice(i, 1);
                 }
             }
+        }
+
+        // spawn pickups
+        pickupSpawnTimer--;
+        if(pickupSpawnTimer == 0) {
+            spawnPickups();
+            pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
         }
     }
 }
@@ -444,4 +453,37 @@ function bulletCollision(bullet, object) {
         return false;
     }
     return true;
+}
+
+function spawnPickups() {
+    let spawnX;
+    let spawnY;
+    let vpSpawnX;
+    let vpSpawnY;
+
+    // generate a random spawn location, then reject if too close to the player
+    do {
+        spawnX = Math.floor(Math.random() * gameWidth);
+        spawnY = Math.floor(Math.random() * gameHeight);
+
+        vpSpawnX = spawnX - viewport.x;
+        vpSpawnY = spawnY - viewport.y;
+    } while (vpSpawnX > viewport.x && vpSpawnX < (viewport.x + viewport.width)
+        && vpSpawnY > viewport.y && vpSpawnY < (viewport.y + viewport.height));
+    
+    // spawn a random pickup
+    let pickupType = Math.floor(Math.random() * 100);
+    if (pickupType < 35) {
+        pickups.push(new timePickup(spawnX, spawnY));
+    } else if (pickupType < 70) {
+        pickups.push(new scorePickup(spawnX, spawnY, 'sm'));
+    } else if (pickupType < 90) {
+        pickups.push(new scorePickup(spawnX, spawnY, 'md'));
+    } else {
+        pickups.push(new scorePickup(spawnX, spawnY, 'lg'));
+    }
+}
+
+function spawnEnemies() {
+
 }
