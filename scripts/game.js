@@ -41,6 +41,7 @@ let controller = new Controller();
 let enemies;
 let pickups;
 let pickupSpawnTimer;
+let enemySpawnTimer;
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -58,13 +59,15 @@ let score;
 function newGame() {
     score = 0;
     timer = 100;
-    player = new Player (gameWidth / 2, gameHeight / 2);
+    player = new Player(gameWidth / 2, gameHeight / 2);
     viewport.x = player.x - canvas.width / 2;
     viewport.y = player.y - canvas.height / 2;
     pickups = [];
     enemies = [];
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
+    enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
+
     gameState = GameStates.Playing;
 }
 
@@ -83,13 +86,13 @@ function update() {
         player.update(controller);
         // move the viewport if the player is too close to one edge
         viewport.x = player.x - viewport.width / 2;
-        if(viewport.x < 0) {
+        if (viewport.x < 0) {
             viewport.x = 0;
-        } else if(viewport.x > gameWidth - viewport.width) {
+        } else if (viewport.x > gameWidth - viewport.width) {
             viewport.x = gameWidth - viewport.width;
         }
         viewport.y = player.y - viewport.height / 2;
-        if(viewport.y < 0) {
+        if (viewport.y < 0) {
             viewport.y = 0;
         } else if (viewport.y > gameHeight - viewport.height) {
             viewport.y = gameHeight - viewport.height;
@@ -114,11 +117,11 @@ function update() {
         }
 
         // Check collisions between player bullets and enemies
-        for(let i = player.bullets.length - 1; i >= 0; i--) {
-            for(let j = enemies.length - 1; j >= 0; j--) {
+        for (let i = player.bullets.length - 1; i >= 0; i--) {
+            for (let j = enemies.length - 1; j >= 0; j--) {
                 if (bulletCollision(player.bullets[i], enemies[j])) {
                     enemies[j].damage();
-                    if(enemies[j].hp <= 0) {
+                    if (enemies[j].hp <= 0) {
                         // Kill enemy
                         score += enemies[j].points;
                         enemies.splice(j, 1);
@@ -130,9 +133,16 @@ function update() {
 
         // spawn pickups
         pickupSpawnTimer--;
-        if(pickupSpawnTimer == 0) {
+        if (pickupSpawnTimer == 0) {
             spawnPickups();
             pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
+        }
+
+        //spawn enemies
+        enemySpawnTimer--;
+        if (enemySpawnTimer == 0) {
+            spawnEnemies();
+            enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
         }
     }
 }
@@ -349,8 +359,8 @@ canvas.addEventListener("click", (e) => {
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 20 / 32 && mouseY <= canvas.height * 23 / 32) {
-                gameState = GameStates.Menu;
-            }
+            gameState = GameStates.Menu;
+        }
     }
 });
 
@@ -437,19 +447,19 @@ function collectPickups(pickup, player) {
 
 function bulletCollision(bullet, object) {
     // Check if bullet is to the left of the object
-    if(bullet.x - bullet.radius > object.x + object.width / 2) {
+    if (bullet.x - bullet.radius > object.x + object.width / 2) {
         return false;
     }
     // Check if bullet is to the right of the object
-    if(bullet.x + bullet.radius < object.x - object.width / 2) {
+    if (bullet.x + bullet.radius < object.x - object.width / 2) {
         return false;
     }
     // Check if bullet is below the object
-    if(bullet.y - bullet.radius > object.y + object.height / 2) {
+    if (bullet.y - bullet.radius > object.y + object.height / 2) {
         return false;
     }
     // Check if bullet is above the object
-    if(bullet.y + bullet.radius < object.y - object.height / 2) {
+    if (bullet.y + bullet.radius < object.y - object.height / 2) {
         return false;
     }
     return true;
@@ -470,7 +480,7 @@ function spawnPickups() {
         vpSpawnY = spawnY - viewport.y;
     } while (vpSpawnX > viewport.x && vpSpawnX < (viewport.x + viewport.width)
         && vpSpawnY > viewport.y && vpSpawnY < (viewport.y + viewport.height));
-    
+
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
     if (pickupType < 35) {
@@ -485,5 +495,20 @@ function spawnPickups() {
 }
 
 function spawnEnemies() {
+    let spawnX;
+    let spawnY;
+    let vpSpawnX;
+    let vpSpawnY;
 
+    // generate a random spawn location, then reject if too close to the player
+    do {
+        spawnX = Math.floor(Math.random() * gameWidth);
+        spawnY = Math.floor(Math.random() * gameHeight);
+
+        vpSpawnX = spawnX - viewport.x;
+        vpSpawnY = spawnY - viewport.y;
+    } while (vpSpawnX > viewport.x && vpSpawnX < (viewport.x + viewport.width)
+        && vpSpawnY > viewport.y && vpSpawnY < (viewport.y + viewport.height));
+
+    enemies.push(new ShooterEnemy(spawnX, spawnY));
 }
