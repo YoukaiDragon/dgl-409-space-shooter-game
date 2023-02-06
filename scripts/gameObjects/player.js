@@ -5,7 +5,7 @@ class Player {
         this.y = y;
         this.lives = 3;
         this.score = 0;
-        this.maxSpeed = 60;
+        this.maxSpeed = 30;
         this.width = viewport.width / 16;
         this.height = this.width;
         this.speed = 0;
@@ -28,13 +28,13 @@ class Player {
         }
 
         if (controller.leftPressed) {
-            this.angle -= 4;
+            this.angle -= 8;
             // Keep angle within 360 degrees
             if (this.angle < 0) {
                 this.angle += 360;
             }
         } else if (controller.rightPressed) {
-            this.angle += 4;
+            this.angle += 8;
             // Keep angle within 360 degrees
             if (this.angle >= 360) {
                 this.angle -= 360;
@@ -61,8 +61,6 @@ class Player {
         if(this.y < 0) {
             this.y = 0;
         }
-
-        console.log(`X: ${this.x} Y: ${this.y}`)
 
         // Fire projectiles
         if (this.nextShotTime > 0) {

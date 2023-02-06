@@ -64,7 +64,7 @@ function newGame() {
     pickups = [];
     enemies = [];
     timerIntervalId = setInterval(countDown, 1000);
-    let pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
+    pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     gameState = GameStates.Playing;
 }
 
