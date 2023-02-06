@@ -5,7 +5,7 @@ class Player {
         this.y = y;
         this.lives = 3;
         this.score = 0;
-        this.maxSpeed = 30;
+        this.maxSpeed = 25;
         this.width = viewport.width / 16;
         this.height = this.width;
         this.speed = 0;
@@ -70,7 +70,7 @@ class Player {
             switch (this.shotType) {
                 case 0:
                     this.bullets.push(new Bullet((this.x),
-                        (this.y), this.angle, 10, 40, 6, true));
+                        (this.y), this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
             }
