@@ -105,9 +105,11 @@ class Player {
 
         // Draw projectiles
         for (let i = 0; i < this.bullets.length; i++) {
-            if (isVisible(this.bullets[i].x, this.bullets[i].y)) {
+            displayX = this.bullets[i].x - viewport.x;
+            displayY = this.bullets[i].y - viewport.y;
+            if (isVisible(displayX, displayY)) {
                 this.bullets[i].render(viewport, canvas, ctx,
-                    (this.bullets[i].x - viewport.x), (this.bullets[i].y - viewport.y));
+                    displayX, displayY);
             }
         }
     }
