@@ -127,6 +127,7 @@ function update() {
                         enemies.splice(j, 1);
                     }
                     player.bullets.splice(i, 1);
+                    break;
                 }
             }
         }
