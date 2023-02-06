@@ -1,5 +1,7 @@
 "use strict";
 
+// Game background music via https://www.FesliyanStudios.com
+
 const GameStates = {
     Menu: 0,
     Instructions: 1,
@@ -55,6 +57,9 @@ let timerIntervalId;
 
 let score;
 
+// sounds and music
+var gameMusic;
+
 // Resets game variables / entity holders for a new game
 function newGame() {
     score = 0;
@@ -68,6 +73,10 @@ function newGame() {
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
 
+    gameMusic = new Audio("../sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
+    gameMusic.loop = true;
+    gameMusic.currentTime = 0;
+    gameMusic.play();
     gameState = GameStates.Playing;
 }
 
@@ -76,6 +85,7 @@ function countDown() {
 
     if (timer <= 0) {
         gameState = GameStates.GameOver;
+        gameMusic.pause();
         clearInterval(timerIntervalId);
     }
 }
