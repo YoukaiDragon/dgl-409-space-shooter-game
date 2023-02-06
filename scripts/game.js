@@ -471,6 +471,8 @@ function spawnPickups() {
     let vpSpawnX;
     let vpSpawnY;
 
+    let spawnBuffer = 20;
+
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
@@ -478,8 +480,10 @@ function spawnPickups() {
 
         vpSpawnX = spawnX - viewport.x;
         vpSpawnY = spawnY - viewport.y;
-    } while (vpSpawnX > viewport.x && vpSpawnX < (viewport.x + viewport.width)
-        && vpSpawnY > viewport.y && vpSpawnY < (viewport.y + viewport.height));
+    } while (spawnX > (viewport.x - spawnBuffer) 
+        && spawnX < (viewport.x + viewport.width + spawnBuffer)
+        && spawnY > (viewport.y - spawnBuffer) 
+        && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
@@ -500,6 +504,8 @@ function spawnEnemies() {
     let vpSpawnX;
     let vpSpawnY;
 
+    let spawnBuffer = 20;
+
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
@@ -507,8 +513,10 @@ function spawnEnemies() {
 
         vpSpawnX = spawnX - viewport.x;
         vpSpawnY = spawnY - viewport.y;
-    } while (vpSpawnX > viewport.x && vpSpawnX < (viewport.x + viewport.width)
-        && vpSpawnY > viewport.y && vpSpawnY < (viewport.y + viewport.height));
+    } while (spawnX > (viewport.x - spawnBuffer) 
+        && spawnX < (viewport.x + viewport.width + spawnBuffer)
+        && spawnY > (viewport.y - spawnBuffer) 
+        && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     enemies.push(new ShooterEnemy(spawnX, spawnY));
 }
