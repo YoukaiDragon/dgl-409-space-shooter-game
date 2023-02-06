@@ -9,6 +9,8 @@ class Player {
         this.width = viewport.width / 16;
         this.height = this.width;
         this.speed = 0;
+        this.turnSpeed = 0;
+        this.maxTurnSpeed = 10;
         this.angle = 0;
         this.shotType = 0;
         this.ammo = 0; // Ammo for current special weapon
@@ -28,17 +30,35 @@ class Player {
         }
 
         if (controller.leftPressed) {
-            this.angle -= 8;
-            // Keep angle within 360 degrees
-            if (this.angle < 0) {
-                this.angle += 360;
+            if (this.turnSpeed > 0) {
+                this.turnSpeed -= 2;
+            } else {
+                this.turnSpeed--;
+                if (this.turnSpeed < this.maxTurnSpeed * -1) {
+                    this.turnSpeed = this.maxTurnSpeed * -1;
+                }
             }
+
         } else if (controller.rightPressed) {
-            this.angle += 8;
-            // Keep angle within 360 degrees
-            if (this.angle >= 360) {
-                this.angle -= 360;
+            if (this.turnSpeed < 0) {
+                this.turnSpeed += 2;
+            } else {
+                this.turnSpeed++;
+                if (this.turnSpeed > this.maxTurnSpeed) {
+                    this.turnSpeed = this.maxTurnSpeed;
+                }
             }
+        } else if (this.turnSpeed > 0) {
+            this.turnSpeed--;
+        } else if (this.turnSpeed < 0) {
+            this.turnSpeed++;
+        }
+        this.angle += this.turnSpeed;
+        // Keep angle within 360 degrees
+        if (this.angle < 0) {
+            this.angle += 360;
+        } else if (this.angle >= 360) {
+            this.angle -= 360;
         }
 
         // Move player based on speed and angle
@@ -46,19 +66,19 @@ class Player {
         this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
         this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
 
-        if(this.x > gameWidth) {
+        if (this.x > gameWidth) {
             this.x = gameWidth;
         }
 
-        if(this.x < 0) {
+        if (this.x < 0) {
             this.x = 0;
         }
 
-        if(this.y > gameHeight) {
+        if (this.y > gameHeight) {
             this.y = gameHeight;
         }
 
-        if(this.y < 0) {
+        if (this.y < 0) {
             this.y = 0;
         }
 
