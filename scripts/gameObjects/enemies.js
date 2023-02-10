@@ -26,15 +26,15 @@ class Enemy {
         }
     }
 
-    damage() {
-        this.hp--;
+    damage(amount = 1) {
+        this.hp -= amount;
     }
 
     onDeath() {
         score += this.points;
     }
 
-    getPlayerDistance(player) {
+    getPlayerDistance() {
         return Math.hypot(this.x - player.x, this.y - player.y);
     }
 
