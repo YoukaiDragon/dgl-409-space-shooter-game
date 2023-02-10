@@ -30,6 +30,10 @@ class Enemy {
         this.hp--;
     }
 
+    onDeath() {
+        score += this.points;
+    }
+
     getPlayerDistance(player) {
         return Math.hypot(this.x - player.x, this.y - player.y);
     }
@@ -72,6 +76,12 @@ class ShooterEnemy extends Enemy {
         }
 
         super.render(viewport, canvas, ctx);
+    }
+
+    onDeath() {
+        super.onDeath();
+        explosion1.currentTime = 0;
+        explosion1.play();
     }
 }
 
