@@ -341,6 +341,8 @@ canvas.addEventListener("click", (e) => {
         // Check if Start button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
             newGame();
         }
 
@@ -348,17 +350,23 @@ canvas.addEventListener("click", (e) => {
         if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
             console.log("INSTRUCTIONS");
             gameState = GameStates.Instructions;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
 
         // Check if Options button was clicked
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
             gameState = GameStates.Options;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
         if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
             gameState = GameStates.Menu;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     } else if (gameState == GameStates.Playing) {
         if (mouseX >= (canvas.width - canvas.width * 18 / 256)
@@ -367,17 +375,23 @@ canvas.addEventListener("click", (e) => {
             && mouseY <= (canvas.height * 5 / 256 + canvas.width + 12 / 256)) {
             gameState = GameStates.Paused;
             clearInterval(timerIntervalId);
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     } else if (gameState == GameStates.Paused) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 9 / 32 && mouseY <= canvas.height * 12 / 32) {
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 20 / 32 && mouseY <= canvas.height * 23 / 32) {
             gameState = GameStates.Menu;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     }
 });
@@ -389,10 +403,14 @@ window.addEventListener("keydown", (e) => {
             gameState = GameStates.Paused;
             clearInterval(timerIntervalId);
             console.log("PAUSED");
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         } else if (gameState == GameStates.Paused) {
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
             console.log("PLAYING");
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     }
 
