@@ -70,6 +70,12 @@ let shortLaserSound = new Audio("../sounds/mixkit-short-laser-gun-shot-1670.wav"
 let whipLaserSound = new Audio("../sounds/mixkit-game-whip-shot-1512.wav");
 let explosion1 = new Audio("../sounds/Explosion1.wav");
 
+let quietSoundBaseVolume = 0.5;
+let weaponSoundBaseVolume = 0.2;
+
+shortLaserSound.volume = weaponSoundBaseVolume;
+explosion1.volume = quietSoundBaseVolume;
+
 // Resets game variables / entity holders for a new game
 function newGame() {
     score = 0;
