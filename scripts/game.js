@@ -92,6 +92,7 @@ function countDown() {
 
     if (timer <= 0) {
         gameState = GameStates.GameOver;
+        gameOverSound.play();
         gameMusic.pause();
         clearInterval(timerIntervalId);
     }
