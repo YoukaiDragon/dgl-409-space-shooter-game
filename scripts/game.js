@@ -1,6 +1,7 @@
 "use strict";
 
 // Game background music via https://www.FesliyanStudios.com
+// Sound effects via https://mixkit.co/free-sound-effects/space-shooter/
 
 const GameStates = {
     Menu: 0,
@@ -58,7 +59,13 @@ let timerIntervalId;
 let score;
 
 // sounds and music
-var gameMusic;
+let gameMusic;
+let collectSound = new Audio("../sounds/mixkit-space-coin-win-notification-271.wav");
+let hitSound = new Audio("../sounds/mixkit-falling-hit-757.wav");
+let menuButtonSound = new Audio("../sounds/mixkit-negative-game-notification-249.wav");
+let gameOverSound = new Audio("../sounds/mixkit-arcade-fast-game-over-233.wav");
+let shortLaserSound = new Audio("../sounds/mixkit-short-laser-gun-shot-1670.wav");
+let whipLaserSound = new Audio("../sounds/mixkit-game-whip-shot-1512.wav");
 
 // Resets game variables / entity holders for a new game
 function newGame() {
