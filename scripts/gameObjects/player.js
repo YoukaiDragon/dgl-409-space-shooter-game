@@ -89,6 +89,8 @@ class Player {
             // shoot bullets based on current shot type
             switch (this.shotType) {
                 case 0:
+                    shortLaserSound.currentTime = 0;
+                    shortLaserSound.play();
                     this.bullets.push(new Bullet((this.x),
                         (this.y), this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
