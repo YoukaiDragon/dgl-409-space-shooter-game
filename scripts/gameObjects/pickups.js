@@ -11,7 +11,10 @@ class Pickup {
         this.duration--;
     }
     render(viewport, canvas, ctx) { }
-    onPickup() { }
+    onPickup() {
+        collectSound.currentTime = 0;
+        collectSound.play();
+     }
 }
 
 class timePickup extends Pickup {
@@ -38,6 +41,7 @@ class timePickup extends Pickup {
     }
 
     onPickup() {
+        super.onPickup();
         timer += 10;
     }
 }
@@ -83,6 +87,7 @@ class scorePickup extends Pickup {
     }
 
     onPickup() {
+        super.onPickup();
         score += this.points;
     }
 }
