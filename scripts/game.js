@@ -46,6 +46,7 @@ let enemies;
 let pickups;
 let pickupSpawnTimer;
 let enemySpawnTimer;
+let specialReady = false;
 
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
@@ -133,6 +134,23 @@ function update() {
                 pickups.splice(i, 1); // Delete expired pickups
             } else {
                 pickups[i].update();
+            }
+        }
+
+        // Check for use of special weapon
+        if (specialReady) {
+            specialReady = false;
+            player.bombs--;
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                // Deal large damage to all enemies near the player
+                if (enemies[i].getPlayerDistance() < 1200) {
+                    enemies[i].damage(10);
+                    if(enemies[i].hp <= 0) {
+                        //Kill enemy
+                        enemies[i].onDeath();
+                        enemies.splice(i, 1);
+                    }
+                }
             }
         }
 
@@ -449,6 +467,11 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = false;
+    }
+    if (e.key == 'f' || e.key == 'F') {
+        if (player.bombs > 0) {
+            specialReady = true;
+        }
     }
     if (e.key == ' ') {
         controller.firePressed = false;
