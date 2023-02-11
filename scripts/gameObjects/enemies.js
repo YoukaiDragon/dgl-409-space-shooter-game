@@ -44,7 +44,7 @@ class Enemy {
         let dy = this.y - player.y;
         let angle = Math.atan2(dy, dx);
 
-        return angle * 180 / pi // return angle in degrees
+        return angle * 180 / Math.PI // return angle in degrees
     }
 
     move() {
