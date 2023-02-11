@@ -76,6 +76,7 @@ let weaponSoundBaseVolume = 0.2;
 
 shortLaserSound.volume = weaponSoundBaseVolume;
 explosion1.volume = quietSoundBaseVolume;
+explosion2.volume = quietSoundBaseVolume;
 
 // Resets game variables / entity holders for a new game
 function newGame() {
@@ -159,6 +160,8 @@ function update() {
                     }
                 }
             }
+            explosion2.currentTime = 0;
+            explosion2.play();
         }
 
         // Check collisions between player bullets and enemies
