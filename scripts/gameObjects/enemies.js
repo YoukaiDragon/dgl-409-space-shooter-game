@@ -39,6 +39,14 @@ class Enemy {
         return Math.hypot(this.x - player.x, this.y - player.y);
     }
 
+    getPlayerAngle() {
+        let dx = this.x - player.x;
+        let dy = this.y - player.y;
+        let angle = Math.atan2(dy, dx);
+
+        return angle * 180 / pi // return angle in degrees
+    }
+
     move() {
         // Move character based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
