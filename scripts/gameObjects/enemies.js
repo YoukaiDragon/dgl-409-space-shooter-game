@@ -5,12 +5,12 @@ class Enemy {
         this.y = y;
         this.angle = 0;
         this.speed = 0;
-        this.maxSpeed = 10;
-        this.turnSpeed = 5;
+        this.maxSpeed = 6;
+        this.turnSpeed = 3;
         this.width = 40;
         this.height = this.width;
         this.hp = 1;
-        this.fireRate = 100;
+        this.fireRate = 120;
         this.bullets = [];
         this.nextShotTime = 0;
         this.points = 1; // Points gained when this enemy is killed
