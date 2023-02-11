@@ -6,7 +6,7 @@ class Enemy {
         this.angle = 0;
         this.speed = 0;
         this.maxSpeed = 10;
-        this.rotationSpeed = 0.5;
+        this.turnSpeed = 5;
         this.width = 40;
         this.height = this.width;
         this.hp = 1;
@@ -20,7 +20,15 @@ class Enemy {
     update() {
         if (this.getPlayerDistance() <= this.aggroDistance) {
             let angleToPlayer = this.getPlayerAngle();
-            this.angle = angleToPlayer;
+            let angleDiff = angleToPlayer - this.angle;
+            angleDiff < 0 ? angleDiff += 360 : angleDiff;
+            if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
+                // When angle difference is less than turn speed, snap to face player
+                this.angle = angleToPlayer;
+            } else {
+                // Pick shortest turn distance to player
+                angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
+            }
         }
     }
     render(viewport, canvas, ctx) {
