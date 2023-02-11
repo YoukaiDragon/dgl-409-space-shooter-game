@@ -190,8 +190,9 @@ function update() {
         //spawn enemies
         enemySpawnTimer--;
         if (enemySpawnTimer == 0) {
+            console.log("NEW ENEMY");
             spawnEnemies();
-            enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
+            enemySpawnTimer = Math.floor(Math.random() * 40) + 30;
         }
     }
 }
