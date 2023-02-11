@@ -6,6 +6,7 @@ class Enemy {
         this.angle = 0;
         this.speed = 0;
         this.maxSpeed = 10;
+        this.rotationSpeed = 0.5;
         this.width = 40;
         this.height = this.width;
         this.hp = 1;
@@ -16,7 +17,12 @@ class Enemy {
         this.aggroDistance = 2000; // Distance from the player where enemy is active.
     }
 
-    update(player) {}
+    update() {
+        if (this.getPlayerDistance() <= this.aggroDistance) {
+            let angleToPlayer = this.getPlayerAngle();
+            this.angle = angleToPlayer;
+        }
+    }
     render(viewport, canvas, ctx) {
         // Draw projectiles
         for (let i = 0; i < this.bullets.length; i++) {
@@ -69,6 +75,10 @@ class Enemy {
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
         super(x,y);
+    }
+
+    update() {
+        super.update();
     }
 
     render(viewport, canvas, ctx) {
