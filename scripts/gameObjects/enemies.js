@@ -5,14 +5,15 @@ class Enemy {
         this.y = y;
         this.angle = 0;
         this.speed = 0;
-        this.maxSpeed = 40;
-        this.width = viewport.width / 32;
+        this.maxSpeed = 10;
+        this.width = 40;
         this.height = this.width;
         this.hp = 1;
         this.fireRate = 10;
         this.bullets = [];
         this.nextShotTime = 0;
         this.points = 1; // Points gained when this enemy is killed
+        this.aggroDistance = 2000; // Distance from the player where enemy is active.
     }
 
     update(player) {}
