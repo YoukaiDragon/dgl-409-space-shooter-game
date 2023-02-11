@@ -78,8 +78,8 @@ class Enemy {
     }
 
     getPlayerAngle() {
-        let dx = this.x - player.x;
-        let dy = this.y - player.y;
+        let dx = player.x - this.x;
+        let dy = player.y - this.y;
         let angle = Math.atan2(dy, dx);
 
         return angle * 180 / Math.PI // return angle in degrees
