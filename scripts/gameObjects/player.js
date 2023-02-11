@@ -24,8 +24,8 @@ class Player {
     update(controller) {
 
         // Adjust player velocity
-        if(controller.upPressed) {
-            if(this.speed < this.maxSpeed) {
+        if (controller.upPressed) {
+            if (this.speed < this.maxSpeed) {
                 this.speed++;
             }
         } else if (controller.downPressed) {
@@ -73,10 +73,10 @@ class Player {
 
         // Move player based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
-            this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
-            this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
-        
-        
+        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
+        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+
+
         if (this.x > gameWidth) {
             this.x = gameWidth;
         }
@@ -102,13 +102,11 @@ class Player {
                 case 0:
                     shortLaserSound.currentTime = 0;
                     shortLaserSound.play();
-                    this.bullets.push(new Bullet((this.x),
-                        (this.y), this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x - this.width / 4, this.y - this.height /4, this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
             }
         }
-
 
         if (this.bullets.length > 0) {
             for (let i = this.bullets.length - 1; i >= 0; i--) {
