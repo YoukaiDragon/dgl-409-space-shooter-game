@@ -98,7 +98,7 @@ class ShooterEnemy extends Enemy {
         let distance = this.getPlayerDistance();
         if (distance <= this.aggroDistance) {
             // Accelerate to max speed
-            if (distance <= 300 && this.speed >= 0) {
+            if (distance <= 400 && this.speed > this.maxSpeed / 4) {
                 // Keep some distance from the player
                 this.speed--;
             } else if (this.speed < this.maxSpeed) { this.speed++; }
