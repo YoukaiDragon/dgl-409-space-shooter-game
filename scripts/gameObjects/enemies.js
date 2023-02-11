@@ -19,6 +19,7 @@ class Enemy {
 
     update() {
         if (this.getPlayerDistance() <= this.aggroDistance) {
+            if (this.speed < this.maxSpeed) { this.speed++; }
             let angleToPlayer = this.getPlayerAngle();
             let angleDiff = angleToPlayer - this.angle;
             angleDiff < 0 ? angleDiff += 360 : angleDiff;
@@ -29,6 +30,29 @@ class Enemy {
                 // Pick shortest turn distance to player
                 angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
             }
+        } else if (this.speed > 0) {
+            this.speed--;
+        }
+
+        // Move enemy
+        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
+        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+
+
+        if (this.x > gameWidth) {
+            this.x = gameWidth;
+        }
+
+        if (this.x < 0) {
+            this.x = 0;
+        }
+
+        if (this.y > gameHeight) {
+            this.y = gameHeight;
+        }
+
+        if (this.y < 0) {
+            this.y = 0;
         }
     }
     render(viewport, canvas, ctx) {
@@ -82,7 +106,7 @@ class Enemy {
 
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
-        super(x,y);
+        super(x, y);
     }
 
     update() {
