@@ -69,6 +69,7 @@ let gameOverSound = new Audio("../sounds/mixkit-arcade-fast-game-over-233.wav");
 let shortLaserSound = new Audio("../sounds/mixkit-short-laser-gun-shot-1670.wav");
 let whipLaserSound = new Audio("../sounds/mixkit-game-whip-shot-1512.wav");
 let explosion1 = new Audio("../sounds/Explosion1.wav");
+let explosion2 = new Audio("../sounds/Explosion2.wav");
 
 let quietSoundBaseVolume = 0.5;
 let weaponSoundBaseVolume = 0.2;
