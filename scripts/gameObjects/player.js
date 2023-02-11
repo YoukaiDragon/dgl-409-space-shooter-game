@@ -5,12 +5,12 @@ class Player {
         this.y = y;
         this.lives = 3;
         this.score = 0;
-        this.maxSpeed = 25;
-        this.width = viewport.width / 16;
+        this.maxSpeed = 20;
+        this.width = 30;
         this.height = this.width;
         this.speed = 0;
         this.turnSpeed = 0;
-        this.maxTurnSpeed = 10;
+        this.maxTurnSpeed = 6;
         this.angle = 0;
         this.shotType = 0;
         this.ammo = 0; // Ammo for current special weapon
@@ -23,12 +23,22 @@ class Player {
 
     update(controller) {
 
-        if (controller.upPressed && this.speed < this.maxSpeed) {
-            this.speed++;
-        } else if (controller.downPressed && this.speed > 0) {
+        // Adjust player velocity
+        if(controller.upPressed) {
+            if(this.speed < this.maxSpeed) {
+                this.speed++;
+            }
+        } else if (controller.downPressed) {
+            if (this.speed > (this.maxSpeed / 2) * -1) {
+                this.speed--;
+            }
+        } else if (this.speed > 0) { // Adjust speed to neutral
             this.speed--;
+        } else if (this.speed < 0) {
+            this.speed++;
         }
 
+        // Adjust player angle
         if (controller.leftPressed) {
             if (this.turnSpeed > 0) {
                 this.turnSpeed -= 2;
@@ -48,7 +58,7 @@ class Player {
                     this.turnSpeed = this.maxTurnSpeed;
                 }
             }
-        } else if (this.turnSpeed > 0) {
+        } else if (this.turnSpeed > 0) { // Reset turn speed towards neutrals
             this.turnSpeed--;
         } else if (this.turnSpeed < 0) {
             this.turnSpeed++;
@@ -63,9 +73,10 @@ class Player {
 
         // Move player based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
-        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
-        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
-
+            this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
+            this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+        
+        
         if (this.x > gameWidth) {
             this.x = gameWidth;
         }
