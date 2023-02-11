@@ -101,12 +101,14 @@ function newGame() {
 function countDown() {
     timer--;
 
-    if (timer <= 0) {
-        gameState = GameStates.GameOver;
-        gameOverSound.play();
-        gameMusic.pause();
-        clearInterval(timerIntervalId);
-    }
+    if (timer <= 0) { gameOver() }
+}
+
+function gameOver() {
+    gameState = GameStates.GameOver;
+    gameOverSound.play();
+    gameMusic.pause();
+    clearInterval(timerIntervalId);
 }
 
 function update() {
@@ -130,7 +132,14 @@ function update() {
             if (enemies[i].health <= 0) { // Delete dead enemies
                 enemies.splice(i, 1);
             } else {
-                enemies[i].update(player);
+                enemies[i].update();
+                // Check for collisions between bullets and the player
+                for (let j = enemies[i].bullets.length - 1; j >= 0; j--) {
+                    if(bulletCollision(enemies[i].bullets[j], player)) {
+                        player.damage();
+                        enemies[i].bullets.splice(j, 1);
+                    }
+                }
             }
         }
         for (let i = pickups.length - 1; i >= 0; i--) {
@@ -153,7 +162,7 @@ function update() {
                 // Deal large damage to all enemies near the player
                 if (enemies[i].getPlayerDistance() < 1200) {
                     enemies[i].damage(10);
-                    if(enemies[i].hp <= 0) {
+                    if (enemies[i].hp <= 0) {
                         //Kill enemy
                         enemies[i].onDeath();
                         enemies.splice(i, 1);
@@ -194,6 +203,8 @@ function update() {
             spawnEnemies();
             enemySpawnTimer = Math.floor(Math.random() * 40) + 30;
         }
+
+        if (player.lives <= 0) { gameOver() }
     }
 }
 
@@ -553,9 +564,9 @@ function spawnPickups() {
 
         vpSpawnX = spawnX - viewport.x;
         vpSpawnY = spawnY - viewport.y;
-    } while (spawnX > (viewport.x - spawnBuffer) 
-        && spawnX < (viewport.x + viewport.width + spawnBuffer)
-        && spawnY > (viewport.y - spawnBuffer) 
+    } while (spawnX > (viewport.x - spawnBuffer)
+    && spawnX < (viewport.x + viewport.width + spawnBuffer)
+    && spawnY > (viewport.y - spawnBuffer)
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     // spawn a random pickup
@@ -586,9 +597,9 @@ function spawnEnemies() {
 
         vpSpawnX = spawnX - viewport.x;
         vpSpawnY = spawnY - viewport.y;
-    } while (spawnX > (viewport.x - spawnBuffer) 
-        && spawnX < (viewport.x + viewport.width + spawnBuffer)
-        && spawnY > (viewport.y - spawnBuffer) 
+    } while (spawnX > (viewport.x - spawnBuffer)
+    && spawnX < (viewport.x + viewport.width + spawnBuffer)
+    && spawnY > (viewport.y - spawnBuffer)
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     enemies.push(new ShooterEnemy(spawnX, spawnY));

@@ -151,4 +151,8 @@ class Player {
         this.x = x;
         this.y = y;
     }
+
+    damage() {
+        this.lives--;
+    }
 }
