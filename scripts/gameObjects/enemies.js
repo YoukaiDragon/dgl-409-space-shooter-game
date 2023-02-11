@@ -10,7 +10,7 @@ class Enemy {
         this.width = 40;
         this.height = this.width;
         this.hp = 1;
-        this.fireRate = 10;
+        this.fireRate =100;
         this.bullets = [];
         this.nextShotTime = 0;
         this.points = 1; // Points gained when this enemy is killed
@@ -19,7 +19,10 @@ class Enemy {
 
     update() {
         if (this.getPlayerDistance() <= this.aggroDistance) {
+            // Accelerate to max speed
             if (this.speed < this.maxSpeed) { this.speed++; }
+
+            // Turn to face player
             let angleToPlayer = this.getPlayerAngle();
             let angleDiff = angleToPlayer - this.angle;
             angleDiff < 0 ? angleDiff += 360 : angleDiff;
@@ -29,6 +32,16 @@ class Enemy {
             } else {
                 // Pick shortest turn distance to player
                 angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
+            }
+
+            // Fire bullets
+            if (this.nextShotTime > 0) {
+                this.nextShotTime--;
+            } else {
+                if (angleDiff < 4 * this.turnSpeed || angleDiff > 360 - 4 * this.turnSpeed) {
+                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
+                    this.nextShotTime = this.fireRate;
+                }
             }
         } else if (this.speed > 0) {
             this.speed--;
@@ -54,13 +67,25 @@ class Enemy {
         if (this.y < 0) {
             this.y = 0;
         }
+
+        //update projectiles
+        for (let i = this.bullets.length - 1; i >= 0; i--) {
+            this.bullets[i].update();
+            if (this.bullets[i].duration <= 0) {
+                this.bullets.splice(i, 1);
+            }
+        }
     }
     render(viewport, canvas, ctx) {
+        let displayX;
+        let displayY;
         // Draw projectiles
         for (let i = 0; i < this.bullets.length; i++) {
-            if (isVisible(this.bullets[i].x, this.bullets[i].y)) {
+            displayX = this.bullets[i].x - viewport.x;
+            displayY = this.bullets[i].y - viewport.y;
+            if (isVisible(displayX, displayY)) {
                 this.bullets[i].render(viewport, canvas, ctx,
-                    (this.bullets[i].x - viewport.x), (this.bullets[i].y - viewport.y));
+                    displayX, displayY);
             }
         }
     }
@@ -90,17 +115,6 @@ class Enemy {
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
         this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
         this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
-    }
-
-    moveBullets() {
-        if (this.bullets.length > 0) {
-            for (let i = this.bullets.length - 1; i >= 0; i--) {
-                this.bullets[i].update();
-                if (this.bullets[i].duration <= 0) {
-                    this.bullets.splice(i, 1);
-                }
-            }
-        }
     }
 }
 

@@ -19,7 +19,7 @@ class Bullet {
     }
 
     render(viewport, canvas, ctx, displayX, displayY) {
-        ctx.fillStyle = "white";
+        this.playerOwned ? ctx.fillStyle = "white" : ctx.fillStyle = "red";
         ctx.beginPath();
         ctx.arc(displayX + this.radius, displayY + this.radius, this.radius, 0, 2*Math.PI);
         ctx.fill();
