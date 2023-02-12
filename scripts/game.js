@@ -96,7 +96,7 @@ function newGame() {
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
-    
+
     gameMusic.currentTime = 0;
     gameMusic.play();
     gameState = GameStates.Playing;
@@ -466,16 +466,30 @@ function updateSlider(e) {
     if (!mouseDown) { return; }
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
-    
-    // Update volume slider
-    if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth
-        && mouseY >= canvas.height * 13 / 32 
-        && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
+
+    if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth) {
+        if (mouseY >= canvas.height * 13 / 32
+            && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
+            // Update volume slider
             volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
             gameMusic.volume = volumePercent;
+        } else if (mouseY >= canvas.height * 19 / 32
+            && mouseY <= (canvas.height * 19 / 32) + (canvas.height * 3 / 64)) {
+            sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+            setSFXVolume();
         }
+    }
+}
 
-    // Update SFX Slider
+function setSFXVolume() {
+    collectSound.volume = sfxPercent;
+    hitSound.volume = sfxPercent;
+    menuButtonSound.volume = sfxPercent;
+    gameOverSound.volume = sfxPercent;
+    shortLaserSound.volume = weaponSoundBaseVolume * sfxPercent;
+    whipLaserSound.volume = weaponSoundBaseVolume * sfxPercent;
+    explosion1.volume = quietSoundBaseVolume * sfxPercent
+    explosion2.volume = quietSoundBaseVolume * sfxPercent;
 }
 
 window.addEventListener("mousedown", (e) => {
