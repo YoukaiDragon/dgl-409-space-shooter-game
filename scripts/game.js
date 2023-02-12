@@ -142,7 +142,7 @@ function update() {
                 enemies[i].update();
                 // Check for collisions between bullets and the player
                 for (let j = enemies[i].bullets.length - 1; j >= 0; j--) {
-                    if (bulletCollision(enemies[i].bullets[j], player)) {
+                    if (roundCollision(enemies[i].bullets[j], player)) {
                         player.damage();
                         enemies[i].bullets.splice(j, 1);
                     }
@@ -183,7 +183,7 @@ function update() {
         // Check collisions between player bullets and enemies
         for (let i = player.bullets.length - 1; i >= 0; i--) {
             for (let j = enemies.length - 1; j >= 0; j--) {
-                if (bulletCollision(player.bullets[i], enemies[j])) {
+                if (roundCollision(player.bullets[i], enemies[j])) {
                     enemies[j].damage();
                     if (enemies[j].hp <= 0) {
                         // Kill enemy
@@ -201,7 +201,7 @@ function update() {
             hazards[i].update();
             switch (hazards[i].type) {
                 case "asteroid":
-                    if (bulletCollision(hazards[i], player)) {
+                    if (roundCollision(hazards[i], player)) {
                         player.damage();
                     }
                     break;
@@ -618,21 +618,24 @@ function collectPickups(pickup, player) {
     return true;
 }
 
-function bulletCollision(bullet, object) {
-    // Check if bullet is to the left of the object
-    if (bullet.x - bullet.radius > object.x + object.width / 2) {
+function roundCollision(roundObject, object) {
+    // The roundObject.radius added to the roundObject position on each check to offset
+    // difference between the object origin and object center
+    
+    // Check if roundObject is to the right of the other object
+    if (object.x + object.width / 2 <  roundObject.x + roundObject.radius) {
         return false;
     }
-    // Check if bullet is to the right of the object
-    if (bullet.x + bullet.radius < object.x - object.width / 2) {
+    // Check if roundObject is to the left of the other object
+    if (object.x - object.width / 2 > roundObject.x + roundObject.radius * 3) {
         return false;
     }
-    // Check if bullet is below the object
-    if (bullet.y - bullet.radius > object.y + object.height / 2) {
+    // Check if roundObject is below the other object
+    if (object.y + object.height / 2 < roundObject.y + roundObject.radius) {
         return false;
     }
-    // Check if bullet is above the object
-    if (bullet.y + bullet.radius < object.y - object.height / 2) {
+    // Check if roundObject is above the other object
+    if (object.y - object.height / 2 > roundObject.y + roundObject.radius * 3) {
         return false;
     }
     return true;
