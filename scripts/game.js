@@ -199,6 +199,13 @@ function update() {
         // Update hazards
         for (let i = hazards.length - 1; i >= 0; i--) {
             hazards[i].update();
+            switch (hazards[i].type) {
+                case "asteroid":
+                    if (bulletCollision(hazards[i], player)) {
+                        player.damage();
+                    }
+                    break;
+            }
         }
 
         // spawn pickups
