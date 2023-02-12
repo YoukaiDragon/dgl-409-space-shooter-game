@@ -48,6 +48,7 @@ const viewport = {
 let player;
 let controller = new Controller();
 let enemies;
+let hazards;
 let pickups;
 let pickupSpawnTimer;
 let enemySpawnTimer;
@@ -93,6 +94,8 @@ function newGame() {
     viewport.y = player.y - canvas.height / 2;
     pickups = [];
     enemies = [];
+    hazards = [];
+    hazards.push(new Asteroid(player.x + canvas.width / 4, player.y + canvas.height / 4));
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
@@ -191,6 +194,11 @@ function update() {
                     break;
                 }
             }
+        }
+
+        // Update hazards
+        for (let i = hazards.length - 1; i >= 0; i--) {
+            hazards[i].update();
         }
 
         // spawn pickups
@@ -361,6 +369,11 @@ function render(viewport, canvas, ctx) {
 
         // Render the player
         player.render(viewport, canvas, ctx);
+
+        // Render hazards
+        for (let i = hazards.length - 1; i >= 0; i--) {
+            hazards[i].render(viewport, canvas, ctx);
+        }
     }
 
     // Draw the game UI
