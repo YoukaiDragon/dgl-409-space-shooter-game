@@ -439,6 +439,20 @@ canvas.addEventListener("click", (e) => {
     }
 });
 
+window.addEventListener("mousedown", (e) => {
+    controller.firePressed = true;
+})
+
+window.addEventListener("mouseup", (e) => {
+    controller.firePressed = false;
+})
+
+canvas.addEventListener("contextmenu", (e) => {
+    if(gameState == GameStates.Playing && player.bombs > 0) {
+        specialReady = true;
+    }
+})
+
 window.addEventListener("keydown", (e) => {
     // Pause game when escape is pressed
     if (e.key == "Escape") {
