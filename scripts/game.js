@@ -203,6 +203,16 @@ function update() {
                 case "asteroid":
                     if (roundCollision(hazards[i], player)) {
                         player.damage();
+                        if (player.x - player.width / 2 < hazards[i].x + hazards[i].radius) {
+                            player.x = hazards[i].x + hazards[i].radius - player.width / 2;
+                        } else if (player.x + player.width / 2 > hazards[i].x + 3 * hazards[i].radius) {
+                            player.x = hazards[i].x + 3 * hazards[i].radius + player.width / 2;
+                        }
+                        if (player.y - player.height / 2 < hazards[i].y + hazards[i].radius) {
+                            player.y = hazards[i].y + hazards[i].radius - player.height / 2;
+                        } else if (player.y + player.height / 2 > hazards[i].y + 3 * hazards[i].radius) {
+                            player.y = hazards[i].y + 3 * hazards[i].radius + player.height / 2;
+                        }
                     }
                     break;
             }
@@ -621,7 +631,7 @@ function collectPickups(pickup, player) {
 function roundCollision(roundObject, object) {
     // The roundObject.radius added to the roundObject position on each check to offset
     // difference between the object origin and object center
-    
+
     // Check if roundObject is to the right of the other object
     if (object.x + object.width / 2 <  roundObject.x + roundObject.radius) {
         return false;
