@@ -367,13 +367,13 @@ function render(viewport, canvas, ctx) {
             pickups[i].render(viewport, canvas, ctx);
         }
 
-        // Render the player
-        player.render(viewport, canvas, ctx);
-
         // Render hazards
         for (let i = hazards.length - 1; i >= 0; i--) {
             hazards[i].render(viewport, canvas, ctx);
         }
+
+        // Render the player
+        player.render(viewport, canvas, ctx);
     }
 
     // Draw the game UI
