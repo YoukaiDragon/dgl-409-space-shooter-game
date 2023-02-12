@@ -29,6 +29,7 @@ canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
 
+let mouseDown = false;
 let sliderWidth = canvas.width / 2;
 let volumePercent = 1.0;
 let sfxPercent = 1.0;
@@ -65,7 +66,8 @@ let timerIntervalId;
 let score;
 
 // sounds and music
-let gameMusic;
+let gameMusic = new Audio("../sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
+gameMusic.loop = true;
 let collectSound = new Audio("../sounds/mixkit-space-coin-win-notification-271.wav");
 let hitSound = new Audio("../sounds/mixkit-falling-hit-757.wav");
 let menuButtonSound = new Audio("../sounds/mixkit-negative-game-notification-249.wav");
@@ -94,9 +96,7 @@ function newGame() {
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
-
-    gameMusic = new Audio("../sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
-    gameMusic.loop = true;
+    
     gameMusic.currentTime = 0;
     gameMusic.play();
     gameState = GameStates.Playing;
@@ -139,7 +139,7 @@ function update() {
                 enemies[i].update();
                 // Check for collisions between bullets and the player
                 for (let j = enemies[i].bullets.length - 1; j >= 0; j--) {
-                    if(bulletCollision(enemies[i].bullets[j], player)) {
+                    if (bulletCollision(enemies[i].bullets[j], player)) {
                         player.damage();
                         enemies[i].bullets.splice(j, 1);
                     }
@@ -423,13 +423,16 @@ canvas.addEventListener("click", (e) => {
             gameState = GameStates.Options;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+            canvas.addEventListener("mousemove", updateSlider);
         }
     } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
+        // Check for close button
         if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
             gameState = GameStates.Menu;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+            canvas.removeEventListener("mousemove", updateSlider);
         }
     } else if (gameState == GameStates.Playing) {
         if (mouseX >= (canvas.width - canvas.width * 18 / 256)
@@ -459,16 +462,34 @@ canvas.addEventListener("click", (e) => {
     }
 });
 
+function updateSlider(e) {
+    if (!mouseDown) { return; }
+    let mouseX = e.offsetX;
+    let mouseY = e.offsetY;
+    
+    // Update volume slider
+    if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth
+        && mouseY >= canvas.height * 13 / 32 
+        && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
+            volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+            gameMusic.volume = volumePercent;
+        }
+
+    // Update SFX Slider
+}
+
 window.addEventListener("mousedown", (e) => {
     controller.firePressed = true;
+    mouseDown = true;
 })
 
 window.addEventListener("mouseup", (e) => {
     controller.firePressed = false;
+    mouseDown = false;
 })
 
 canvas.addEventListener("contextmenu", (e) => {
-    if(gameState == GameStates.Playing && player.bombs > 0) {
+    if (gameState == GameStates.Playing && player.bombs > 0) {
         specialReady = true;
     }
 })
