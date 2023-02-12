@@ -29,6 +29,10 @@ canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
 
+let sliderWidth = canvas.width / 2;
+let volumePercent = 1.0;
+let sfxPercent = 1.0;
+
 // Dimensions for the playable area
 let gameWidth = 10000;
 let gameHeight = 10000;
@@ -265,6 +269,22 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
+
+                // Draw volume control sliders
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.strokeStyle = black;
+                ctx.rect(canvas.width / 4, canvas.height * 13 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.rect(canvas.width / 4, canvas.height * 19 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillStyle = green;
+                ctx.fillRect(canvas.width / 4, canvas.height * 13 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                ctx.fillRect(canvas.width / 4, canvas.height * 19 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
+                ctx.fillStyle = black;
+                ctx.fillText("Music", canvas.width / 2, canvas.height * 12 / 32);
+                ctx.fillText("Sound Effects", canvas.width / 2, canvas.height * 18 / 32);
                 break;
             case GameStates.Paused:
                 ctx.fillText("Paused", canvas.width / 2, canvas.height * 7 / 32);
