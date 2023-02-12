@@ -20,10 +20,16 @@ class Player {
         this.nextShotTime = 0;
         this.bombs = 3;
         this.invincibilityTime = 0;
+        this.flickerVisible = true;
     }
 
     update(controller) {
-        if(this.invincibilityTime > 0) { this.invincibilityTime--; }
+        if(this.invincibilityTime > 0) { 
+            this.invincibilityTime--;
+            if (this.invincibilityTime % 4 == 0) {
+                this.invincibilityTime == 0 ? this.flickerVisible = true : this.flickerVisible = !this.flickerVisible;
+            }
+        }
         // Adjust player velocity
         if (controller.upPressed) {
             if (this.speed < this.maxSpeed) {
@@ -124,7 +130,7 @@ class Player {
         // Square being used as placeholder for player
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY) && this.invincibilityTime == 0) {
+        if (isVisible(displayX, displayY) && this.flickerVisible) {
             ctx.beginPath();
             ctx.fillStyle = "white";
             ctx.translate(displayX, displayY);
