@@ -4,11 +4,15 @@ class Asteroid {
         this.x = x;
         this.y = y;
         this.radius = (Math.random() * 40 + 15);
+        this.speed = (Math.random() * 6 + 0.1);
         this.angle = (Math.floor(Math.random() * 360));
     }
 
     update() {
-
+        // Move based on speed and angle
+        // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
+        this.x += Math.cos(this.angle*(Math.PI/180)) * this.speed;
+        this.y += Math.sin(this.angle*(Math.PI/180)) * this.speed;
     }
 
     render(viewport, canvas, ctx) {
