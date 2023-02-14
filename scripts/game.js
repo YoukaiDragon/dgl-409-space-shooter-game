@@ -313,15 +313,32 @@ function render(viewport, canvas, ctx) {
                 break;
             case GameStates.Paused:
                 ctx.fillText("Paused", canvas.width / 2, canvas.height * 7 / 32);
+
+                // Draw the resume button
                 ctx.beginPath();
                 ctx.fillStyle = green;
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
                 ctx.stroke();
                 ctx.fill();
-
                 ctx.fillStyle = white;
                 ctx.fillText("Resume", canvas.width / 2, canvas.height * 45 / 128);
+
+                // Draw volume control sliders
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.strokeStyle = black;
+                ctx.rect(canvas.width / 4, canvas.height * 17 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.rect(canvas.width / 4, canvas.height * 23 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillStyle = green;
+                ctx.fillRect(canvas.width / 4, canvas.height * 17 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                ctx.fillRect(canvas.width / 4, canvas.height * 23 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
+                ctx.fillStyle = black;
+                ctx.fillText("Music", canvas.width / 2, canvas.height * 16 / 32);
+                ctx.fillText("Sound Effects", canvas.width / 2, canvas.height * 22 / 32);
                 break;
             case GameStates.GameOver:
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
@@ -473,6 +490,7 @@ canvas.addEventListener("click", (e) => {
             clearInterval(timerIntervalId);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+            canvas.addEventListener("mousemove", updateSlider);
         }
     } else if (gameState == GameStates.Paused) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
@@ -496,9 +514,9 @@ function updateSlider(e) {
     if (!mouseDown) { return; }
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
-
     if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth) {
-        if (mouseY >= canvas.height * 13 / 32
+        if (gameState == GameStates.Options) {
+            if (mouseY >= canvas.height * 13 / 32
             && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
             // Update volume slider
             volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
@@ -507,6 +525,18 @@ function updateSlider(e) {
             && mouseY <= (canvas.height * 19 / 32) + (canvas.height * 3 / 64)) {
             sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
             setSFXVolume();
+        }
+        } else if (gameState == GameStates.Paused) {
+            if (mouseY >= canvas.height * 17 / 32
+            && mouseY <= (canvas.height * 17 / 32) + (canvas.height * 3 / 64)) {
+            // Update volume slider
+            volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+            gameMusic.volume = volumePercent;
+        } else if (mouseY >= canvas.height * 23 / 32
+            && mouseY <= (canvas.height * 23 / 32) + (canvas.height * 3 / 64)) {
+            sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+            setSFXVolume();
+        }
         }
     }
 }
@@ -547,6 +577,7 @@ window.addEventListener("keydown", (e) => {
             console.log("PAUSED");
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+            canvas.addEventListener("mousemove", updateSlider);
         } else if (gameState == GameStates.Paused) {
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
