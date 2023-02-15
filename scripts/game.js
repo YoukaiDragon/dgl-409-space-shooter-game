@@ -106,6 +106,7 @@ function newGame() {
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
+    asteroidSpawnTimer = Math.floor(Math.random() * 30 + 40);
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -243,6 +244,12 @@ function update() {
             enemySpawnTimer = Math.floor(Math.random() * 50) + 25;
         }
 
+        // spawn asteroids
+        asteroidSpawnTimer--;
+        if (asteroidSpawnTimer == 0) {
+            console.log("NEW ASTEROID");
+            spawnAsteroid();
+            asteroidSpawnTimer = Math.floor(Math.random);
         }
 
         if (player.lives <= 0) { gameOver() }
@@ -759,4 +766,27 @@ function spawnEnemies() {
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     enemies.push(new ShooterEnemy(spawnX, spawnY));
+}
+
+function spawnAsteroid() {
+    let spawnX;
+    let spawnY;
+    let vpSpawnX;
+    let vpSpawnY;
+
+    let spawnBuffer = 30;
+
+    // generate a random spawn location, then reject if too close to the player
+    do {
+        spawnX = Math.floor(Math.random() * gameWidth);
+        spawnY = Math.floor(Math.random() * gameHeight);
+
+        vpSpawnX = spawnX - viewport.x;
+        vpSpawnY = spawnY - viewport.y;
+    } while (spawnX > (viewport.x - spawnBuffer)
+    && spawnX < (viewport.x + viewport.width + spawnBuffer)
+    && spawnY > (viewport.y - spawnBuffer)
+        && spawnY < (viewport.y + viewport.height + spawnBuffer));
+
+    hazards.push(new Asteroid(spawnX, spawnY));
 }
