@@ -67,16 +67,16 @@ let timerIntervalId;
 let score;
 
 // sounds and music
-let gameMusic = new Audio("../sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
+let gameMusic = new Audio("../Assets/sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
 gameMusic.loop = true;
-let collectSound = new Audio("../sounds/mixkit-space-coin-win-notification-271.wav");
-let hitSound = new Audio("../sounds/mixkit-falling-hit-757.wav");
-let menuButtonSound = new Audio("../sounds/mixkit-negative-game-notification-249.wav");
-let gameOverSound = new Audio("../sounds/mixkit-arcade-fast-game-over-233.wav");
-let shortLaserSound = new Audio("../sounds/mixkit-short-laser-gun-shot-1670.wav");
-let whipLaserSound = new Audio("../sounds/mixkit-game-whip-shot-1512.wav");
-let explosion1 = new Audio("../sounds/Explosion1.wav");
-let explosion2 = new Audio("../sounds/Explosion2.wav");
+let collectSound = new Audio("../Assets/sounds/mixkit-space-coin-win-notification-271.wav");
+let hitSound = new Audio("../Assets/sounds/mixkit-falling-hit-757.wav");
+let menuButtonSound = new Audio("../Assets/sounds/mixkit-negative-game-notification-249.wav");
+let gameOverSound = new Audio("../Assets/sounds/mixkit-arcade-fast-game-over-233.wav");
+let shortLaserSound = new Audio("../Assets/sounds/mixkit-short-laser-gun-shot-1670.wav");
+let whipLaserSound = new Audio("../Assets/sounds/mixkit-game-whip-shot-1512.wav");
+let explosion1 = new Audio("../Assets/sounds/Explosion1.wav");
+let explosion2 = new Audio("../Assets/sounds/Explosion2.wav");
 
 let quietSoundBaseVolume = 0.5;
 let weaponSoundBaseVolume = 0.2;
