@@ -544,16 +544,21 @@ function updateSlider(e) {
     if (!mouseDown) { return; }
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
-    if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth) {
+    // Detect mouse position past the slider on each end, then clamp to a range of 0 - 1
+    if (mouseX >= canvas.width / 4 - 50 && mouseX <= canvas.width / 4 + sliderWidth + 50) {
         if (gameState == GameStates.Options) {
             if (mouseY >= canvas.height * 13 / 32
                 && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
                 // Update volume slider
                 volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                volumePercent < 0 ? volumePercent = 0 : volumePercent;
+                volumePercent > 1 ? volumePercent = 1 : volumePercent;
                 gameMusic.volume = volumePercent;
             } else if (mouseY >= canvas.height * 19 / 32
                 && mouseY <= (canvas.height * 19 / 32) + (canvas.height * 3 / 64)) {
                 sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                sfxPercent < 0 ? sfxPercent = 0 : sfxPercent;
+                sfxPercent > 1 ? sfxPercent = 1 : sfxPercent;
                 setSFXVolume();
             }
         } else if (gameState == GameStates.Paused) {
@@ -561,10 +566,14 @@ function updateSlider(e) {
                 && mouseY <= (canvas.height * 17 / 32) + (canvas.height * 3 / 64)) {
                 // Update volume slider
                 volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                volumePercent < 0 ? volumePercent = 0 : volumePercent;
+                volumePercent > 1 ? volumePercent = 1 : volumePercent;
                 gameMusic.volume = volumePercent;
             } else if (mouseY >= canvas.height * 23 / 32
                 && mouseY <= (canvas.height * 23 / 32) + (canvas.height * 3 / 64)) {
                 sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                sfxPercent < 0 ? sfxPercent = 0 : sfxPercent;
+                sfxPercent > 1 ? sfxPercent = 1 : sfxPercent;
                 setSFXVolume();
             }
         }
