@@ -104,8 +104,8 @@ function newGame() {
     enemies = [];
     hazards = [];
     timerIntervalId = setInterval(countDown, 1000);
-    pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
-    enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
+    pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
+    enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -232,15 +232,17 @@ function update() {
         pickupSpawnTimer--;
         if (pickupSpawnTimer == 0) {
             spawnPickups();
-            pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
+            pickupSpawnTimer = Math.floor(Math.random() * 20) + 10;
         }
 
-        //spawn enemies
+        // spawn enemies
         enemySpawnTimer--;
         if (enemySpawnTimer == 0) {
             console.log("NEW ENEMY");
             spawnEnemies();
-            enemySpawnTimer = Math.floor(Math.random() * 40) + 30;
+            enemySpawnTimer = Math.floor(Math.random() * 50) + 25;
+        }
+
         }
 
         if (player.lives <= 0) { gameOver() }
