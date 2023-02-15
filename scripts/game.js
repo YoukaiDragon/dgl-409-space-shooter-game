@@ -53,9 +53,16 @@ let hazards;
 let pickups;
 let pickupSpawnTimer;
 let enemySpawnTimer;
+let asteroidSpawnTimer;
 let specialReady = false;
 
-setInterval(gameFrame, 30, viewport, canvas, ctx);
+let background = document.getElementById("gameBackground");
+background.onload = function () {
+    setInterval(gameFrame, 30, viewport, canvas, ctx);
+}
+
+
+
 
 function gameFrame(viewport, canvas, ctx) {
     update();
@@ -265,8 +272,12 @@ function render(viewport, canvas, ctx) {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = black;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Draw the background
+    if (gameState == GameStates.Playing || gameState == GameStates.Paused || gameState == GameStates.GameOver) {
+        ctx.drawImage(background, viewport.x, viewport.y, viewport.width, viewport.height, 0, 0, viewport.width, viewport.height);
+    } else {
+        ctx.drawImage(background, 0, 0, viewport.width, viewport.height);
+    }
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions
         || gameState == GameStates.Options || gameState == GameStates.Paused
@@ -527,26 +538,26 @@ function updateSlider(e) {
     if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + sliderWidth) {
         if (gameState == GameStates.Options) {
             if (mouseY >= canvas.height * 13 / 32
-            && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
-            // Update volume slider
-            volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
-            gameMusic.volume = volumePercent;
-        } else if (mouseY >= canvas.height * 19 / 32
-            && mouseY <= (canvas.height * 19 / 32) + (canvas.height * 3 / 64)) {
-            sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
-            setSFXVolume();
-        }
+                && mouseY <= (canvas.height * 13 / 32) + (canvas.height * 3 / 64)) {
+                // Update volume slider
+                volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                gameMusic.volume = volumePercent;
+            } else if (mouseY >= canvas.height * 19 / 32
+                && mouseY <= (canvas.height * 19 / 32) + (canvas.height * 3 / 64)) {
+                sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                setSFXVolume();
+            }
         } else if (gameState == GameStates.Paused) {
             if (mouseY >= canvas.height * 17 / 32
-            && mouseY <= (canvas.height * 17 / 32) + (canvas.height * 3 / 64)) {
-            // Update volume slider
-            volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
-            gameMusic.volume = volumePercent;
-        } else if (mouseY >= canvas.height * 23 / 32
-            && mouseY <= (canvas.height * 23 / 32) + (canvas.height * 3 / 64)) {
-            sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
-            setSFXVolume();
-        }
+                && mouseY <= (canvas.height * 17 / 32) + (canvas.height * 3 / 64)) {
+                // Update volume slider
+                volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                gameMusic.volume = volumePercent;
+            } else if (mouseY >= canvas.height * 23 / 32
+                && mouseY <= (canvas.height * 23 / 32) + (canvas.height * 3 / 64)) {
+                sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                setSFXVolume();
+            }
         }
     }
 }
@@ -674,7 +685,7 @@ function roundCollision(roundObject, object) {
     // difference between the object origin and object center
 
     // Check if roundObject is to the right of the other object
-    if (object.x + object.width / 2 <  roundObject.x + roundObject.radius) {
+    if (object.x + object.width / 2 < roundObject.x + roundObject.radius) {
         return false;
     }
     // Check if roundObject is to the left of the other object
