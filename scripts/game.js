@@ -28,6 +28,7 @@ let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
+ctx.lineWidth = 5;
 
 let mouseDown = false;
 let sliderWidth = canvas.width / 2;
@@ -265,7 +266,6 @@ function render(viewport, canvas, ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = black;
-    ctx.lineWidth = 10;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions
@@ -441,7 +441,6 @@ function render(viewport, canvas, ctx) {
             ctx.beginPath();
             ctx.textAlign = "center";
             ctx.strokeStyle = white;
-            ctx.lineWidth = 5;
             ctx.rect(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
                 canvas.width * 12 / 256, canvas.width * 12 / 256);
             ctx.stroke();
