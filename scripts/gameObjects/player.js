@@ -161,6 +161,10 @@ class Player {
         if(this.invincibilityTime == 0) {
             this.lives--;
             this.invincibilityTime = 40;
+            if(this.lives > 0) {
+                hitSound.currentTime = 0;
+                hitSound.play();
+            }
         }
     }
 }

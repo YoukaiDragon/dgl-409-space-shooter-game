@@ -92,6 +92,7 @@ let weaponSoundBaseVolume = 0.2;
 shortLaserSound.volume = weaponSoundBaseVolume;
 explosion1.volume = quietSoundBaseVolume;
 explosion2.volume = quietSoundBaseVolume;
+hitSound.volume = quietSoundBaseVolume;
 
 // Resets game variables / entity holders for a new game
 function newGame() {
@@ -582,7 +583,7 @@ function updateSlider(e) {
 
 function setSFXVolume() {
     collectSound.volume = sfxPercent;
-    hitSound.volume = sfxPercent;
+    hitSound.volume = quietSoundBaseVolume * sfxPercent;
     menuButtonSound.volume = sfxPercent;
     gameOverSound.volume = sfxPercent;
     shortLaserSound.volume = weaponSoundBaseVolume * sfxPercent;
