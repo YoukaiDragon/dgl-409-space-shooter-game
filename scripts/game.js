@@ -95,7 +95,6 @@ function newGame() {
     pickups = [];
     enemies = [];
     hazards = [];
-    hazards.push(new Asteroid(player.x + canvas.width / 4, player.y + canvas.height / 4));
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 26) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 10) + 2;
@@ -119,7 +118,6 @@ function gameOver() {
 }
 
 function update() {
-
     if (gameState == GameStates.Playing) {
         player.update(controller);
         // move the viewport if the player is too close to one edge
@@ -201,6 +199,10 @@ function update() {
             hazards[i].update();
             switch (hazards[i].type) {
                 case "asteroid":
+                    if (isOOB(hazards[i])) {
+                        hazards.splice(i, 1);
+                        break;
+                    }
                     if (roundCollision(hazards[i], player)) {
                         player.damage();
                         if (player.x - player.width / 2 < hazards[i].x + hazards[i].radius) {
@@ -235,6 +237,15 @@ function update() {
 
         if (player.lives <= 0) { gameOver() }
     }
+}
+
+function isOOB(object) {
+    // Return true if object is more than 100 units outside of the play area in any direction
+    if (object.x < -100) { return true };
+    if (object.y < -100) { return true };
+    if (object.x > gameWidth + 100) { return true };
+    if (object.y > gameHeight + 100) { return true };
+    return false;
 }
 
 function addTime(time) {
