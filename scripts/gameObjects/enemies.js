@@ -9,6 +9,7 @@ class Enemy {
         this.turnSpeed = 3;
         this.width = 40;
         this.height = this.width;
+        this.colour = "green"; // TO BE REPLACED WHEN SPRITES ARE USED INSTEAD OF SHAPES
         this.hp = 1;
         this.fireRate = 120;
         this.bullets = [];
@@ -135,7 +136,7 @@ class ShooterEnemy extends Enemy {
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
-            ctx.fillStyle = "green";
+            ctx.fillStyle = this.colour;
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
             ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
@@ -153,10 +154,15 @@ class ShooterEnemy extends Enemy {
     }
 }
 
-class AdvancedShooterEnemy extends Enemy {
+class AdvancedShooterEnemy extends ShooterEnemy {
     constructor(x, y) {
         super(x, y);
-        this.hp = 10;
-        this.fireRate = 5;
+        this.hp = 5;
+        this.fireRate = 60;
+        this.turnSpeed = 4;
+        this.points = 3;
+        this.width = 60;
+        this.height = this.width;
+        this.colour = "purple";
     }
 }

@@ -765,7 +765,14 @@ function spawnEnemies() {
     && spawnY > (viewport.y - spawnBuffer)
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
-    enemies.push(new ShooterEnemy(spawnX, spawnY));
+    // Spawn a random enemy type
+    let enemyType = Math.random() * 100;
+    if (enemyType < 85) {
+        enemies.push(new ShooterEnemy(spawnX, spawnY));
+    } else {
+        enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
+    }
+    
 }
 
 function spawnAsteroid() {
