@@ -443,8 +443,7 @@ function render(viewport, canvas, ctx) {
     }
 
     // Draw the game UI
-    if (gameState == GameStates.Playing || gameState == GameStates.Paused
-        || gameState == GameStates.GameOver) {
+    if (gameState == GameStates.Playing || gameState == GameStates.Paused) {
         ctx.beginPath();
         ctx.textAlign = "center";
         ctx.fillStyle = white;
