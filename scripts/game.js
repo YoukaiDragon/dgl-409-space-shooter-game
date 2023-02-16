@@ -360,17 +360,17 @@ function render(viewport, canvas, ctx) {
                 ctx.beginPath();
                 ctx.fillStyle = "gray";
                 ctx.strokeStyle = black;
-                ctx.rect(canvas.width / 4, canvas.height * 17 / 32, sliderWidth, canvas.height * 3 / 64);
-                ctx.rect(canvas.width / 4, canvas.height * 23 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.rect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.rect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64);
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
                 ctx.fillStyle = green;
-                ctx.fillRect(canvas.width / 4, canvas.height * 17 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
-                ctx.fillRect(canvas.width / 4, canvas.height * 23 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
+                ctx.fillRect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                ctx.fillRect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
                 ctx.fillStyle = black;
-                ctx.fillText("Music", canvas.width / 2, canvas.height * 16 / 32);
-                ctx.fillText("Sound Effects", canvas.width / 2, canvas.height * 22 / 32);
+                ctx.fillText("Music", canvas.width / 2, canvas.height * 29 / 64);
+                ctx.fillText("Sound Effects", canvas.width / 2, canvas.height * 19 / 32);
                 break;
             case GameStates.GameOver:
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
@@ -562,15 +562,15 @@ function updateSlider(e) {
                 setSFXVolume();
             }
         } else if (gameState == GameStates.Paused) {
-            if (mouseY >= canvas.height * 17 / 32
-                && mouseY <= (canvas.height * 17 / 32) + (canvas.height * 3 / 64)) {
+            if (mouseY >= canvas.height * 15 / 32
+                && mouseY <= (canvas.height * 15 / 32) + (canvas.height * 3 / 64)) {
                 // Update volume slider
                 volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
                 volumePercent < 0 ? volumePercent = 0 : volumePercent;
                 volumePercent > 1 ? volumePercent = 1 : volumePercent;
                 gameMusic.volume = volumePercent;
-            } else if (mouseY >= canvas.height * 23 / 32
-                && mouseY <= (canvas.height * 23 / 32) + (canvas.height * 3 / 64)) {
+            } else if (mouseY >= canvas.height * 20 / 32
+                && mouseY <= (canvas.height * 20 / 32) + (canvas.height * 3 / 64)) {
                 sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
                 sfxPercent < 0 ? sfxPercent = 0 : sfxPercent;
                 sfxPercent > 1 ? sfxPercent = 1 : sfxPercent;
