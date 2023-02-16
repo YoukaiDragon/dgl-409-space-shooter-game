@@ -346,15 +346,17 @@ function render(viewport, canvas, ctx) {
             case GameStates.Paused:
                 ctx.fillText("Paused", canvas.width / 2, canvas.height * 7 / 32);
 
-                // Draw the resume button
+                // Draw the resume and quit buttons
                 ctx.beginPath();
                 ctx.fillStyle = green;
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
+                ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = white;
                 ctx.fillText("Resume", canvas.width / 2, canvas.height * 45 / 128);
+                ctx.fillText("Quit Game", canvas.width / 2, canvas.height * 105 / 128);
 
                 // Draw volume control sliders
                 ctx.beginPath();
@@ -523,12 +525,21 @@ canvas.addEventListener("click", (e) => {
             canvas.addEventListener("mousemove", updateSlider);
         }
     } else if (gameState == GameStates.Paused) {
-        if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
-            && mouseY >= canvas.height * 9 / 32 && mouseY <= canvas.height * 12 / 32) {
+        if (mouseX < canvas.width / 4 || mouseX > canvas.width * 3 / 4) {
+            // Mouse not within horizontal bounds of any button
+            return;
+        }
+        if (mouseY >= canvas.height * 9 / 32 && mouseY <= canvas.height * 12 / 32) {
+            // Resume Play
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+        } else if (mouseY >= canvas.height * 24 / 32 && mouseY <= canvas.height * 27 / 32) {
+            // Quit game
+            gameMusic.pause();
+            clearInterval(timerIntervalId);
+            gameState = GameStates.Menu;
         }
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
@@ -781,7 +792,7 @@ function spawnEnemies() {
     } else {
         enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
     }
-    
+
 }
 
 function spawnAsteroid() {
