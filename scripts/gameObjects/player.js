@@ -21,61 +21,104 @@ class Player {
         this.bombs = 3;
         this.invincibilityTime = 0;
         this.flickerVisible = true;
+
+        /* 
+            For testing the two potential control schemes
+
+            when TRUE: up / down accelerate and decelerate, while left and right steer the player
+            when FALSE: 8-directional movement (press one key to move in that direction, press up/down and left/right to move diagonally)
+        */
+        this.steeringControls = false;
     }
 
     update(controller) {
-        if(this.invincibilityTime > 0) { 
+        if (this.invincibilityTime > 0) {
             this.invincibilityTime--;
             if (this.invincibilityTime % 4 == 0) {
                 this.invincibilityTime == 0 ? this.flickerVisible = true : this.flickerVisible = !this.flickerVisible;
             }
         }
-        // Adjust player velocity
-        if (controller.upPressed) {
-            if (this.speed < this.maxSpeed) {
+        // TESTING TWO CONTROL SCHEMES
+        if (this.steeringControls) {
+            // Adjust player velocity
+            if (controller.upPressed) {
+                if (this.speed < this.maxSpeed) {
+                    this.speed++;
+                }
+            } else if (controller.downPressed) {
+                if (this.speed > (this.maxSpeed / 2) * -1) {
+                    this.speed--;
+                }
+            } else if (this.speed > 0) { // Adjust speed to neutral
+                this.speed--;
+            } else if (this.speed < 0) {
                 this.speed++;
             }
-        } else if (controller.downPressed) {
-            if (this.speed > (this.maxSpeed / 2) * -1) {
-                this.speed--;
-            }
-        } else if (this.speed > 0) { // Adjust speed to neutral
-            this.speed--;
-        } else if (this.speed < 0) {
-            this.speed++;
-        }
 
-        // Adjust player angle
-        if (controller.leftPressed) {
-            if (this.turnSpeed > 0) {
-                this.turnSpeed -= 2;
-            } else {
+            // Adjust player angle
+            if (controller.leftPressed) {
+                if (this.turnSpeed > 0) {
+                    this.turnSpeed -= 2;
+                } else {
+                    this.turnSpeed--;
+                    if (this.turnSpeed < this.maxTurnSpeed * -1) {
+                        this.turnSpeed = this.maxTurnSpeed * -1;
+                    }
+                }
+
+            } else if (controller.rightPressed) {
+                if (this.turnSpeed < 0) {
+                    this.turnSpeed += 2;
+                } else {
+                    this.turnSpeed++;
+                    if (this.turnSpeed > this.maxTurnSpeed) {
+                        this.turnSpeed = this.maxTurnSpeed;
+                    }
+                }
+            } else if (this.turnSpeed > 0) { // Reset turn speed towards neutrals
                 this.turnSpeed--;
-                if (this.turnSpeed < this.maxTurnSpeed * -1) {
-                    this.turnSpeed = this.maxTurnSpeed * -1;
-                }
-            }
-
-        } else if (controller.rightPressed) {
-            if (this.turnSpeed < 0) {
-                this.turnSpeed += 2;
-            } else {
+            } else if (this.turnSpeed < 0) {
                 this.turnSpeed++;
-                if (this.turnSpeed > this.maxTurnSpeed) {
-                    this.turnSpeed = this.maxTurnSpeed;
-                }
             }
-        } else if (this.turnSpeed > 0) { // Reset turn speed towards neutrals
-            this.turnSpeed--;
-        } else if (this.turnSpeed < 0) {
-            this.turnSpeed++;
-        }
-        this.angle += this.turnSpeed;
-        // Keep angle within 360 degrees
-        if (this.angle < 0) {
-            this.angle += 360;
-        } else if (this.angle >= 360) {
-            this.angle -= 360;
+            this.angle += this.turnSpeed;
+            // Keep angle within 360 degrees
+            if (this.angle < 0) {
+                this.angle += 360;
+            } else if (this.angle >= 360) {
+                this.angle -= 360;
+            }
+        } else {
+            // Get target angle
+            if (controller.upPressed) {
+                // Check for diagonal movement
+                if (controller.leftPressed) {
+                    this.angle = 225;
+                } else if (controller.rightPressed) {
+                    this.angle = 315;
+                } else {
+                    this.angle = 270;
+                }
+                this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
+            } else if (controller.downPressed) {
+                // Check for diagonal movement
+                if (controller.leftPressed) {
+                    this.angle = 135;
+                } else if (controller.rightPressed) {
+                    this.angle = 45;
+                } else {
+                    this.angle = 90;
+                }
+                this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
+            } else if (controller.leftPressed) {
+                this.angle = 180
+                this.speed >this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
+            } else if (controller.rightPressed) {
+                this.angle = 0
+                this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
+            } else {
+                // No buttons pressed, slow to a stop
+                this.speed > 5 ? this.speed -= 5 : this.speed = 0;
+            }
         }
 
         // Move player based on speed and angle
@@ -109,7 +152,7 @@ class Player {
                 case 0:
                     shortLaserSound.currentTime = 0;
                     shortLaserSound.play();
-                    this.bullets.push(new Bullet(this.x - this.width / 4, this.y - this.height /4, this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x - this.width / 4, this.y - this.height / 4, this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
             }
@@ -158,10 +201,10 @@ class Player {
     }
 
     damage() {
-        if(this.invincibilityTime == 0) {
+        if (this.invincibilityTime == 0) {
             this.lives--;
             this.invincibilityTime = 40;
-            if(this.lives > 0) {
+            if (this.lives > 0) {
                 hitSound.currentTime = 0;
                 hitSound.play();
             }
