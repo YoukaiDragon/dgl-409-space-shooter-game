@@ -787,8 +787,10 @@ function spawnEnemies() {
 
     // Spawn a random enemy type
     let enemyType = Math.random() * 100;
-    if (enemyType < 85) {
+    if (enemyType < 65) {
         enemies.push(new ShooterEnemy(spawnX, spawnY));
+    } else if (enemyType < 85) {
+        enemies.push(new AngleShooterEnemy(spawnX, spawnY));
     } else {
         enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
     }
