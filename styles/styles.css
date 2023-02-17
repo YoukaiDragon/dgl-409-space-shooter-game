@@ -1,5 +1,16 @@
+h1 {
+    text-align: center;
+}
+
 #gameWindow {
     width: 960px;
     height: 640px;
     border: 1px solid black;
+    display: block;
+    margin: 0 auto;
+}
+
+#instructions {
+    width: 70%;
+    margin: 0 auto;
 }
