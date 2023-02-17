@@ -57,9 +57,8 @@ let asteroidSpawnTimer;
 let specialReady = false;
 
 let background = document.getElementById("gameBackground");
-background.onload = function () {
-    setInterval(gameFrame, 30, viewport, canvas, ctx);
-}
+
+setInterval(gameFrame, 30, viewport, canvas, ctx);
 
 
 
