@@ -127,6 +127,20 @@ function countDown() {
 }
 
 function gameOver() {
+    // Check if the score is a high score
+    highScoreString = localStorage.getItem(HIGH_SCORES);
+    if (highScoreString != null) {
+        highScores = highScoreString.split(',').map(function (score) {
+            return parseInt(score, 10);
+        });
+    } else {
+        highScores = [score];
+        localStorage.setItem(HIGH_SCORES, highScores.toString());
+    }
+
+
+
+    // Go to game over menu
     gameState = GameStates.GameOver;
     gameOverSound.play();
     gameMusic.pause();
@@ -535,7 +549,13 @@ canvas.addEventListener("click", (e) => {
             console.log("HIGH SCORES");
             gameState = GameStates.HighScore;
             highScoreString = localStorage.getItem(HIGH_SCORES);
-            highScores = JSON.parse(highScoreString) ?? [];
+            if (highScoreString != null) {
+                highScores = highScoreString.split(',').map(function (score) {
+                    return parseInt(score, 10);
+                });
+                console.log(highScores);
+            }
+
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
