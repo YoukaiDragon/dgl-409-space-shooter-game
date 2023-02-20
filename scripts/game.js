@@ -4,6 +4,8 @@
 // 'mixkit' Sound effects via https://mixkit.co/free-sound-effects/space-shooter/
 // Other sound effects created using Bfxr
 
+// Local storage high score list implemented with help of this page https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
+
 const GameStates = {
     Menu: 0,
     Instructions: 1,
@@ -59,10 +61,14 @@ let specialReady = false;
 
 let background = document.getElementById("gameBackground");
 
+// For High Scores
+const MAX_HIGH_SCORES = 5;
+const HIGH_SCORES = 'spaceShooterHighScores';
+
+let highScoreString;
+let highScores;
+
 setInterval(gameFrame, 30, viewport, canvas, ctx);
-
-
-
 
 function gameFrame(viewport, canvas, ctx) {
     update();
@@ -528,6 +534,8 @@ canvas.addEventListener("click", (e) => {
         if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
             console.log("HIGH SCORES");
             gameState = GameStates.HighScore;
+            highScoreString = localStorage.getItem(HIGH_SCORES);
+            highScores = JSON.parse(highScoreString) ?? [];
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
