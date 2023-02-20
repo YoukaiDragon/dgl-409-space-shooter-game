@@ -33,7 +33,6 @@ canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
 ctx.lineWidth = 5;
 
-let mouseDown = false;
 let sliderWidth = canvas.width / 2;
 let volumePercent = 1.0;
 let sfxPercent = 1.0;
@@ -607,7 +606,7 @@ canvas.addEventListener("click", (e) => {
 });
 
 function updateSlider(e) {
-    if (!mouseDown) { return; }
+    if (!controller.mousePressed) { return; }
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
     // Detect mouse position past the slider on each end, then clamp to a range of 0 - 1
@@ -659,12 +658,12 @@ function setSFXVolume() {
 
 window.addEventListener("mousedown", (e) => {
     controller.firePressed = true;
-    mouseDown = true;
+    controller.mousePressed = true;
 })
 
 window.addEventListener("mouseup", (e) => {
-    controller.firePressed = false;
-    mouseDown = false;
+    if (!controller.spacePressed) { controller.firePressed = false };
+    controller.mousePressed = false;
 })
 
 canvas.addEventListener("contextmenu", (e) => {
@@ -708,6 +707,7 @@ window.addEventListener("keydown", (e) => {
     if (e.key == ' ') {
         e.preventDefault();
         controller.firePressed = true;
+        controller.spacePressed = true;
     }
 });
 
@@ -731,7 +731,8 @@ window.addEventListener("keyup", (e) => {
         }
     }
     if (e.key == ' ') {
-        controller.firePressed = false;
+        if(!controller.mousePressed) { controller.firePressed = false };
+        controller.spacePressed = false;
     }
 });
 
