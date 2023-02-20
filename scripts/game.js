@@ -10,7 +10,8 @@ const GameStates = {
     Options: 2,
     Playing: 3,
     Paused: 4,
-    GameOver: 5
+    GameOver: 5,
+    HighScore: 6
 };
 
 const canvas = document.getElementById("gameWindow");
@@ -405,7 +406,6 @@ function render(viewport, canvas, ctx) {
         // Draw "How to Play" button
         ctx.beginPath();
         ctx.fillStyle = green;
-        ctx.strokeStyle = black;
         ctx.rect(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -416,13 +416,23 @@ function render(viewport, canvas, ctx) {
         // Draw "Options" button
         ctx.beginPath();
         ctx.fillStyle = green;
-        ctx.strokeStyle = black;
         ctx.rect(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
 
         ctx.fillStyle = white;
         ctx.fillText("Options", canvas.width / 2, canvas.height * 85 / 128);
+
+        // Draw "High Scores" button
+        ctx.beginPath();
+        ctx.fillStyle = green;
+        ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = white;
+        ctx.fillText("High Scores", canvas.width / 2, canvas.height * 105 / 128);
+
     } else if (gameState == GameStates.Playing) { // Render Gameplay
         // Render enemies
         for (let i = enemies.length - 1; i >= 0; i--) {
@@ -479,7 +489,7 @@ canvas.addEventListener("click", (e) => {
         if (mouseX < canvas.width / 4 || mouseX > canvas.width * 3 / 4) {
             return;
         }
-        // Check if Start button was clicked
+        // Check if "Start" button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
             console.log("START GAME");
             menuButtonSound.currentTime = 0;
@@ -495,13 +505,21 @@ canvas.addEventListener("click", (e) => {
             menuButtonSound.play();
         }
 
-        // Check if Options button was clicked
+        // Check if "Options" button was clicked
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             console.log("OPTIONS");
             gameState = GameStates.Options;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
             canvas.addEventListener("mousemove", updateSlider);
+        }
+
+        // Check if "High Scores" button was clicked
+        if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
+            console.log("HIGH SCORES");
+            gameState = GameStates.HighScore;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
         // Check for close button
