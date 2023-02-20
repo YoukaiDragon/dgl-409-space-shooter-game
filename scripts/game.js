@@ -291,7 +291,7 @@ function render(viewport, canvas, ctx) {
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions
         || gameState == GameStates.Options || gameState == GameStates.Paused
-        || gameState == GameStates.GameOver) {
+        || gameState == GameStates.GameOver || gameState == GameStates.HighScore) {
         // Draw menu backdrop
         ctx.fillStyle = lightBlue;
         ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
@@ -386,6 +386,16 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = white;
                 ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 89 / 128);
+                break;
+            case GameStates.HighScore:
+                ctx.fillText("High Scores", canvas.width / 2, canvas.height * 7 / 32);
+                ctx.beginPath();
+                ctx.fillStyle = red;
+                ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
+                ctx.stroke();
+                ctx.fill();
+                ctx.fillStyle = black;
+                ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
                 break;
         }
     }
@@ -521,7 +531,7 @@ canvas.addEventListener("click", (e) => {
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
-    } else if (gameState == GameStates.Instructions || gameState == GameStates.Options) {
+    } else if (gameState == GameStates.Instructions || gameState == GameStates.Options || gameState == GameStates.HighScore) {
         // Check for close button
         if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
