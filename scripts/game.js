@@ -415,6 +415,15 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
+
+                ctx.fillStyle = black;
+                ctx.textAlign = "left";
+                // Print the top 5 scores, and leave entries blank if there are less than 5 scores saved
+                ctx.fillText(`1: ${highScores[0]}`, canvas.width * 8 / 32, canvas.height * 45 / 128);
+                ctx.fillText(`2: ${highScores[1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 60 / 128);
+                ctx.fillText(`3: ${highScores[2] ?? ''}`, canvas.width * 8 / 32, canvas.height * 75 / 128);
+                ctx.fillText(`4: ${highScores[3] ?? ''}`, canvas.width * 8 / 32, canvas.height * 90 / 128);
+                ctx.fillText(`5: ${highScores[4] ?? ''}`, canvas.width * 8 / 32, canvas.height * 105 / 128);
                 break;
         }
     }
