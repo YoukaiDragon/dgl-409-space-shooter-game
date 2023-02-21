@@ -66,6 +66,7 @@ class Enemy {
         this.hp -= amount;
     }
 
+    // Each enemy should also return a value used to determine if they drop a pickup
     onDeath() {
         score += this.points;
     }
@@ -151,6 +152,7 @@ class ShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
+        return (Math.floor(Math.random() * 10 + (5 * this.points)))
     }
 }
 
@@ -237,6 +239,7 @@ class AngleShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
+        return 0;
     }
 }
 
@@ -311,5 +314,6 @@ class TripleShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
+        return 0;
     }
 }
