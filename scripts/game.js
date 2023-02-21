@@ -270,7 +270,6 @@ function update() {
         // spawn enemies
         enemySpawnTimer--;
         if (enemySpawnTimer == 0) {
-            console.log("NEW ENEMY");
             spawnEnemies();
             enemySpawnTimer = Math.floor(Math.random() * 50) + 25;
         }
@@ -278,7 +277,6 @@ function update() {
         // spawn asteroids
         asteroidSpawnTimer--;
         if (asteroidSpawnTimer == 0) {
-            console.log("NEW ASTEROID");
             spawnAsteroid();
             asteroidSpawnTimer = Math.floor(Math.random);
         }
@@ -540,7 +538,6 @@ canvas.addEventListener("click", (e) => {
         }
         // Check if "Start" button was clicked
         if ((mouseY >= canvas.height * 9 / 32) && (mouseY <= canvas.height * 12 / 32)) {
-            console.log("START GAME");
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
             newGame();
@@ -548,7 +545,6 @@ canvas.addEventListener("click", (e) => {
 
         // Check if "How To Play" button was clicked
         if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
-            console.log("INSTRUCTIONS");
             gameState = GameStates.Instructions;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -556,7 +552,6 @@ canvas.addEventListener("click", (e) => {
 
         // Check if "Options" button was clicked
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
-            console.log("OPTIONS");
             gameState = GameStates.Options;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -565,14 +560,12 @@ canvas.addEventListener("click", (e) => {
 
         // Check if "High Scores" button was clicked
         if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
-            console.log("HIGH SCORES");
             gameState = GameStates.HighScore;
             highScoreString = localStorage.getItem(HIGH_SCORES);
             if (highScoreString != null) {
                 highScores = highScoreString.split(',').map(function (score) {
                     return parseInt(score, 10);
                 });
-                console.log(highScores);
             }
 
             menuButtonSound.currentTime = 0;
@@ -698,14 +691,12 @@ window.addEventListener("keydown", (e) => {
         if (gameState == GameStates.Playing) {
             gameState = GameStates.Paused;
             clearInterval(timerIntervalId);
-            console.log("PAUSED");
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
             canvas.addEventListener("mousemove", updateSlider);
         } else if (gameState == GameStates.Paused) {
             gameState = GameStates.Playing;
             timerIntervalId = setInterval(countDown, 1000);
-            console.log("PLAYING");
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -860,7 +851,6 @@ function spawnEnemies() {
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
-
     // Spawn a random enemy type
     let enemyType = Math.random() * 100;
     if (enemyType < 65) {
