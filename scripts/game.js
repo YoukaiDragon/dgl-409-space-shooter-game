@@ -226,8 +226,8 @@ function update() {
                         } else if (itemSpawn > 10) {
                             pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
                         }
+                        enemies.splice(j, 1);
                     }
-                    enemies.splice(j, 1);
                     player.bullets.splice(i, 1);
                     break;
                 }
