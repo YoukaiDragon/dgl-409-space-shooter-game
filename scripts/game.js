@@ -132,6 +132,12 @@ function gameOver() {
         highScores = highScoreString.split(',').map(function (score) {
             return parseInt(score, 10);
         });
+
+        // Add the new score to the list, sort it, and remove the lowest score if the list is already full
+        highScores.push(score);
+        highScores.sort(function (a, b) { return b - a });
+        if (highScores.length > MAX_HIGH_SCORES) { highScores.pop() }
+        localStorage.setItem(HIGH_SCORES, highScores.toString());
     } else {
         highScores = [score];
         localStorage.setItem(HIGH_SCORES, highScores.toString());
@@ -740,7 +746,7 @@ window.addEventListener("keyup", (e) => {
         }
     }
     if (e.key == ' ') {
-        if(!controller.mousePressed) { controller.firePressed = false };
+        if (!controller.mousePressed) { controller.firePressed = false };
         controller.spacePressed = false;
     }
 });
