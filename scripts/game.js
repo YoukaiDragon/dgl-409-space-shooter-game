@@ -723,6 +723,10 @@ window.addEventListener("keydown", (e) => {
             timerIntervalId = setInterval(countDown, 1000);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+        } else if (gameState != GameStates.Menu) {
+            gameState = GameStates.Menu;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     }
 
