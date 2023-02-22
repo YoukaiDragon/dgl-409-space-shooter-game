@@ -67,6 +67,9 @@ const HIGH_SCORES = 'spaceShooterHighScores';
 let highScoreString;
 let highScores;
 
+let instructionPage = 1;
+let maxInstructionPage = 3;
+
 setInterval(gameFrame, 30, viewport, canvas, ctx);
 
 function gameFrame(viewport, canvas, ctx) {
@@ -343,6 +346,9 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
+
+                // Draw the page indicator
+                ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
                 break;
             case GameStates.Options:
                 ctx.fillText("Options", canvas.width / 2, canvas.height * 7 / 32);
@@ -546,6 +552,7 @@ canvas.addEventListener("click", (e) => {
         // Check if "How To Play" button was clicked
         if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
             gameState = GameStates.Instructions;
+            instructionPage = 1;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -708,12 +715,20 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
         controller.leftPressed = true;
+
+        if (gameState == GameStates.Instructions) {
+            instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+        }
     }
     if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
         controller.downPressed = true;
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
+        
+        if (gameState == GameStates.Instructions) {
+            instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
+        }
     }
     if (e.key == ' ') {
         e.preventDefault();
