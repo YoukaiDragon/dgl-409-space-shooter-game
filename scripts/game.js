@@ -349,6 +349,8 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the page indicator
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
+                ctx.fillText('<<', canvas.width * 3 / 16, canvas.height / 2);
+                ctx.fillText('>>', canvas.width * 13 / 16, canvas.height / 2);
                 break;
             case GameStates.Options:
                 ctx.fillText("Options", canvas.width / 2, canvas.height * 7 / 32);
@@ -587,6 +589,21 @@ canvas.addEventListener("click", (e) => {
             menuButtonSound.play();
             canvas.removeEventListener("mousemove", updateSlider);
         }
+
+        // Check for instruction page buttons
+        if (gameState == GameStates.Instructions) {
+            if(mouseY >= canvas.height * 29 / 64 && mouseY <= canvas.height * 33 / 64) {
+                if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32) {
+                    instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                } else if (mouseX >= canvas.width * 25 / 32 && mouseX <= canvas.width * 27 / 32) {
+                    instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                }
+            }
+        }
     } else if (gameState == GameStates.Playing) {
         if (mouseX >= (canvas.width - canvas.width * 18 / 256)
             && mouseX <= (canvas.width - canvas.width * 6 / 256)
@@ -718,6 +735,8 @@ window.addEventListener("keydown", (e) => {
 
         if (gameState == GameStates.Instructions) {
             instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     }
     if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
@@ -728,6 +747,8 @@ window.addEventListener("keydown", (e) => {
         
         if (gameState == GameStates.Instructions) {
             instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         }
     }
     if (e.key == ' ') {
