@@ -58,8 +58,6 @@ let enemySpawnTimer;
 let asteroidSpawnTimer;
 let specialReady = false;
 
-let background = document.getElementById("gameBackground");
-
 // For High Scores
 const MAX_HIGH_SCORES = 5;
 const HIGH_SCORES = 'spaceShooterHighScores';
@@ -69,13 +67,6 @@ let highScores;
 
 let instructionPage = 1;
 let maxInstructionPage = 3;
-
-setInterval(gameFrame, 30, viewport, canvas, ctx);
-
-function gameFrame(viewport, canvas, ctx) {
-    update();
-    render(viewport, canvas, ctx);
-}
 
 let timer;
 let timerIntervalId;
@@ -101,6 +92,23 @@ shortLaserSound.volume = weaponSoundBaseVolume;
 explosion1.volume = quietSoundBaseVolume;
 explosion2.volume = quietSoundBaseVolume;
 hitSound.volume = quietSoundBaseVolume;
+
+// Images
+const background = document.getElementById("gameBackground");
+let IMAGES = ['Background'];
+let images;
+
+loadImages(IMAGES, startGame);
+
+function startGame(imageList) {
+    images = imageList;
+    setInterval(gameFrame, 30, viewport, canvas, ctx);
+}
+
+function gameFrame(viewport, canvas, ctx) {
+    update();
+    render(viewport, canvas, ctx);
+}
 
 // Resets game variables / entity holders for a new game
 function newGame() {
@@ -315,9 +323,9 @@ function render(viewport, canvas, ctx) {
 
     // Draw the background
     if (gameState == GameStates.Playing || gameState == GameStates.Paused || gameState == GameStates.GameOver) {
-        ctx.drawImage(background, viewport.x, viewport.y, viewport.width, viewport.height, 0, 0, viewport.width, viewport.height);
+        ctx.drawImage(images.Background, viewport.x, viewport.y, viewport.width, viewport.height, 0, 0, viewport.width, viewport.height);
     } else {
-        ctx.drawImage(background, 0, 0, viewport.width, viewport.height);
+        ctx.drawImage(images.Background, 0, 0, viewport.width, viewport.height);
     }
 
     if (gameState == GameStates.Menu || gameState == GameStates.Instructions
@@ -926,4 +934,19 @@ function spawnAsteroid() {
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
 
     hazards.push(new Asteroid(spawnX, spawnY));
+}
+
+// Load image function from this web page https://codeincomplete.com/articles/javascript-game-foundations-loading-assets/
+function loadImages(names, callback) {
+    var n,name,
+    result = {},
+    count = names.length,
+    onload = function() { if (--count == 0) callback(result); };
+
+    for(n = 0; n < names.length; n++) {
+        name = names[n];
+        result[name] = document.createElement('img');
+        result[name].addEventListener('load', onload);
+        result[name].src = `./Assets/images/${name}.png`;
+    }
 }
