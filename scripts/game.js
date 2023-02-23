@@ -95,7 +95,7 @@ hitSound.volume = quietSoundBaseVolume;
 
 // Images
 const background = document.getElementById("gameBackground");
-let IMAGES = ['Background'];
+let IMAGES = ['Background', 'asteroidA', 'asteroidB'];
 let images;
 
 loadImages(IMAGES, startGame);
@@ -124,6 +124,8 @@ function newGame() {
     pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
     asteroidSpawnTimer = Math.floor(Math.random() * 30 + 40);
+
+    hazards.push(new Asteroid(player.x+200, player.y+200));
 
     gameMusic.currentTime = 0;
     gameMusic.play();

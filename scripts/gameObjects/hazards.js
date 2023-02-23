@@ -6,6 +6,7 @@ class Asteroid {
         this.radius = (Math.random() * 40 + 15);
         this.speed = (Math.random() * 6 + 0.1);
         this.angle = (Math.floor(Math.random() * 360));
+        this.sprite = (Math.floor(Math.random() * 2));
     }
 
     update() {
@@ -19,10 +20,8 @@ class Asteroid {
         let displayX = this.x + this.radius - viewport.x;
         let displayY = this.y + this.radius - viewport.y;
         if (this.isVisible(displayX, displayY, viewport)) {
-            ctx.beginPath();
-            ctx.fillStyle = "gray";
-            ctx.arc(displayX + this.radius, displayY + this.radius, this.radius, 0, 2 * Math.PI);
-            ctx.fill();
+            ctx.drawImage((this.sprite == 0 ? images.asteroidA : images.asteroidB), 
+                displayX, displayY, this.radius*2, this.radius*2);
         }
 
     }
