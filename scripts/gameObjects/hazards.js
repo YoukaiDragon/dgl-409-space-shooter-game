@@ -12,16 +12,16 @@ class Asteroid {
     update() {
         // Move based on speed and angle
         // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
-        this.x += Math.cos(this.angle*(Math.PI/180)) * this.speed;
-        this.y += Math.sin(this.angle*(Math.PI/180)) * this.speed;
+        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
+        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
     }
 
     render(viewport, canvas, ctx) {
         let displayX = this.x + this.radius - viewport.x;
         let displayY = this.y + this.radius - viewport.y;
         if (this.isVisible(displayX, displayY, viewport)) {
-            ctx.drawImage((this.sprite == 0 ? images.asteroidA : images.asteroidB), 
-                displayX, displayY, this.radius*2, this.radius*2);
+            ctx.drawImage((this.sprite == 0 ? images.asteroidA : images.asteroidB),
+                displayX, displayY, this.radius * 2, this.radius * 2);
         }
 
     }
