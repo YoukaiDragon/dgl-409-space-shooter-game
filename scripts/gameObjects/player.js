@@ -6,7 +6,7 @@ class Player {
         this.lives = 3;
         this.score = 0;
         this.maxSpeed = 20;
-        this.width = 30;
+        this.width = 50;
         this.height = this.width;
         this.speed = 0;
         this.turnSpeed = 0;
@@ -180,7 +180,6 @@ class Player {
             ctx.rotate(this.angle * Math.PI / 180);
             ctx.drawImage(images.player,
                 -this.width /2 , -this.height / 2, this.width, this.height);
-            //ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
