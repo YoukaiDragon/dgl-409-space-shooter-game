@@ -14,7 +14,35 @@ class Pickup {
     onPickup() {
         collectSound.currentTime = 0;
         collectSound.play();
-     }
+    }
+}
+
+class healthPickup extends Pickup {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 35;
+        this.height = this.width;
+    }
+
+    update() {
+        super.update();
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (displayX < this.width * -1 || displayX > viewport.width
+            || displayY < this.height * -1 || displayY > viewport.height) {
+            return; // Out of viewport, do not display
+        }
+        ctx.beginPath();
+        ctx.drawImage(images.HealthPickup, displayX, displayY, this.width, this.height);
+    }
+
+    onPickup() {
+        super.onPickup();
+        player.lives++;
+    }
 }
 
 class timePickup extends Pickup {
@@ -33,7 +61,7 @@ class timePickup extends Pickup {
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
             || displayY < this.height * -1 || displayY > viewport.height) {
-                return; // Out of viewport, do not display
+            return; // Out of viewport, do not display
         }
         ctx.beginPath();
         ctx.fillStyle = "orange";
@@ -49,10 +77,10 @@ class timePickup extends Pickup {
 class scorePickup extends Pickup {
     constructor(x, y, size = 'sm') {
         super(x, y);
-        switch(size) {
+        switch (size) {
             case 'lg':
                 this.width = 60;
-                this.height= this.width;
+                this.height = this.width;
                 this.points = 20;
                 break;
             case 'md':
@@ -65,7 +93,7 @@ class scorePickup extends Pickup {
                 this.width = 20;
                 this.height = this.width;
                 this.points = 5;
-                break;    
+                break;
         }
         this.duration = 2000;
     }
@@ -79,7 +107,7 @@ class scorePickup extends Pickup {
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
             || displayY < this.height * -1 || displayY > viewport.height) {
-                return; // Out of viewport, do not display
+            return; // Out of viewport, do not display
         }
         ctx.beginPath();
         ctx.drawImage(images.ScorePickup, displayX, displayY, this.width, this.height);
