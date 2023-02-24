@@ -51,19 +51,19 @@ class scorePickup extends Pickup {
         super(x, y);
         switch(size) {
             case 'lg':
-                this.width = 40;
-                this.height= 40;
+                this.width = 60;
+                this.height= this.width;
                 this.points = 20;
                 break;
             case 'md':
-                this.width = 20;
-                this.height = 20;
+                this.width = 40;
+                this.height = this.width;
                 this.points = 10;
                 break;
             case 'sm':
             default:
-                this.width = 10;
-                this.height = 10;
+                this.width = 20;
+                this.height = this.width;
                 this.points = 5;
                 break;    
         }
