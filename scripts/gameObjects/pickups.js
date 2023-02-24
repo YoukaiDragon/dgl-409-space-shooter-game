@@ -82,8 +82,7 @@ class scorePickup extends Pickup {
                 return; // Out of viewport, do not display
         }
         ctx.beginPath();
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(displayX, displayY, this.width, this.height);
+        ctx.drawImage(images.ScorePickup, displayX, displayY, this.width, this.height);
     }
 
     onPickup() {

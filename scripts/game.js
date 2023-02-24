@@ -95,7 +95,7 @@ hitSound.volume = quietSoundBaseVolume;
 
 // Images
 const background = document.getElementById("gameBackground");
-let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'TimePickup'];
+let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'TimePickup', 'ScorePickup'];
 let images;
 
 loadImages(IMAGES, startGame);
