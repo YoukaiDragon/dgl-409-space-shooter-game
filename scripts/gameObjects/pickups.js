@@ -20,8 +20,8 @@ class Pickup {
 class timePickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 20;
-        this.height = 20;
+        this.width = 30;
+        this.height = this.width;
     }
 
     update() {
@@ -37,7 +37,7 @@ class timePickup extends Pickup {
         }
         ctx.beginPath();
         ctx.fillStyle = "orange";
-        ctx.fillRect(displayX, displayY, this.width, this.height);
+        ctx.drawImage(images.TimePickup, displayX, displayY, this.width, this.height);
     }
 
     onPickup() {
