@@ -233,10 +233,19 @@ function update() {
                     if (enemies[j].hp <= 0) {
                         // Kill enemy
                         let itemSpawn = enemies[j].onDeath();
-                        if (itemSpawn > 20) {
-                            pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'md'));
-                        } else if (itemSpawn > 10) {
-                            pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
+                        switch(itemSpawn) {
+                            case 'scoreLG':
+                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'lg'));
+                                break;
+                            case 'scoreMD':
+                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'md'));
+                                break;
+                            case 'scoreSM':
+                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
+                                break;        
+                            default:
+                                // Spawn nothing
+                                break;
                         }
                         enemies.splice(j, 1);
                     }

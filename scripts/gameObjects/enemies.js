@@ -152,7 +152,12 @@ class ShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
-        return (Math.floor(Math.random() * 10 + (5 * this.points)))
+        let dropValue = Math.floor(Math.random() * 10);
+        if (this.points == 3) { dropValue += 3 } // Have Advanced Shooter Enemies drop better items
+        if (dropValue > 9) { return 'scoreLG' }
+        if (dropValue > 7) { return 'scoreMD' }
+        if (dropValue > 3) { return 'scoreSM' }
+        return '';
     }
 }
 
