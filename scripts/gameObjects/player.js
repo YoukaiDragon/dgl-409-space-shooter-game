@@ -111,7 +111,7 @@ class Player {
                 this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
             } else if (controller.leftPressed) {
                 this.angle = 180
-                this.speed >this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
+                this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
             } else if (controller.rightPressed) {
                 this.angle = 0
                 this.speed > this.maxSpeed - 5 ? this.speed = this.maxSpeed : this.speed += 5;
@@ -152,7 +152,7 @@ class Player {
                 case 0:
                     shortLaserSound.currentTime = 0;
                     shortLaserSound.play();
-                    this.bullets.push(new Bullet(this.x - this.width / 4, this.y - this.height / 4, this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y , this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
             }
@@ -179,7 +179,7 @@ class Player {
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
             ctx.drawImage(images.player,
-                -this.width /2 , -this.height / 2, this.width, this.height);
+                -this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
