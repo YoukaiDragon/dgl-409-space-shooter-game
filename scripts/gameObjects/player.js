@@ -178,7 +178,9 @@ class Player {
             ctx.fillStyle = "white";
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
-            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.drawImage(images.player,
+                -this.width /2 , -this.height / 2, this.width, this.height);
+            //ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
