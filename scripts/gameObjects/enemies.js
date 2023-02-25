@@ -152,7 +152,7 @@ class ShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
-        let dropValue = Math.floor(Math.random() * 10);
+        let dropValue = Math.random() * 10;
         if (this.points == 3) { dropValue += 3 } // Have Advanced Shooter Enemies drop better items
         if (dropValue > 9) { return 'scoreLG' }
         if (dropValue > 7) { return 'scoreMD' }
@@ -244,7 +244,13 @@ class AngleShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
-        return 0;
+        let dropValue = Math.random() * 100;
+        if (dropValue > 95) { return 'health' }
+        if (dropValue > 80) { return 'time' }
+        if (dropValue > 70) { return 'scoreLG' }
+        if (dropValue > 50) { return 'scoreMD' }
+        if (dropValue > 30) { return 'scoreSM' }
+        return '';
     }
 }
 
@@ -319,6 +325,11 @@ class TripleShooterEnemy extends Enemy {
         super.onDeath();
         explosion1.currentTime = 0;
         explosion1.play();
-        return 0;
+        let dropValue = Math.random() * 100;
+        if (dropValue > 85) { return 'health' }
+        if (dropValue > 65) { return 'time' }
+        if (dropValue > 35) { return 'scoreLG' }
+        if (dropValue > 10) { return 'scoreMD' }
+        return 'scoreSM';
     }
 }
