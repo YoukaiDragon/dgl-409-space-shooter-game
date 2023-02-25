@@ -17,6 +17,84 @@ class Pickup {
     }
 }
 
+class twinShotPickup extends Pickup {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 40;
+        this.height = this.width;
+    }
+
+    update() {
+        super.update();
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (displayX < this.width * -1 || displayX > viewport.width
+            || displayY < this.height * -1 || displayY > viewport.height) {
+            return; // Out of viewport, do not display
+        }
+        ctx.beginPath();
+        ctx.drawImage(images.TwinshotPickup, displayX, displayY, this.width, this.height);
+    }
+
+    onPickup() {
+        super.onPickup();
+        switch (player.shotType) {
+            case 0:
+                player.shotType = 1;
+                player.ammo = 200;
+                break;
+            case 1:
+                player.ammo += 200;
+                break;
+            case 2:
+                player.ammo += 100;
+                break;
+        }
+    }
+}
+
+class tripleShotPickup extends Pickup {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 40;
+        this.height = this.width;
+    }
+
+    update() {
+        super.update();
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (displayX < this.width * -1 || displayX > viewport.width
+            || displayY < this.height * -1 || displayY > viewport.height) {
+            return; // Out of viewport, do not display
+        }
+        ctx.beginPath();
+        ctx.drawImage(images.TripleshotPickup, displayX, displayY, this.width, this.height);
+    }
+
+    onPickup() {
+        super.onPickup();
+        switch (player.shotType) {
+            case 0:
+                player.shotType = 2;
+                player.ammo = 200;
+                break;
+            case 1:
+                player.shotType = 2;
+                if (player.ammo < 200) { player.ammo = 200 }
+                break;
+            case 2:
+                player.ammo += 200;
+        }
+    }
+}
+
 class healthPickup extends Pickup {
     constructor(x, y) {
         super(x, y);
