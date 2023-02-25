@@ -242,7 +242,13 @@ function update() {
                                 break;
                             case 'scoreSM':
                                 pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
-                                break;        
+                                break;  
+                            case 'time':
+                                pickups.push(new timePickup(enemies[j].x, enemies[j].y));
+                                break;
+                            case 'health':
+                                pickups.push(new healthPickup(enemies[j].x, enemies[j].y));
+                                break;
                             default:
                                 // Spawn nothing
                                 break;
