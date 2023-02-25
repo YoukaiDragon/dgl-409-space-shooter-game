@@ -15,7 +15,7 @@ class Player {
         this.shotType = 0;
         this.ammo = 0; // Ammo for current special weapon
         // Index of fireRates entry is the shot type it is used for
-        this.fireRates = [4, 4];
+        this.fireRates = [5, 4, 4];
         this.bullets = [];
         this.nextShotTime = 0;
         this.bombs = 3;
@@ -148,19 +148,23 @@ class Player {
             this.nextShotTime--;
         } else if (controller.firePressed) {
             // shoot bullets based on current shot type
+            shortLaserSound.currentTime = 0;
+            shortLaserSound.play();
             switch (this.shotType) {
                 case 0:
-                    shortLaserSound.currentTime = 0;
-                    shortLaserSound.play();
                     this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
                 case 1:
-                    shortLaserSound.currentTime = 0;
-                    shortLaserSound.play();
                     this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 10) % 360, 35, 40, 6, true));
                     this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 10) % 360, 35, 40, 6, true));
                     this.nextShotTime = this.fireRates[1];
+                    break;
+                case 2:
+                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 12) % 360, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 12) % 360, 35, 40, 6, true));
+                    this.nextShotTime = this.fireRates[2];
                     break;
             }
         }
