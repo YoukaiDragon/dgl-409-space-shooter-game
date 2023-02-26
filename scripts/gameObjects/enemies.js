@@ -107,8 +107,8 @@ class ShooterEnemy extends Enemy {
 
             // Turn to face player
             let angleToPlayer = this.getPlayerAngle();
-            let angleDiff = angleToPlayer - this.angle;
-            angleDiff < 0 ? angleDiff += 360 : angleDiff;
+            let angleDiff = (angleToPlayer - this.angle) % 360;
+            if (angleDiff < 0) { angleDiff += 360 }
             if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
                 // When angle difference is less than turn speed, snap to face player
                 this.angle = angleToPlayer;
@@ -121,7 +121,8 @@ class ShooterEnemy extends Enemy {
             if (this.nextShotTime > 0) {
                 this.nextShotTime--;
             } else {
-                if (angleDiff < 4 * this.turnSpeed || angleDiff > 360 - 4 * this.turnSpeed) {
+                if (angleDiff < 30 || angleDiff > 330) {
+                    console.log(angleDiff);
                     this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
@@ -181,8 +182,8 @@ class AdvancedShooterEnemy extends Enemy {
 
             // Turn to face player
             let angleToPlayer = this.getPlayerAngle();
-            let angleDiff = angleToPlayer - this.angle;
-            angleDiff < 0 ? angleDiff += 360 : angleDiff;
+            let angleDiff = (angleToPlayer - this.angle) % 360;
+            if (angleDiff < 0) { angleDiff += 360 }
             if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
                 // When angle difference is less than turn speed, snap to face player
                 this.angle = angleToPlayer;
@@ -195,7 +196,8 @@ class AdvancedShooterEnemy extends Enemy {
             if (this.nextShotTime > 0) {
                 this.nextShotTime--;
             } else {
-                if (angleDiff < 4 * this.turnSpeed || angleDiff > 360 - 4 * this.turnSpeed) {
+                if (angleDiff < 30 || angleDiff > 330) {
+                    console.log(angleDiff);
                     this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
