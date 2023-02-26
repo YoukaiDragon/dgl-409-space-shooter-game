@@ -137,10 +137,9 @@ class ShooterEnemy extends Enemy {
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
-            ctx.fillStyle = this.colour;
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
-            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.drawImage(images.BasicShooterEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
@@ -212,10 +211,9 @@ class AdvancedShooterEnemy extends Enemy {
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
-            ctx.fillStyle = this.colour;
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
-            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.drawImage(images.AdvancedShooterEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
