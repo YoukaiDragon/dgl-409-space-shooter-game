@@ -920,9 +920,9 @@ function spawnEnemies() {
     if (enemyType < 65) {
         enemies.push(new ShooterEnemy(spawnX, spawnY));
     } else if (enemyType < 85) {
-        enemies.push(new AngleShooterEnemy(spawnX, spawnY));
+        enemies.push(new TwinshotEnemy(spawnX, spawnY));
     } else if (enemyType < 90) {
-        enemies.push(new TripleShooterEnemy(spawnX, spawnY));
+        enemies.push(new TripleShotEnemy(spawnX, spawnY));
     } else {
         enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
     }

@@ -236,7 +236,7 @@ class AdvancedShooterEnemy extends Enemy {
     }
 }
 
-class AngleShooterEnemy extends Enemy {
+class TwinshotEnemy extends Enemy {
     constructor(x, y) {
         super(x, y)
         this.maxSpeed = 4;
@@ -316,7 +316,7 @@ class AngleShooterEnemy extends Enemy {
     }
 }
 
-class TripleShooterEnemy extends Enemy {
+class TripleShotEnemy extends Enemy {
     constructor(x, y) {
         super(x, y)
         this.maxSpeed = 5;
