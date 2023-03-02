@@ -9,7 +9,6 @@ class Enemy {
         this.turnSpeed = 3;
         this.width = 40;
         this.height = this.width;
-        this.colour = "green"; // TO BE REPLACED WHEN SPRITES ARE USED INSTEAD OF SHAPES
         this.hp = 1;
         this.fireRate = 120;
         this.bullets = [];
@@ -243,7 +242,6 @@ class TwinshotEnemy extends Enemy {
         this.turnSpeed = 2;
         this.width = 50;
         this.height = this.width;
-        this.colour = "cyan"; // TO BE REPLACED WHEN SPRITES ARE USED INSTEAD OF SHAPES
         this.hp = 2;
         this.fireRate = 100;
         this.points = 2;
@@ -291,10 +289,9 @@ class TwinshotEnemy extends Enemy {
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
-            ctx.fillStyle = this.colour;
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
-            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.drawImage(images.TwinshotEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
@@ -316,14 +313,13 @@ class TwinshotEnemy extends Enemy {
     }
 }
 
-class TripleShotEnemy extends Enemy {
+class TripleshotEnemy extends Enemy {
     constructor(x, y) {
         super(x, y)
         this.maxSpeed = 5;
         this.turnSpeed = 3;
         this.width = 70;
         this.height = this.width;
-        this.colour = "silver"; // TO BE REPLACED WHEN SPRITES ARE USED INSTEAD OF SHAPES
         this.hp = 3;
         this.fireRate = 100;
         this.points = 4;
@@ -372,10 +368,9 @@ class TripleShotEnemy extends Enemy {
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
             ctx.beginPath();
-            ctx.fillStyle = this.colour;
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
-            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.drawImage(images.TripleshotEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }

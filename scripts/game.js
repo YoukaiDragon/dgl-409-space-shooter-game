@@ -96,7 +96,7 @@ hitSound.volume = quietSoundBaseVolume;
 // Images
 const background = document.getElementById("gameBackground");
 let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
-    'TimePickup', 'ScorePickup', 'HealthPickup', 'TwinshotPickup', 'TripleshotPickup'];
+    'TwinshotEnemy', 'TripleshotEnemy', 'TimePickup', 'ScorePickup', 'HealthPickup', 'TwinshotPickup', 'TripleshotPickup'];
 let images;
 
 loadImages(IMAGES, startGame);
@@ -922,7 +922,7 @@ function spawnEnemies() {
     } else if (enemyType < 85) {
         enemies.push(new TwinshotEnemy(spawnX, spawnY));
     } else if (enemyType < 90) {
-        enemies.push(new TripleShotEnemy(spawnX, spawnY));
+        enemies.push(new TripleshotEnemy(spawnX, spawnY));
     } else {
         enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
     }
