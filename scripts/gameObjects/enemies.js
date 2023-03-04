@@ -121,7 +121,6 @@ class ShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    console.log(angleDiff);
                     this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
@@ -449,5 +448,71 @@ class Turret extends Enemy {
         if (dropValue > 50) { return 'scoreMD' }
         if (dropValue > 20) { return 'scoreSM' }
         return '';
+    }
+}
+
+class CargoEnemy extends Enemy {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 75;
+        this.height = this.width;
+        this.maxSpeed = 30;
+        this.angle = Math.floor(Math.random() * 360)
+        this.turnSpeed = 6;
+        this.hp = 3;
+        this.points = 10;
+        this.aggroDistance = 750;
+    }
+
+    update() {
+        let distance = this.getPlayerDistance();
+        if (distance > this.aggroDistance) {
+            this.speed < this.maxSpeed ? this.speed += 2 : this.speed = this.maxSpeed;
+        } else {
+            if (this.speed > this.maxSpeed / 3) {
+                this.speed--;
+            } else if (this.speed < this.maxSpeed / 3) {
+                this.speed++;
+            }
+        }
+
+         // Turn to face away from player
+         let targetAngle = (this.getPlayerAngle() + 180) % 360;
+         let angleDiff = targetAngle - this.angle;
+         angleDiff < 0 ? angleDiff += 360 : angleDiff;
+         if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
+             // When angle difference is less than turn speed, snap to face player
+             this.angle = targetAngle;
+         } else {
+             // Pick shortest turn distance to player
+             angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
+         }
+
+         super.update();
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (isVisible(displayX, displayY)) {
+            ctx.beginPath();
+            ctx.translate(displayX, displayY);
+            ctx.rotate(this.angle * Math.PI / 180);
+            ctx.drawImage(images.CargoEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.rotate(-(this.angle * Math.PI / 180));
+            ctx.translate(-displayX, -displayY);
+        }
+    }
+
+    onDeath() {
+        super.onDeath();
+        explosion1.currentTime = 0;
+        explosion1.play();
+        let dropValue = Math.random() * 100;
+        if (dropValue > 90) { return 'health' }
+        if (dropValue > 70) { return 'tripleShot' }
+        if (dropValue > 25) { return 'twinShot' }
+        if (dropValue > 10) { return 'time' }
+        return 'scoreLG'
     }
 }

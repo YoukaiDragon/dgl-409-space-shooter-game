@@ -96,8 +96,8 @@ hitSound.volume = quietSoundBaseVolume;
 // Images
 const background = document.getElementById("gameBackground");
 let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
-    'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'TimePickup', 'ScorePickup', 'HealthPickup', 
-    'TwinshotPickup', 'TripleshotPickup'];
+    'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'CargoEnemy', 'TimePickup', 'ScorePickup', 
+    'HealthPickup', 'TwinshotPickup', 'TripleshotPickup'];
 let images;
 
 loadImages(IMAGES, startGame);
@@ -126,6 +126,7 @@ function newGame() {
     pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
     asteroidSpawnTimer = Math.floor(Math.random() * 30 + 40);
+
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -234,7 +235,7 @@ function update() {
                     if (enemies[j].hp <= 0) {
                         // Kill enemy
                         let itemSpawn = enemies[j].onDeath();
-                        switch(itemSpawn) {
+                        switch (itemSpawn) {
                             case 'scoreLG':
                                 pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'lg'));
                                 break;
@@ -243,13 +244,19 @@ function update() {
                                 break;
                             case 'scoreSM':
                                 pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
-                                break;  
+                                break;
                             case 'time':
                                 pickups.push(new timePickup(enemies[j].x, enemies[j].y));
                                 break;
                             case 'health':
                                 pickups.push(new healthPickup(enemies[j].x, enemies[j].y));
                                 break;
+                            case 'twinShot':
+                                pickups.push(new twinShotPickup(enemies[j].x, enemies[j].y));
+                                break;
+                            case 'tripleShot':
+                                pickups.push(new tripleShotPickup(enemies[j].x, enemies[j].y));
+                                break;        
                             default:
                                 // Spawn nothing
                                 break;
@@ -617,7 +624,7 @@ canvas.addEventListener("click", (e) => {
 
         // Check for instruction page buttons
         if (gameState == GameStates.Instructions) {
-            if(mouseY >= canvas.height * 29 / 64 && mouseY <= canvas.height * 33 / 64) {
+            if (mouseY >= canvas.height * 29 / 64 && mouseY <= canvas.height * 33 / 64) {
                 if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32) {
                     instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
                     menuButtonSound.currentTime = 0;
@@ -773,7 +780,7 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
-        
+
         if (gameState == GameStates.Instructions) {
             instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
             menuButtonSound.currentTime = 0;
@@ -918,16 +925,18 @@ function spawnEnemies() {
         && spawnY < (viewport.y + viewport.height + spawnBuffer));
     // Spawn a random enemy type
     let enemyType = Math.random() * 100;
-    if (enemyType < 65) {
+    if (enemyType < 45) {
         enemies.push(new ShooterEnemy(spawnX, spawnY));
-    } else if (enemyType < 70) {
+    } else if (enemyType < 60) {
+        enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
+    } else if (enemyType < 65) {
         enemies.push(new Turret(spawnX, spawnY));
     } else if (enemyType < 85) {
         enemies.push(new TwinshotEnemy(spawnX, spawnY));
-    } else if (enemyType < 90) {
+    } else if (enemyType < 95) {
         enemies.push(new TripleshotEnemy(spawnX, spawnY));
     } else {
-        enemies.push(new AdvancedShooterEnemy(spawnX, spawnY));
+        enemies.push(new CargoEnemy(spawnX, spawnY));
     }
 
 }
@@ -957,12 +966,12 @@ function spawnAsteroid() {
 
 // Load image function from this web page https://codeincomplete.com/articles/javascript-game-foundations-loading-assets/
 function loadImages(names, callback) {
-    var n,name,
-    result = {},
-    count = names.length,
-    onload = function() { if (--count == 0) callback(result); };
+    var n, name,
+        result = {},
+        count = names.length,
+        onload = function () { if (--count == 0) callback(result); };
 
-    for(n = 0; n < names.length; n++) {
+    for (n = 0; n < names.length; n++) {
         name = names[n];
         result[name] = document.createElement('img');
         result[name].addEventListener('load', onload);
