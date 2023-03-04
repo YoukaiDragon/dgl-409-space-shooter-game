@@ -425,6 +425,7 @@ class Turret extends Enemy {
     }
 
     render(viewport, canvas, ctx) {
+        super.render(viewport, canvas, ctx);
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
@@ -435,8 +436,6 @@ class Turret extends Enemy {
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
-
-        super.render(viewport, canvas, ctx);
     }
 
     onDeath() {
