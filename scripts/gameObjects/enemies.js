@@ -390,3 +390,65 @@ class TripleshotEnemy extends Enemy {
         return 'scoreSM';
     }
 }
+
+class Turret extends Enemy {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 180;
+        this.height = this.width;
+        this.maxSpeed = 0;
+        this.turnSpeed = 0;
+        this.hp = 5;
+        this.fireRate = 40;
+        this.points = 4; // Points gained when this enemy is killed
+        this.aggroDistance = 1000; // Distance from the player where enemy is active.d
+    }
+
+    update() {
+        let distance = this.getPlayerDistance();
+        if (this.nextShotTime > 0) { this.nextShotTime--; }
+        if (distance <= this.aggroDistance && this.nextShotTime == 0) {
+            let bulletRadius = 12;
+            // Adjust height using bullet radius so spawning bullets line up properly with the sprite
+            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x, this.y, 45, 10, 800, 12, false));
+            this.bullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 225, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x - bulletRadius, this.y, 270, 10, 800, bulletRadius, false));
+            this.bullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 315, 10, 800, bulletRadius, false));
+            this.nextShotTime = this.fireRate;
+        }
+
+        super.update();
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (isVisible(displayX, displayY)) {
+            ctx.beginPath();
+            ctx.translate(displayX, displayY);
+            ctx.rotate(this.angle * Math.PI / 180);
+            ctx.drawImage(images.Turret, -this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.rotate(-(this.angle * Math.PI / 180));
+            ctx.translate(-displayX, -displayY);
+        }
+
+        super.render(viewport, canvas, ctx);
+    }
+
+    onDeath() {
+        super.onDeath();
+        explosion1.currentTime = 0;
+        explosion1.play();
+        let dropValue = Math.random() * 100;
+        if (dropValue > 90) { return 'health' }
+        if (dropValue > 80) { return 'time' }
+        if (dropValue > 75) { return 'scoreLG' }
+        if (dropValue > 50) { return 'scoreMD' }
+        if (dropValue > 20) { return 'scoreSM' }
+        return '';
+    }
+}
