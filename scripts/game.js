@@ -46,8 +46,7 @@ const viewport = {
     height: canvas.height,
     x: 0,
     y: 0,
-    speedX: 0,
-    speedY: 0,
+    speed: 0,
     maxSpeed: 20,
 }
 
@@ -160,8 +159,6 @@ function gameOver() {
         localStorage.setItem(HIGH_SCORES, highScores.toString());
     }
 
-
-
     // Go to game over menu
     gameState = GameStates.GameOver;
     gameOverSound.play();
@@ -175,41 +172,16 @@ function update() {
         // Move the viewport when the player gets too close to one side
         let playerDisplayX = player.x - viewport.x;
         let playerDisplayY = player.y - viewport.y;
-        if (playerDisplayX > viewport.width * 2 / 3) {
-            if (viewport.speedX < viewport.maxSpeed) {
-                viewport.speedX += 2;
-            }
-        } else if (playerDisplayX < viewport.width * 1 / 3) {
-            if (viewport.speedX > -viewport.maxSpeed) {
-                viewport.speedX -= 2;
-            }
+        let targetAngle = getAngleToViewport(player);
+        if (playerDisplayX < viewport.width * 1 / 3 || playerDisplayX > viewport.width * 2 / 3
+            || playerDisplayY < viewport.height * 3 / 8 || playerDisplayY > viewport.height * 5 / 8) {
+            viewport.speed < viewport.maxSpeed ? viewport.speed ++ : viewport.speed = viewport.maxSpeed;
         } else {
-            if (viewport.speedX > 0) { 
-                viewport.speedX > 4 ? viewport.speedX -= 4 : viewport.speedX = 0;
-             }
-            if (viewport.speedX < 0) { 
-                viewport.speedX < -4 ? viewport.speedX += 4 : viewport.speedX = 0;
-             }
+            viewport.speed > 4 ? viewport.speed -= 4 : viewport.speed = 0;
         }
-        if (playerDisplayY > viewport.height * 2 / 3) {
-            if (viewport.speedY < viewport.maxSpeed) {
-                viewport.speedY += 2;
-            }
-        } else if (playerDisplayY < viewport.height * 1 / 3) {
-            if (viewport.speedY > -viewport.maxSpeed) {
-                viewport.speedY -= 2;
-            }
-        } else {
-            if (viewport.speedY > 0) { 
-                viewport.speedY > 4 ? viewport.speedY -= 4 : viewport.speedY = 0;
-             }
-            if (viewport.speedY < 0) { 
-                viewport.speedY < -4 ? viewport.speedY += 4 : viewport.speedY = 0;
-             }
-        }
-        
-        viewport.x += viewport.speedX;
-        viewport.y += viewport.speedY;
+
+        viewport.x += Math.cos(targetAngle * Math.PI / 180) * viewport.speed;
+        viewport.y += Math.sin(targetAngle * Math.PI / 180) * viewport.speed;
 
         // Keep the full area of the viewport within bounds
         if (viewport.x < 0) {
@@ -1017,4 +989,11 @@ function loadImages(names, callback) {
         result[name].addEventListener('load', onload);
         result[name].src = `./Assets/images/${name}.png`;
     }
+}
+
+// Returns the angle between two objects
+function getAngleToViewport(object) {
+    let dx = (object.x + object.width / 2) - (viewport.x + viewport.width / 2);
+    let dy = (object.y + object.height / 2) - (viewport.y + viewport.height / 2);
+    return (Math.atan2(dy, dx) * 180 / Math.PI);
 }
