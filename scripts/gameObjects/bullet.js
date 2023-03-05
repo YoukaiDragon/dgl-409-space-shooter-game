@@ -18,7 +18,9 @@ class Bullet {
         this.duration--;
     }
 
-    render(viewport, canvas, ctx, displayX, displayY) {
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
         this.playerOwned ? ctx.fillStyle = "white" : ctx.fillStyle = "red";
         ctx.beginPath();
         ctx.arc(displayX + this.radius, displayY + this.radius, this.radius, 0, 2*Math.PI);

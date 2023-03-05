@@ -53,6 +53,7 @@ const viewport = {
 let player;
 let controller = new Controller();
 let enemies;
+let enemyBullets;
 let hazards;
 let pickups;
 let pickupSpawnTimer;
@@ -123,12 +124,12 @@ function newGame() {
     viewport.y = player.y - canvas.height / 2;
     pickups = [];
     enemies = [];
+    enemyBullets = [];
     hazards = [];
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
     asteroidSpawnTimer = Math.floor(Math.random() * 30 + 40);
-
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -175,7 +176,7 @@ function update() {
         let targetAngle = getAngleToViewport(player);
         if (playerDisplayX < viewport.width * 1 / 3 || playerDisplayX > viewport.width * 2 / 3
             || playerDisplayY < viewport.height * 3 / 8 || playerDisplayY > viewport.height * 5 / 8) {
-            viewport.speed < viewport.maxSpeed ? viewport.speed ++ : viewport.speed = viewport.maxSpeed;
+            viewport.speed < viewport.maxSpeed ? viewport.speed++ : viewport.speed = viewport.maxSpeed;
         } else {
             viewport.speed > 4 ? viewport.speed -= 4 : viewport.speed = 0;
         }
@@ -194,20 +195,30 @@ function update() {
         } else if (viewport.y > gameHeight - viewport.height) {
             viewport.y = gameHeight - viewport.height;
         }
+
+        // Update enemies
         for (let i = enemies.length - 1; i >= 0; i--) {
             if (enemies[i].health <= 0) { // Delete dead enemies
                 enemies.splice(i, 1);
             } else {
                 enemies[i].update();
-                // Check for collisions between bullets and the player
-                for (let j = enemies[i].bullets.length - 1; j >= 0; j--) {
-                    if (roundCollision(enemies[i].bullets[j], player)) {
-                        player.damage();
-                        enemies[i].bullets.splice(j, 1);
-                    }
-                }
             }
         }
+
+        // Update enemy bullets
+        for (let i = enemyBullets.length - 1; i >= 0; i--) {
+            enemyBullets[i].update();
+            if (roundCollision(enemyBullets[i], player)) {
+                // Bullet collided with player
+                player.damage();
+                enemyBullets.splice(i, 1);
+            } else if (enemyBullets[i].duration <= 0) {
+                // Bullet timed out
+                enemyBullets.splice(i, 1);
+            }
+        }
+
+        // Update pickups
         for (let i = pickups.length - 1; i >= 0; i--) {
             // Check if player has collected the pickup
             if (collectPickups(pickups[i], player)) {
@@ -533,6 +544,11 @@ function render(viewport, canvas, ctx) {
         ctx.fillText("High Scores", canvas.width / 2, canvas.height * 105 / 128);
 
     } else if (gameState == GameStates.Playing) { // Render Gameplay
+
+        // Render enemy bullets
+        for (let i = enemyBullets.length - 1; i >= 0; i--) {
+            enemyBullets[i].render(viewport, canvas, ctx);
+        }
         // Render enemies
         for (let i = enemies.length - 1; i >= 0; i--) {
             enemies[i].render(viewport, canvas, ctx);

@@ -38,27 +38,8 @@ class Enemy {
         if (this.y < 0) {
             this.y = 0;
         }
-
-        //update projectiles
-        for (let i = this.bullets.length - 1; i >= 0; i--) {
-            this.bullets[i].update();
-            if (this.bullets[i].duration <= 0) {
-                this.bullets.splice(i, 1);
-            }
-        }
     }
     render(viewport, canvas, ctx) {
-        let displayX;
-        let displayY;
-        // Draw projectiles
-        for (let i = 0; i < this.bullets.length; i++) {
-            displayX = this.bullets[i].x - viewport.x;
-            displayY = this.bullets[i].y - viewport.y;
-            if (isVisible(displayX, displayY)) {
-                this.bullets[i].render(viewport, canvas, ctx,
-                    displayX, displayY);
-            }
-        }
     }
 
     damage(amount = 1) {
@@ -121,7 +102,7 @@ class ShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -142,8 +123,6 @@ class ShooterEnemy extends Enemy {
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
-
-        super.render(viewport, canvas, ctx);
     }
 
     onDeath() {
@@ -195,8 +174,7 @@ class AdvancedShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    console.log(angleDiff);
-                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -217,8 +195,6 @@ class AdvancedShooterEnemy extends Enemy {
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
-
-        super.render(viewport, canvas, ctx);
     }
 
     onDeath() {
@@ -272,8 +248,8 @@ class TwinshotEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 20 * this.turnSpeed || angleDiff > 360 - 20 * this.turnSpeed) {
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
-                    this.bullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -294,8 +270,6 @@ class TwinshotEnemy extends Enemy {
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
-
-        super.render(viewport, canvas, ctx);
     }
 
     onDeath() {
@@ -350,9 +324,9 @@ class TripleshotEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 20 * this.turnSpeed || angleDiff > 360 - 20 * this.turnSpeed) {
-                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 25, 110, 6, false));
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
-                    this.bullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -373,8 +347,6 @@ class TripleshotEnemy extends Enemy {
             ctx.rotate(-(this.angle * Math.PI / 180));
             ctx.translate(-displayX, -displayY);
         }
-
-        super.render(viewport, canvas, ctx);
     }
 
     onDeath() {
@@ -409,14 +381,14 @@ class Turret extends Enemy {
         if (distance <= this.aggroDistance && this.nextShotTime == 0) {
             let bulletRadius = 12;
             // Adjust height using bullet radius so spawning bullets line up properly with the sprite
-            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x, this.y, 45, 10, 800, 12, false));
-            this.bullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x, this.y - bulletRadius, 225, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x - bulletRadius, this.y, 270, 10, 800, bulletRadius, false));
-            this.bullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 315, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y, 45, 10, 800, 12, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 225, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 270, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 315, 10, 800, bulletRadius, false));
             this.nextShotTime = this.fireRate;
         }
 
@@ -424,7 +396,6 @@ class Turret extends Enemy {
     }
 
     render(viewport, canvas, ctx) {
-        super.render(viewport, canvas, ctx);
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {
@@ -476,19 +447,19 @@ class CargoEnemy extends Enemy {
             }
         }
 
-         // Turn to face away from player
-         let targetAngle = (this.getPlayerAngle() + 180) % 360;
-         let angleDiff = targetAngle - this.angle;
-         angleDiff < 0 ? angleDiff += 360 : angleDiff;
-         if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
-             // When angle difference is less than turn speed, snap to face player
-             this.angle = targetAngle;
-         } else {
-             // Pick shortest turn distance to player
-             angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
-         }
+        // Turn to face away from player
+        let targetAngle = (this.getPlayerAngle() + 180) % 360;
+        let angleDiff = targetAngle - this.angle;
+        angleDiff < 0 ? angleDiff += 360 : angleDiff;
+        if (angleDiff < this.turnSpeed || angleDiff > 360 - this.turnSpeed) {
+            // When angle difference is less than turn speed, snap to face player
+            this.angle = targetAngle;
+        } else {
+            // Pick shortest turn distance to player
+            angleDiff < 180 ? this.angle += this.turnSpeed : this.angle -= this.turnSpeed;
+        }
 
-         super.update();
+        super.update();
     }
 
     render(viewport, canvas, ctx) {
