@@ -63,11 +63,12 @@ class Enemy {
         return angle * 180 / Math.PI // return angle in degrees
     }
 
-    move() {
-        // Move character based on speed and angle
-        // Formula based on https://stackoverflow.com/questions/36955714/calculating-cordanates-with-angles
-        this.x += Math.cos(this.angle * (Math.PI / 180)) * this.speed;
-        this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
+    isVisible(viewport, displayX, displayY) {
+        if (displayX - this.width / 2 > viewport.width) { return false }
+        if (displayX + this.width / 2 < 0) { return false }
+        if (displayY - this.height / 2 > viewport.height) { return false }
+        if (displayY + this.height / 2 < 0) { return false }
+        return true;
     }
 }
 
@@ -115,7 +116,7 @@ class ShooterEnemy extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
@@ -187,7 +188,7 @@ class AdvancedShooterEnemy extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
@@ -262,7 +263,7 @@ class TwinshotEnemy extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
@@ -339,7 +340,7 @@ class TripleshotEnemy extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
@@ -398,7 +399,7 @@ class Turret extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
@@ -465,7 +466,7 @@ class CargoEnemy extends Enemy {
     render(viewport, canvas, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
-        if (isVisible(displayX, displayY)) {
+        if (this.isVisible(viewport, displayX, displayY)) {
             ctx.beginPath();
             ctx.translate(displayX, displayY);
             ctx.rotate(this.angle * Math.PI / 180);
