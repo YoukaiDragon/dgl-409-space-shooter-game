@@ -45,7 +45,10 @@ const viewport = {
     width: canvas.width,
     height: canvas.height,
     x: 0,
-    y: 0
+    y: 0,
+    speedX: 0,
+    speedY: 0,
+    maxSpeed: 20,
 }
 
 let player;
@@ -96,7 +99,7 @@ hitSound.volume = quietSoundBaseVolume;
 // Images
 const background = document.getElementById("gameBackground");
 let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
-    'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'CargoEnemy', 'TimePickup', 'ScorePickup', 
+    'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'CargoEnemy', 'TimePickup', 'ScorePickup',
     'HealthPickup', 'TwinshotPickup', 'TripleshotPickup'];
 let images;
 
@@ -169,14 +172,51 @@ function gameOver() {
 function update() {
     if (gameState == GameStates.Playing) {
         player.update(controller);
-        // move the viewport if the player is too close to one edge
-        viewport.x = player.x - viewport.width / 2;
+        // Move the viewport when the player gets too close to one side
+        let playerDisplayX = player.x - viewport.x;
+        let playerDisplayY = player.y - viewport.y;
+        if (playerDisplayX > viewport.width * 2 / 3) {
+            if (viewport.speedX < viewport.maxSpeed) {
+                viewport.speedX += 2;
+            }
+        } else if (playerDisplayX < viewport.width * 1 / 3) {
+            if (viewport.speedX > -viewport.maxSpeed) {
+                viewport.speedX -= 2;
+            }
+        } else {
+            if (viewport.speedX > 0) { 
+                viewport.speedX > 4 ? viewport.speedX -= 4 : viewport.speedX = 0;
+             }
+            if (viewport.speedX < 0) { 
+                viewport.speedX < -4 ? viewport.speedX += 4 : viewport.speedX = 0;
+             }
+        }
+        if (playerDisplayY > viewport.height * 2 / 3) {
+            if (viewport.speedY < viewport.maxSpeed) {
+                viewport.speedY += 2;
+            }
+        } else if (playerDisplayY < viewport.height * 1 / 3) {
+            if (viewport.speedY > -viewport.maxSpeed) {
+                viewport.speedY -= 2;
+            }
+        } else {
+            if (viewport.speedY > 0) { 
+                viewport.speedY > 4 ? viewport.speedY -= 4 : viewport.speedY = 0;
+             }
+            if (viewport.speedY < 0) { 
+                viewport.speedY < -4 ? viewport.speedY += 4 : viewport.speedY = 0;
+             }
+        }
+        
+        viewport.x += viewport.speedX;
+        viewport.y += viewport.speedY;
+
+        // Keep the full area of the viewport within bounds
         if (viewport.x < 0) {
             viewport.x = 0;
         } else if (viewport.x > gameWidth - viewport.width) {
             viewport.x = gameWidth - viewport.width;
         }
-        viewport.y = player.y - viewport.height / 2;
         if (viewport.y < 0) {
             viewport.y = 0;
         } else if (viewport.y > gameHeight - viewport.height) {
@@ -256,7 +296,7 @@ function update() {
                                 break;
                             case 'tripleShot':
                                 pickups.push(new tripleShotPickup(enemies[j].x, enemies[j].y));
-                                break;        
+                                break;
                             default:
                                 // Spawn nothing
                                 break;
