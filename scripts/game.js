@@ -58,6 +58,7 @@ let enemies;
 let enemyBullets;
 let hazards;
 let pickups;
+let effects;
 let pickupSpawnTimer;
 let enemySpawnTimer;
 let asteroidSpawnTimer;
@@ -128,6 +129,7 @@ function newGame() {
     enemies = [];
     enemyBullets = [];
     hazards = [];
+    effects = [];
     timerIntervalId = setInterval(countDown, 1000);
     pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
     enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
@@ -317,6 +319,14 @@ function update() {
                         }
                     }
                     break;
+            }
+        }
+
+        // Update Effects
+        for (let i = effects.length - 1; i >= 0; i--) {
+            effects[i].update();
+            if (effects[i].timer == 0) {
+                effects.splice(i, 1);
             }
         }
 
@@ -568,6 +578,11 @@ function render(viewport, canvas, ctx) {
 
         // Render the player
         player.render(viewport, canvas, ctx);
+
+        // Render effects
+        for (let i = effects.length - 1; i >= 0; i--) {
+            effects[i].render(viewport, canvas, ctx);
+        }
     }
 
     // Draw the game UI

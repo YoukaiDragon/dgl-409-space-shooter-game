@@ -49,6 +49,7 @@ class Enemy {
     // Each enemy should also return a value used to determine if they drop a pickup
     onDeath() {
         score += this.points;
+        effects.push(new Explosion(this.x, this.y, this.width, this.height));
     }
 
     getPlayerDistance() {
@@ -486,5 +487,51 @@ class CargoEnemy extends Enemy {
         if (dropValue > 25) { return 'twinShot' }
         if (dropValue > 10) { return 'time' }
         return 'scoreLG'
+    }
+}
+
+class Explosion {
+    constructor(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.timer = 24;
+        this.width = width;
+        this.height = height;
+    }
+
+    update() {
+        this.timer--;
+    }
+
+    render(viewport, canvas, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        let image = images.ExplosionFrames;
+        ctx.beginPath();
+        if (this.timer > 20) {
+            ctx.drawImage(image, 0, 0, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        } else if (this.timer > 16) {
+            ctx.drawImage(image, image.width * 1 / 3, 0, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        } else if (this.timer > 12) {
+            ctx.drawImage(image, image.width * 2 / 3, 0, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        } else if (this.timer > 8) {
+            ctx.drawImage(image, 0, image.height / 2, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        } else if (this.timer > 4) {
+            ctx.drawImage(image, image.width * 1 / 3, image.height / 2, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        } else {
+            ctx.drawImage(image, image.width * 2 / 3, image.height / 2, image.width / 3,
+                image.height / 2, displayX - this.width / 2, displayY - this.height / 2,
+                this.width, this.height)
+        }
     }
 }
