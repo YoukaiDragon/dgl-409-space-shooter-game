@@ -10,7 +10,7 @@ class Pickup {
     update() {
         this.duration--;
     }
-    render(viewport, canvas, ctx) { }
+    
     onPickup() {
         collectSound.currentTime = 0;
         collectSound.play();
@@ -28,7 +28,7 @@ class twinShotPickup extends Pickup {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
@@ -67,7 +67,7 @@ class tripleShotPickup extends Pickup {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
@@ -106,7 +106,7 @@ class healthPickup extends Pickup {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
@@ -134,7 +134,7 @@ class timePickup extends Pickup {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width
@@ -180,7 +180,7 @@ class scorePickup extends Pickup {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (displayX < this.width * -1 || displayX > viewport.width

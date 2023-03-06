@@ -559,29 +559,29 @@ function render(viewport, canvas, ctx) {
 
         // Render enemy bullets
         for (let i = enemyBullets.length - 1; i >= 0; i--) {
-            enemyBullets[i].render(viewport, canvas, ctx);
+            enemyBullets[i].render(viewport, ctx);
         }
         // Render enemies
         for (let i = enemies.length - 1; i >= 0; i--) {
-            enemies[i].render(viewport, canvas, ctx);
+            enemies[i].render(viewport, ctx);
         }
 
         // Render pickups
         for (let i = pickups.length - 1; i >= 0; i--) {
-            pickups[i].render(viewport, canvas, ctx);
+            pickups[i].render(viewport, ctx);
         }
 
         // Render hazards
         for (let i = hazards.length - 1; i >= 0; i--) {
-            hazards[i].render(viewport, canvas, ctx);
+            hazards[i].render(viewport, ctx);
         }
 
         // Render the player
-        player.render(viewport, canvas, ctx);
+        player.render(viewport, ctx);
 
         // Render effects
         for (let i = effects.length - 1; i >= 0; i--) {
-            effects[i].render(viewport, canvas, ctx);
+            effects[i].render(viewport, ctx);
         }
     }
 

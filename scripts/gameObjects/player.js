@@ -184,7 +184,7 @@ class Player {
 
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         // Square being used as placeholder for player
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
@@ -205,7 +205,7 @@ class Player {
             displayX = this.bullets[i].x - viewport.x;
             displayY = this.bullets[i].y - viewport.y;
             if (isVisible(displayX, displayY)) {
-                this.bullets[i].render(viewport, canvas, ctx,
+                this.bullets[i].render(viewport, ctx,
                     displayX, displayY);
             }
         }

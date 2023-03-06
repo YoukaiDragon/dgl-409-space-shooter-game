@@ -18,7 +18,7 @@ class Bullet {
         this.duration--;
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         if (isVisible(displayX, displayY)) {

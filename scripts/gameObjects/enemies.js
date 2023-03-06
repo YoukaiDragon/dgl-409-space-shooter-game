@@ -15,6 +15,7 @@ class Enemy {
         this.nextShotTime = 0;
         this.points = 1; // Points gained when this enemy is killed
         this.aggroDistance = 2000; // Distance from the player where enemy is active.
+        this.image;
     }
 
     update() {
@@ -39,7 +40,18 @@ class Enemy {
             this.y = 0;
         }
     }
-    render(viewport, canvas, ctx) {
+
+    render(viewport, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (this.isVisible(viewport, displayX, displayY)) {
+            ctx.beginPath();
+            ctx.translate(displayX, displayY);
+            ctx.rotate(this.angle * Math.PI / 180);
+            ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.rotate(-(this.angle * Math.PI / 180));
+            ctx.translate(-displayX, -displayY);
+        }
     }
 
     damage(amount = 1) {
@@ -76,6 +88,7 @@ class Enemy {
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
         super(x, y);
+        this.image = images.BasicShooterEnemy
     }
 
     update() {
@@ -112,19 +125,6 @@ class ShooterEnemy extends Enemy {
             this.speed--;
         }
         super.update();
-    }
-
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.BasicShooterEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
     }
 
     onDeath() {
@@ -148,6 +148,7 @@ class AdvancedShooterEnemy extends Enemy {
         this.width = 60;
         this.height = this.width;
         this.colour = "purple";
+        this.image = images.AdvancedShooterEnemy;
     }
 
     update() {
@@ -184,19 +185,6 @@ class AdvancedShooterEnemy extends Enemy {
             this.speed--;
         }
         super.update();
-    }
-
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.AdvancedShooterEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
     }
 
     onDeath() {
@@ -222,6 +210,7 @@ class TwinshotEnemy extends Enemy {
         this.hp = 2;
         this.fireRate = 100;
         this.points = 2;
+        this.image = images.TwinshotEnemy;
     }
 
     update() {
@@ -261,19 +250,6 @@ class TwinshotEnemy extends Enemy {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.TwinshotEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
-    }
-
     onDeath() {
         super.onDeath();
         explosion1.currentTime = 0;
@@ -298,6 +274,7 @@ class TripleshotEnemy extends Enemy {
         this.hp = 3;
         this.fireRate = 100;
         this.points = 4;
+        this.image = images.TripleshotEnemy;
     }
 
     update() {
@@ -338,19 +315,6 @@ class TripleshotEnemy extends Enemy {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.TripleshotEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
-    }
-
     onDeath() {
         super.onDeath();
         explosion1.currentTime = 0;
@@ -374,7 +338,8 @@ class Turret extends Enemy {
         this.hp = 5;
         this.fireRate = 40;
         this.points = 4; // Points gained when this enemy is killed
-        this.aggroDistance = 1000; // Distance from the player where enemy is active.d
+        this.aggroDistance = 1000; // Distance from the player where enemy is active
+        this.image = images.Turret;
     }
 
     update() {
@@ -395,19 +360,6 @@ class Turret extends Enemy {
         }
 
         super.update();
-    }
-
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.Turret, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
     }
 
     onDeath() {
@@ -435,6 +387,7 @@ class CargoEnemy extends Enemy {
         this.hp = 3;
         this.points = 10;
         this.aggroDistance = 750;
+        this.image = images.CargoEnemy;
     }
 
     update() {
@@ -464,19 +417,6 @@ class CargoEnemy extends Enemy {
         super.update();
     }
 
-    render(viewport, canvas, ctx) {
-        let displayX = this.x - viewport.x;
-        let displayY = this.y - viewport.y;
-        if (this.isVisible(viewport, displayX, displayY)) {
-            ctx.beginPath();
-            ctx.translate(displayX, displayY);
-            ctx.rotate(this.angle * Math.PI / 180);
-            ctx.drawImage(images.CargoEnemy, -this.width / 2, -this.height / 2, this.width, this.height);
-            ctx.rotate(-(this.angle * Math.PI / 180));
-            ctx.translate(-displayX, -displayY);
-        }
-    }
-
     onDeath() {
         super.onDeath();
         explosion1.currentTime = 0;
@@ -503,7 +443,7 @@ class Explosion {
         this.timer--;
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x - viewport.x;
         let displayY = this.y - viewport.y;
         let image = images.ExplosionFrames;

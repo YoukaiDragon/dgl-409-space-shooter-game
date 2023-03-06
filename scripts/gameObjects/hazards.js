@@ -16,7 +16,7 @@ class Asteroid {
         this.y += Math.sin(this.angle * (Math.PI / 180)) * this.speed;
     }
 
-    render(viewport, canvas, ctx) {
+    render(viewport, ctx) {
         let displayX = this.x + this.radius - viewport.x;
         let displayY = this.y + this.radius - viewport.y;
         if (this.isVisible(displayX, displayY, viewport)) {
