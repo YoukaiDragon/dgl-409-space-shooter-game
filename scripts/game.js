@@ -920,18 +920,15 @@ function roundCollision(roundObject, object) {
 function spawnPickups() {
     let spawnX;
     let spawnY;
-    let vpSpawnX;
-    let vpSpawnY;
 
     let spawnBuffer = 20;
+    let spawnDistance = 0;
 
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
 
-        vpSpawnX = spawnX - viewport.x;
-        vpSpawnY = spawnY - viewport.y;
     } while (spawnX > (viewport.x - spawnBuffer)
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
@@ -953,8 +950,6 @@ function spawnPickups() {
 function spawnEnemies() {
     let spawnX;
     let spawnY;
-    let vpSpawnX;
-    let vpSpawnY;
 
     let spawnBuffer = 20;
 
@@ -963,8 +958,6 @@ function spawnEnemies() {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
 
-        vpSpawnX = spawnX - viewport.x;
-        vpSpawnY = spawnY - viewport.y;
     } while (spawnX > (viewport.x - spawnBuffer)
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
@@ -990,18 +983,12 @@ function spawnEnemies() {
 function spawnAsteroid() {
     let spawnX;
     let spawnY;
-    let vpSpawnX;
-    let vpSpawnY;
-
     let spawnBuffer = 30;
 
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
-
-        vpSpawnX = spawnX - viewport.x;
-        vpSpawnY = spawnY - viewport.y;
     } while (spawnX > (viewport.x - spawnBuffer)
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
