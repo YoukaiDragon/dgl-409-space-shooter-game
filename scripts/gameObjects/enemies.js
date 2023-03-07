@@ -310,7 +310,7 @@ class TripleshotEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 20 * this.turnSpeed || angleDiff > 360 - 20 * this.turnSpeed) {
-                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 6, false));
                     enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 10, 6, false));
                     enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 10, 6, false));
                     this.nextShotTime = this.fireRate;
