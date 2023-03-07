@@ -56,6 +56,10 @@ class Enemy {
 
     damage(amount = 1) {
         this.hp -= amount;
+        if (this.hp > 0) {
+            enemyHitSound.currentTime = 0;
+            enemyHitSound.play();
+        }
     }
 
     // Each enemy should also return a value used to determine if they drop a pickup

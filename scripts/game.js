@@ -92,6 +92,7 @@ let shortLaserSound = new Audio("./Assets/sounds/mixkit-short-laser-gun-shot-167
 let whipLaserSound = new Audio("./Assets/sounds/mixkit-game-whip-shot-1512.wav");
 let explosion1 = new Audio("./Assets/sounds/Explosion1.wav");
 let explosion2 = new Audio("./Assets/sounds/Explosion2.wav");
+let enemyHitSound = new Audio("./Assets/sounds/EnemyHit.wav");
 
 let quietSoundBaseVolume = 0.5;
 let weaponSoundBaseVolume = 0.2;
@@ -100,6 +101,7 @@ shortLaserSound.volume = weaponSoundBaseVolume;
 explosion1.volume = quietSoundBaseVolume;
 explosion2.volume = quietSoundBaseVolume;
 hitSound.volume = quietSoundBaseVolume;
+enemyHitSound.volume = quietSoundBaseVolume;
 
 // Images
 const background = document.getElementById("gameBackground");
@@ -771,6 +773,7 @@ function setSFXVolume() {
     whipLaserSound.volume = weaponSoundBaseVolume * sfxPercent;
     explosion1.volume = quietSoundBaseVolume * sfxPercent
     explosion2.volume = quietSoundBaseVolume * sfxPercent;
+    enemyHitSound.volume = quietSoundBaseVolume * sfxPercent;
 }
 
 window.addEventListener("mousedown", (e) => {
