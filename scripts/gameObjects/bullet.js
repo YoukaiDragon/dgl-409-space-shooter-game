@@ -1,10 +1,10 @@
 class Bullet {
-    constructor(x, y, angle, speed, duration, radius, playerOwned) {
+    constructor(x, y, angle, speed, radius, playerOwned) {
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.speed = speed;
-        this.duration = duration;
+        this.duration = 400;
         this.radius = radius;
         this.playerOwned = playerOwned;
     }

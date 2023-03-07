@@ -120,7 +120,7 @@ class ShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 100, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -180,7 +180,7 @@ class AdvancedShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -242,8 +242,8 @@ class TwinshotEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 20 * this.turnSpeed || angleDiff > 360 - 20 * this.turnSpeed) {
-                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
-                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 10, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 10, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -306,9 +306,9 @@ class TripleshotEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 20 * this.turnSpeed || angleDiff > 360 - 20 * this.turnSpeed) {
-                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 25, 110, 6, false));
-                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 25, 110, 6, false));
-                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 25, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 110, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (this.angle + 25) % 360, 10, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, (360 + this.angle - 25) % 360, 10, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
@@ -351,14 +351,14 @@ class Turret extends Enemy {
         if (distance <= this.aggroDistance && this.nextShotTime == 0) {
             let bulletRadius = 12;
             // Adjust height using bullet radius so spawning bullets line up properly with the sprite
-            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, bulletRadius, false));
             enemyBullets.push(new Bullet(this.x, this.y, 45, 10, 800, 12, false));
-            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, 800, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, 800, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, 800, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 225, 10, 800, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 270, 10, 800, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 315, 10, 800, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 225, 10, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 270, 10, bulletRadius, false));
+            enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 315, 10, bulletRadius, false));
             this.nextShotTime = this.fireRate;
         }
 
