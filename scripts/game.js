@@ -60,7 +60,9 @@ let hazards;
 let pickups;
 let effects;
 let pickupSpawnTimer;
+let pickupMaxSpawnDistance = 3000;
 let enemySpawnTimer;
+let enemyMaxSpawnDistance = 6000;
 let asteroidSpawnTimer;
 let specialReady = false;
 
@@ -921,18 +923,19 @@ function spawnPickups() {
     let spawnX;
     let spawnY;
 
-    let spawnBuffer = 20;
+    let spawnBuffer = 100;
     let spawnDistance = 0;
 
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
-
+        spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
     } while (spawnX > (viewport.x - spawnBuffer)
-    && spawnX < (viewport.x + viewport.width + spawnBuffer)
-    && spawnY > (viewport.y - spawnBuffer)
-        && spawnY < (viewport.y + viewport.height + spawnBuffer));
+        && spawnX < (viewport.x + viewport.width + spawnBuffer)
+        && spawnY > (viewport.y - spawnBuffer)
+        && spawnY < (viewport.y + viewport.height + spawnBuffer)
+        && spawnDistance > pickupMaxSpawnDistance);
 
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
@@ -951,17 +954,19 @@ function spawnEnemies() {
     let spawnX;
     let spawnY;
 
-    let spawnBuffer = 20;
+    let spawnBuffer = 200;
+    let spawnDistance = 0;
 
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
-
+        spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
     } while (spawnX > (viewport.x - spawnBuffer)
-    && spawnX < (viewport.x + viewport.width + spawnBuffer)
-    && spawnY > (viewport.y - spawnBuffer)
-        && spawnY < (viewport.y + viewport.height + spawnBuffer));
+        && spawnX < (viewport.x + viewport.width + spawnBuffer)
+        && spawnY > (viewport.y - spawnBuffer)
+        && spawnY < (viewport.y + viewport.height + spawnBuffer)
+        && spawnDistance > enemyMaxSpawnDistance);
     // Spawn a random enemy type
     let enemyType = Math.random() * 100;
     if (enemyType < 45) {
