@@ -178,9 +178,10 @@ function update() {
         let playerDisplayX = player.x - viewport.x;
         let playerDisplayY = player.y - viewport.y;
         let targetAngle = getAngleToViewport(player);
+
         if (playerDisplayX < viewport.width * 1 / 3 || playerDisplayX > viewport.width * 2 / 3
             || playerDisplayY < viewport.height * 3 / 8 || playerDisplayY > viewport.height * 5 / 8) {
-            viewport.speed < viewport.maxSpeed ? viewport.speed++ : viewport.speed = viewport.maxSpeed;
+            viewport.speed < viewport.maxSpeed ? viewport.speed += 2 : viewport.speed = viewport.maxSpeed;
         } else {
             viewport.speed > 4 ? viewport.speed -= 4 : viewport.speed = 0;
         }
