@@ -4,9 +4,9 @@ class Bullet {
         this.y = y;
         this.angle = angle;
         this.speed = speed;
-        this.duration = 400;
         this.radius = radius;
         this.playerOwned = playerOwned;
+        this.duration = playerOwned ? 40 : 400;
     }
 
     update() {

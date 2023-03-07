@@ -152,20 +152,20 @@ class Player {
             shortLaserSound.play();
             switch (this.shotType) {
                 case 0:
-                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 6, true));
                     this.nextShotTime = this.fireRates[0];
                     break;
                 case 1:
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 10) % 360, 35, 40, 6, true));
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 10) % 360, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 10) % 360, 35, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 10) % 360, 35, 6, true));
                     this.nextShotTime = this.fireRates[1];
                     this.ammo--;
                     if (this.ammo == 0) { this.shotType = 0 }
                     break;
                 case 2:
                     this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 40, 6, true));
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 12) % 360, 35, 40, 6, true));
-                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 12) % 360, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 12) % 360, 35, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 12) % 360, 35, 6, true));
                     this.nextShotTime = this.fireRates[2];
                     this.ammo--;
                     if (this.ammo == 0) { this.shotType = 0 }
