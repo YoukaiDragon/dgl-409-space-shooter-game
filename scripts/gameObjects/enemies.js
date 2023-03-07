@@ -88,6 +88,9 @@ class Enemy {
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
         super(x, y);
+        this.width = 60;
+        this.height = this.width;
+        this.turnSpeed = 4;
         this.image = images.BasicShooterEnemy
     }
 
@@ -117,7 +120,7 @@ class ShooterEnemy extends Enemy {
                 this.nextShotTime--;
             } else {
                 if (angleDiff < 30 || angleDiff > 330) {
-                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 20, 100, 6, false));
+                    enemyBullets.push(new Bullet(this.x, this.y, this.angle, 10, 100, 6, false));
                     this.nextShotTime = this.fireRate;
                 }
             }
