@@ -60,10 +60,19 @@ let hazards;
 let pickups;
 let effects;
 let pickupSpawnTimer;
-let pickupMaxSpawnDistance = 3000;
+let pickupTimerBase;
+let pickupTimerVariance;
+let pickupMaxSpawnDistance;
 let enemySpawnTimer;
-let enemyMaxSpawnDistance = 6000;
+let enemyTimerBase;
+let enemyTimerVariance;
+let enemyMaxSpawnDistance;
 let asteroidSpawnTimer;
+let asteroidTimerBase;
+let asteroidTimerVariance;
+let intensityTimer; // control when enemy / pickup spawn parameters change
+let intensityLevel;
+let intensityMax = 10;
 let specialReady = false;
 
 // For High Scores
@@ -136,10 +145,21 @@ function newGame() {
     enemyBullets = [];
     hazards = [];
     effects = [];
+
+    pickupMaxSpawnDistance = 3000;
+    enemyMaxSpawnDistance = 6000;
+
     timerIntervalId = setInterval(countDown, 1000);
-    pickupSpawnTimer = Math.floor(Math.random() * 20) + 5;
-    enemySpawnTimer = Math.floor(Math.random() * 15) + 5;
-    asteroidSpawnTimer = Math.floor(Math.random() * 30 + 40);
+    pickupTimerBase = 20;
+    pickupTimerVariance = 10;
+    pickupSpawnTimer = Math.floor(Math.random() * pickupTimerVariance) + pickupTimerBase;
+    enemyTimerBase = 30;
+    enemyTimerVariance = 40;
+    enemySpawnTimer = Math.floor(Math.random() * enemyTimerVariance) + enemyTimerBase;
+    asteroidTimerBase = 50;
+    asteroidTimerVariance = 50
+    asteroidSpawnTimer = Math.floor(Math.random() * asteroidTimerVariance) + asteroidTimerBase;
+    intensityLevel = 1;
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -344,21 +364,21 @@ function update() {
         pickupSpawnTimer--;
         if (pickupSpawnTimer == 0) {
             spawnPickups();
-            pickupSpawnTimer = Math.floor(Math.random() * 20) + 10;
+            pickupSpawnTimer = Math.floor(Math.random() * pickupTimerVariance) + pickupTimerBase;
         }
 
         // spawn enemies
         enemySpawnTimer--;
         if (enemySpawnTimer == 0) {
             spawnEnemies();
-            enemySpawnTimer = Math.floor(Math.random() * 50) + 25;
+            enemySpawnTimer = Math.floor(Math.random() * enemyTimerVariance) + enemyTimerBase;
         }
 
         // spawn asteroids
         asteroidSpawnTimer--;
         if (asteroidSpawnTimer == 0) {
             spawnAsteroid();
-            asteroidSpawnTimer = Math.floor(Math.random);
+            asteroidSpawnTimer = Math.floor(Math.random() * asteroidTimerVariance) + asteroidTimerBase;
         }
 
         if (player.lives <= 0) { gameOver() }
