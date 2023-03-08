@@ -10,7 +10,7 @@ class Pickup {
     update() {
         this.duration--;
     }
-    
+
     onPickup() {
         collectSound.currentTime = 0;
         collectSound.play();
@@ -194,5 +194,33 @@ class scorePickup extends Pickup {
     onPickup() {
         super.onPickup();
         score += this.points;
+    }
+}
+
+class bombPickup extends Pickup {
+    constructor(x, y) {
+        super(x, y);
+        this.width = 40;
+        this.height = this.width;
+    }
+
+    update() {
+        super.update();
+    }
+
+    render(viewport, ctx) {
+        let displayX = this.x - viewport.x;
+        let displayY = this.y - viewport.y;
+        if (displayX < this.width * -1 || displayX > viewport.width
+            || displayY < this.height * -1 || displayY > viewport.height) {
+            return; // Out of viewport, do not display
+        }
+        ctx.beginPath();
+        ctx.drawImage(images.BombPickup, displayX, displayY, this.width, this.height);
+    }
+
+    onPickup() {
+        super.onPickup();
+        player.bombs++;
     }
 }
