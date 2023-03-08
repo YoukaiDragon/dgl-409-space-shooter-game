@@ -119,7 +119,7 @@ class healthPickup extends Pickup {
 
     onPickup() {
         super.onPickup();
-        player.lives++;
+        player.health++;
     }
 }
 
