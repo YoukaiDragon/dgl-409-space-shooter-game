@@ -3,7 +3,7 @@ class Player {
     constructor(x, y, steeringControls) {
         this.x = x;
         this.y = y;
-        this.lives = 3;
+        this.health = 5;
         this.score = 0;
         this.maxSpeed = 20;
         this.width = 50;
@@ -218,9 +218,9 @@ class Player {
 
     damage() {
         if (this.invincibilityTime == 0) {
-            this.lives--;
+            this.health--;
             this.invincibilityTime = 40;
-            if (this.lives > 0) {
+            if (this.health > 0) {
                 hitSound.currentTime = 0;
                 hitSound.play();
             }
