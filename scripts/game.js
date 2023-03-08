@@ -434,7 +434,7 @@ function update() {
             asteroidSpawnTimer = Math.floor(Math.random() * asteroidTimerVariance) + asteroidTimerBase;
         }
 
-        if (player.health <= 0) { gameOver() }
+        if (player.lives <= 0) { gameOver() }
     }
 }
 
@@ -787,7 +787,7 @@ function render(viewport, canvas, ctx) {
         ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 3 / 64);
         ctx.beginPath();
         ctx.textAlign = "left";
-        ctx.fillText("Health: " + player.health, canvas.width / 64, canvas.height * 3 / 64);
+        ctx.fillText("Health: " + player.lives, canvas.width / 64, canvas.height * 3 / 64);
         ctx.fillText("Score: " + score, canvas.width / 64, canvas.height * 6 / 64);
         ctx.fillText("Bombs: " + player.bombs, canvas.width / 64, canvas.height - (canvas.height / 64));
         if (player.shotType != 0) {
