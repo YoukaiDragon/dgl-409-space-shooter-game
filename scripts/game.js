@@ -476,12 +476,14 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Items (cont.)", canvas.width / 2, canvas.height * 5 / 16);
                         ctx.textAlign = "left";
                         ctx.font = "20px Arial";
-                        ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 13 / 32, 50, 50);
-                        ctx.fillText("Grants ammo and upgrades default weapon to", canvas.width * 5 / 16, canvas.height * 28 / 64);
-                        ctx.fillText("fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 30 / 64);
-                        ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 17 / 32, 50, 50);
-                        ctx.fillText("Grants ammo and upgrades weapon to fire", canvas.width * 5 / 16, canvas.height * 36 / 64);
-                        ctx.fillText("3 shots at once", canvas.width * 5 / 16, canvas.height * 38 / 64);
+                        ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.fillText("Grants ammo and upgrades default weapon to", canvas.width * 5 / 16, canvas.height * 26 / 64);
+                        ctx.fillText("fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 28 / 64);
+                        ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.fillText("Grants ammo and upgrades weapon to fire", canvas.width * 5 / 16, canvas.height * 34 / 64);
+                        ctx.fillText("3 shots at once", canvas.width * 5 / 16, canvas.height * 36 / 64);
+                        ctx.drawImage(images.BombPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.fillText("Grants 1 additional bomb", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                 }
                 break;
