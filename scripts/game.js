@@ -83,7 +83,7 @@ let highScoreString;
 let highScores;
 
 let instructionPage = 1;
-let maxInstructionPage = 4;
+let maxInstructionPage = 6;
 
 let timer;
 let timerIntervalId;
@@ -557,6 +557,32 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("3 shots at once", canvas.width * 5 / 16, canvas.height * 36 / 64);
                         ctx.drawImage(images.BombPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
                         ctx.fillText("Grants 1 additional bomb", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        break;
+                    case 5:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Enemies", canvas.width / 2, canvas.height * 5 / 16);
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.fillText("Basic enemy, fires 1 shot at a time", canvas.width * 5 / 16, canvas.height * 27 / 64);
+                        ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.fillText("Stronger, tougher version of basic enemy", canvas.width * 5 / 16, canvas.height * 35 / 64);
+                        ctx.drawImage(images.TwinshotEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.fillText("Fires 2 shots in a 'V' pattern", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        break;
+                    case 6:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Enemies (cont.)", canvas.width / 2, canvas.height * 5 / 16);
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.drawImage(images.TripleshotEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.fillText("Strong enemy, fires a 3 shot spread", canvas.width * 5 / 16, canvas.height * 27 / 64);
+                        ctx.drawImage(images.Turret, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.fillText("Stationary, fires 8 shots in a ring", canvas.width * 5 / 16, canvas.height * 35 / 64);
+                        ctx.drawImage(images.CargoEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.fillText("Runs away, drops strong pickups on death", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                 }
                 break;
