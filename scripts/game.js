@@ -291,6 +291,9 @@ function update() {
                             case 'tripleShot':
                                 pickups.push(new tripleShotPickup(enemies[j].x, enemies[j].y));
                                 break;
+                            case 'bomb':
+                                pickups.push(new bombPickup(enemies[j].j, enemies[j].y));
+                                break;
                             default:
                                 // Spawn nothing
                                 break;

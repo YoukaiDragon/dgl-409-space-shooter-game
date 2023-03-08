@@ -433,6 +433,7 @@ class CargoEnemy extends Enemy {
         if (dropValue > 70) { return 'tripleShot' }
         if (dropValue > 25) { return 'twinShot' }
         if (dropValue > 10) { return 'time' }
+        if (dropValue > 5) { return 'bomb' }
         return 'scoreLG'
     }
 }
