@@ -750,11 +750,11 @@ canvas.addEventListener("click", (e) => {
         if (gameState == GameStates.Instructions) {
             if (mouseY >= canvas.height * 29 / 64 && mouseY <= canvas.height * 33 / 64) {
                 if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32) {
-                    instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
+                    instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                 } else if (mouseX >= canvas.width * 25 / 32 && mouseX <= canvas.width * 27 / 32) {
-                    instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+                    instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                 }
