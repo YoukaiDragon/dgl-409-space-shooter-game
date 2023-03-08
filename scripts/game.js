@@ -425,6 +425,37 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
                 ctx.fillText('<<', canvas.width * 3 / 16, canvas.height / 2);
                 ctx.fillText('>>', canvas.width * 13 / 16, canvas.height / 2);
+                
+                // Display the instructions
+                switch(instructionPage) {
+                    case 1:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Objective", canvas.width / 2, canvas.height * 5 / 16);
+                        
+                        ctx.textAlign = "left";
+                        ctx.font = "24px Arial";
+                        ctx.fillText("Survive while collecting golden stars and", canvas.width / 4, canvas.height * 6 / 16);
+                        ctx.fillText("powerups and destroying enemies to get", canvas.width / 4, canvas.height * 7 / 16);
+                        ctx.fillText("as many points as possible before time", canvas.width / 4, canvas.height * 8 / 16);
+                        ctx.fillText("runs out.", canvas.width / 4, canvas.height * 9 / 16);
+                        break;
+                    case 2:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Controls", canvas.width / 2, canvas.height * 5 / 16);
+
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.fillText("Steering Mode:    W / Up: Speed up", canvas.width / 4, canvas.height * 12 / 32);
+                        ctx.fillText("                             S / Down: Slow down / Reverse", canvas.width / 4, canvas.height * 13 / 32);
+                        ctx.fillText("                             A D / Left Right: Rotate", canvas.width / 4, canvas.height * 14 / 32);
+                        ctx.fillText("8-Direction Mode: WASD / Arrow Keys: Move", canvas.width / 4, canvas.height * 16 / 32);
+                        ctx.fillText("Spacebar / Left Mouse: Fire main weapon", canvas.width / 4, canvas.height * 18 / 32);
+                        ctx.fillText("F / Right Mouse: Bomb (Heavy damage to nearby enemies)", canvas.width / 4, canvas.height * 20 / 32);
+                    case 3:
+                        break;
+                }
                 break;
             case GameStates.Options:
                 ctx.fillText("Options", canvas.width / 2, canvas.height * 7 / 32);
