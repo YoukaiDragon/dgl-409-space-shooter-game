@@ -83,7 +83,7 @@ let highScoreString;
 let highScores;
 
 let instructionPage = 1;
-let maxInstructionPage = 6;
+let maxInstructionPage = 7;
 
 let timer;
 let timerIntervalId;
@@ -583,6 +583,16 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Stationary, fires 8 shots in a ring", canvas.width * 5 / 16, canvas.height * 35 / 64);
                         ctx.drawImage(images.CargoEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
                         ctx.fillText("Runs away, drops strong pickups on death", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        break;
+                    case 7:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Hazards", canvas.width / 2, canvas.height * 5 / 16);
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.drawImage(images.asteroidA, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.fillText("Blocks ships and bullets", canvas.width * 5 / 16, canvas.height * 26 / 64);
+                        ctx.fillText("damages player on contact", canvas.width * 5 / 16, canvas.height * 28 / 64);
                         break;
                 }
                 break;
