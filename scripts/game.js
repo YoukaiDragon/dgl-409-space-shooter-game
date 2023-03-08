@@ -348,7 +348,44 @@ function update() {
                             player.y = hazards[i].y + 3 * hazards[i].radius + player.height / 2;
                         }
                     }
+                    for(let j = enemies.length - 1; j >= 0; j--) {
+                        if (roundCollision(hazards[i], enemies[j])) {
+                            if (enemies[j].x - enemies[j].width / 2 < hazards[i].x + hazards[i].radius) {
+                                enemies[j].x = hazards[i].x + hazards[i].radius - enemies[j].width / 2;
+                            } else if (enemies[j].x + enemies[j].width / 2 > hazards[i].x + 3 * hazards[i].radius) {
+                                enemies[j].x = hazards[i].x + 3 * hazards[i].radius + enemies[j].width / 2;
+                            }
+                            if (enemies[j].y - enemies[j].height / 2 < hazards[i].y + hazards[i].radius) {
+                                enemies[j].y = hazards[i].y + hazards[i].radius - enemies[j].height / 2;
+                            } else if (enemies[j].y + enemies[j].height / 2 > hazards[i].y + 3 * hazards[i].radius) {
+                                enemies[j].y = hazards[i].y + 3 * hazards[i].radius + enemies[j].height / 2;
+                            }
+                        }
+                    }
                     break;
+            }
+        }
+
+        // Check collisions between bullets and hazards
+        for (let i = player.bullets.length - 1; i >= 0; i--) {
+            for (let j = hazards.length - 1; j >= 0; j--) {
+                if (roundCollision(hazards[j], player.bullets[i])) {
+                    enemyHitSound.currentTime = 0;
+                    enemyHitSound.play();
+                    player.bullets.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        for (let i = enemyBullets.length - 1; i >= 0; i--) {
+            for (let j = hazards.length - 1; j >= 0; j--) {
+                if (roundCollision(hazards[j], enemyBullets[i])) {
+                    enemyHitSound.currentTime = 0;
+                    enemyHitSound.play();
+                    enemyBullets.splice(i, 1);
+                    break;
+                }
             }
         }
 
@@ -1020,6 +1057,27 @@ function collectPickups(pickup, player) {
 function roundCollision(roundObject, object) {
     // The roundObject.radius added to the roundObject position on each check to offset
     // difference between the object origin and object center
+
+    // Check for collision between two round objects
+    if (object.hasOwnProperty('radius')) {
+        // Check if roundObject is to the right of the other object
+        if (object.x + object.radius < roundObject.x + roundObject.radius) {
+            return false;
+        }
+        // Check if roundObject is to the left of the other object
+        if (object.x - object.radius > roundObject.x + roundObject.radius * 3) {
+            return false;
+        }
+        // Check if roundObject is below the other object
+        if (object.y + object.radius < roundObject.y + roundObject.radius) {
+            return false;
+        }
+        // Check if roundObject is above the other object
+        if (object.y - object.radius > roundObject.y + roundObject.radius * 3) {
+            return false;
+        }
+        return true;
+    }
 
     // Check if roundObject is to the right of the other object
     if (object.x + object.width / 2 < roundObject.x + roundObject.radius) {
