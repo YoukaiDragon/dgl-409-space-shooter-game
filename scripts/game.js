@@ -81,6 +81,8 @@ let timerIntervalId;
 
 let score;
 
+let steeringControls = false;
+
 // sounds and music
 let gameMusic = new Audio("./Assets/sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
 gameMusic.loop = true;
@@ -126,7 +128,7 @@ function gameFrame(viewport, canvas, ctx) {
 function newGame() {
     score = 0;
     timer = 100;
-    player = new Player(gameWidth / 2, gameHeight / 2);
+    player = new Player(gameWidth / 2, gameHeight / 2, steeringControls);
     viewport.x = player.x - canvas.width / 2;
     viewport.y = player.y - canvas.height / 2;
     pickups = [];
@@ -435,6 +437,22 @@ function render(viewport, canvas, ctx) {
                 ctx.fillStyle = black;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
+                // Draw the control mode buttons
+                ctx.fillText("Control Style", canvas.width / 2, canvas.height * 10 / 32);
+                ctx.fillText("8-Direction", canvas.width * 6 / 16, canvas.height * 55 / 128);
+                ctx.fillText("Steering", canvas.width * 3 / 4, canvas.height * 55 / 128);
+                ctx.beginPath();
+                ctx.fillStyle = !steeringControls ? green : "gray";
+                ctx.strokeStyle = black;
+                ctx.arc(canvas.width * 7 / 32, canvas.height * 13 / 32, 30, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillStyle = steeringControls ? green : "gray";
+                ctx.arc(canvas.width * 5 / 8, canvas.height * 13 / 32, 30, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+
                 // Draw volume control sliders
                 ctx.beginPath();
                 ctx.fillStyle = "gray";
@@ -681,6 +699,25 @@ canvas.addEventListener("click", (e) => {
                     menuButtonSound.play();
                 } else if (mouseX >= canvas.width * 25 / 32 && mouseX <= canvas.width * 27 / 32) {
                     instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                }
+            }
+        }
+
+        // Check for options page buttons
+        if (gameState == GameStates.Options) {
+            let btnCenterY = canvas.height * 13 / 32;
+            let leftBtnCenterX = canvas.width * 7 / 32;
+            let rightBtnCenterX = canvas.width * 5 / 8;
+            let btnRadius = 30;
+            if (mouseY >= (btnCenterY - btnRadius) && mouseY <= (btnCenterY + btnRadius)) {
+                if (mouseX >= (leftBtnCenterX - btnRadius) && mouseX <= (leftBtnCenterX + btnRadius)) {
+                    steeringControls = false;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                } else if (mouseX >= (rightBtnCenterX - btnRadius) && mouseX <= (rightBtnCenterX + btnRadius)) {
+                    steeringControls = true;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                 }
@@ -935,9 +972,9 @@ function spawnPickups() {
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
     } while (spawnX > (viewport.x - spawnBuffer)
-        && spawnX < (viewport.x + viewport.width + spawnBuffer)
-        && spawnY > (viewport.y - spawnBuffer)
-        && spawnY < (viewport.y + viewport.height + spawnBuffer)
+    && spawnX < (viewport.x + viewport.width + spawnBuffer)
+    && spawnY > (viewport.y - spawnBuffer)
+    && spawnY < (viewport.y + viewport.height + spawnBuffer)
         && spawnDistance > pickupMaxSpawnDistance);
 
     // spawn a random pickup
@@ -966,9 +1003,9 @@ function spawnEnemies() {
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
     } while (spawnX > (viewport.x - spawnBuffer)
-        && spawnX < (viewport.x + viewport.width + spawnBuffer)
-        && spawnY > (viewport.y - spawnBuffer)
-        && spawnY < (viewport.y + viewport.height + spawnBuffer)
+    && spawnX < (viewport.x + viewport.width + spawnBuffer)
+    && spawnY > (viewport.y - spawnBuffer)
+    && spawnY < (viewport.y + viewport.height + spawnBuffer)
         && spawnDistance > enemyMaxSpawnDistance);
     // Spawn a random enemy type
     let enemyType = Math.random() * 100;

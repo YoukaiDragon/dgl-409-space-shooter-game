@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(x, y) {
+    constructor(x, y, steeringControls) {
         this.x = x;
         this.y = y;
         this.lives = 3;
@@ -28,7 +28,7 @@ class Player {
             when TRUE: up / down accelerate and decelerate, while left and right steer the player
             when FALSE: 8-directional movement (press one key to move in that direction, press up/down and left/right to move diagonally)
         */
-        this.steeringControls = false;
+        this.steeringControls = steeringControls;
     }
 
     update(controller) {
