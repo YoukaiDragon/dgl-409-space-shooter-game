@@ -74,7 +74,7 @@ let highScoreString;
 let highScores;
 
 let instructionPage = 1;
-let maxInstructionPage = 3;
+let maxInstructionPage = 4;
 
 let timer;
 let timerIntervalId;
@@ -425,14 +425,14 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
                 ctx.fillText('<<', canvas.width * 3 / 16, canvas.height / 2);
                 ctx.fillText('>>', canvas.width * 13 / 16, canvas.height / 2);
-                
+
                 // Display the instructions
-                switch(instructionPage) {
+                switch (instructionPage) {
                     case 1:
                         ctx.textAlign = "center";
                         ctx.font = "32px Arial";
                         ctx.fillText("Objective", canvas.width / 2, canvas.height * 5 / 16);
-                        
+
                         ctx.textAlign = "left";
                         ctx.font = "24px Arial";
                         ctx.fillText("Survive while collecting golden stars and", canvas.width / 4, canvas.height * 6 / 16);
@@ -453,7 +453,32 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("8-Direction Mode: WASD / Arrow Keys: Move", canvas.width / 4, canvas.height * 16 / 32);
                         ctx.fillText("Spacebar / Left Mouse: Fire main weapon", canvas.width / 4, canvas.height * 18 / 32);
                         ctx.fillText("F / Right Mouse: Bomb (Heavy damage to nearby enemies)", canvas.width / 4, canvas.height * 20 / 32);
+                        break;
                     case 3:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Items", canvas.width / 2, canvas.height * 5 / 16);
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.fillText("Gain 5(sm)/10(md)/20(lg) points", canvas.width * 5 / 16, canvas.height * 27 / 64);
+                        ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.fillText("Increase remaining time by 10 seconds", canvas.width * 5 / 16, canvas.height * 35 / 64);
+                        ctx.drawImage(images.HealthPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.fillText("Grants 1 additional HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        break;
+                    case 4:
+                        ctx.textAlign = "center";
+                        ctx.font = "32px Arial";
+                        ctx.fillText("Items (cont.)", canvas.width / 2, canvas.height * 5 / 16);
+                        ctx.textAlign = "left";
+                        ctx.font = "20px Arial";
+                        ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 13 / 32, 50, 50);
+                        ctx.fillText("Grants ammo and upgrades default weapon to", canvas.width * 5 / 16, canvas.height * 28 / 64);
+                        ctx.fillText("fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 30 / 64);
+                        ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 17 / 32, 50, 50);
+                        ctx.fillText("Grants ammo and upgrades weapon to fire", canvas.width * 5 / 16, canvas.height * 36 / 64);
+                        ctx.fillText("3 shots at once", canvas.width * 5 / 16, canvas.height * 38 / 64);
                         break;
                 }
                 break;
@@ -648,7 +673,7 @@ function render(viewport, canvas, ctx) {
         ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 3 / 64);
         ctx.beginPath();
         ctx.textAlign = "left";
-        ctx.fillText("Lives: " + player.lives, canvas.width / 64, canvas.height * 3 / 64);
+        ctx.fillText("Health: " + player.lives, canvas.width / 64, canvas.height * 3 / 64);
         ctx.fillText("Score: " + score, canvas.width / 64, canvas.height * 6 / 64);
         ctx.fillText("Bombs: " + player.bombs, canvas.width / 64, canvas.height - (canvas.height / 64));
         if (player.shotType != 0) {
