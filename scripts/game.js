@@ -162,6 +162,14 @@ function newGame() {
     intensityLevel = 1;
     intensityTimer = 60;
 
+    // spawn initial items / enemies
+    for (let i = 0; i < 10; i++) {
+        spawnEnemies();
+    }
+    for (let i = 0; i < 5; i++) {
+        spawnPickups();
+    }
+
     gameMusic.currentTime = 0;
     gameMusic.play();
     gameState = GameStates.Playing;
