@@ -160,6 +160,7 @@ function newGame() {
     asteroidTimerVariance = 50
     asteroidSpawnTimer = Math.floor(Math.random() * asteroidTimerVariance) + asteroidTimerBase;
     intensityLevel = 1;
+    intensityTimer = 60;
 
     gameMusic.currentTime = 0;
     gameMusic.play();
@@ -168,8 +169,15 @@ function newGame() {
 
 function countDown() {
     timer--;
-
     if (timer <= 0) { gameOver() }
+    
+    // Stop increasing intensity past max level
+    if (intensityLevel == intensityMax) { return }
+    intensityTimer--;
+    if (intensityTimer <= 0) {
+        intensityTimer = 60;
+        intensityLevel++;
+    }
 }
 
 function gameOver() {
