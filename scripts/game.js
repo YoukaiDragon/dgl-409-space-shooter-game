@@ -4,7 +4,7 @@
 // 'mixkit' Sound effects via https://mixkit.co/free-sound-effects/space-shooter/
 // Other sound effects created using Bfxr
 
-// <a href="https://www.freepik.com/free-vector/video-game-explosion-animation-pixel-art-explosion-animation-frames_13437690.htm">Image by macrovector</a> on Freepik
+// Explosion animation images by macrovector on Freepik https://www.freepik.com/free-vector/video-game-explosion-animation-pixel-art-explosion-animation-frames_13437690.htm"
 
 // Local storage high score list implemented with help of this page https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
 
