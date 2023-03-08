@@ -150,7 +150,7 @@ class AdvancedShooterEnemy extends Enemy {
         super(x, y);
         this.hp = 5;
         this.fireRate = 60;
-        this.turnSpeed = 4;
+        this.turnSpeed = 5;
         this.points = 3;
         this.width = 60;
         this.height = this.width;
@@ -211,7 +211,7 @@ class TwinshotEnemy extends Enemy {
     constructor(x, y) {
         super(x, y)
         this.maxSpeed = 4;
-        this.turnSpeed = 2;
+        this.turnSpeed = 3;
         this.width = 50;
         this.height = this.width;
         this.hp = 2;
@@ -275,12 +275,12 @@ class TripleshotEnemy extends Enemy {
     constructor(x, y) {
         super(x, y)
         this.maxSpeed = 5;
-        this.turnSpeed = 3;
+        this.turnSpeed = 5;
         this.width = 70;
         this.height = this.width;
         this.hp = 3;
         this.fireRate = 100;
-        this.points = 4;
+        this.points = 6;
         this.image = images.TripleshotEnemy;
     }
 
@@ -344,8 +344,8 @@ class Turret extends Enemy {
         this.turnSpeed = 0;
         this.hp = 5;
         this.fireRate = 40;
-        this.points = 4; // Points gained when this enemy is killed
-        this.aggroDistance = 1000; // Distance from the player where enemy is active
+        this.points = 4;
+        this.aggroDistance = 1000;
         this.image = images.Turret;
     }
 
