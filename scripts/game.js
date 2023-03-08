@@ -348,7 +348,7 @@ function update() {
                             player.y = hazards[i].y + 3 * hazards[i].radius + player.height / 2;
                         }
                     }
-                    for(let j = enemies.length - 1; j >= 0; j--) {
+                    for (let j = enemies.length - 1; j >= 0; j--) {
                         if (roundCollision(hazards[i], enemies[j])) {
                             if (enemies[j].x - enemies[j].width / 2 < hazards[i].x + hazards[i].radius) {
                                 enemies[j].x = hazards[i].x + hazards[i].radius - enemies[j].width / 2;
@@ -401,14 +401,14 @@ function update() {
         pickupSpawnTimer--;
         if (pickupSpawnTimer == 0) {
             spawnPickups();
-            pickupSpawnTimer = Math.floor(Math.random() * pickupTimerVariance) + pickupTimerBase;
+            pickupSpawnTimer = Math.floor(Math.random() * (pickupTimerVariance + intensityLevel)) + (pickupTimerBase + 2 * intensityLevel);
         }
 
         // spawn enemies
         enemySpawnTimer--;
         if (enemySpawnTimer == 0) {
             spawnEnemies();
-            enemySpawnTimer = Math.floor(Math.random() * enemyTimerVariance) + enemyTimerBase;
+            enemySpawnTimer = Math.floor(Math.random() * (enemyTimerVariance - intensityLevel)) + (enemyTimerBase - 2 * intensityLevel);
         }
 
         // spawn asteroids
@@ -1102,7 +1102,7 @@ function spawnPickups() {
     let spawnX;
     let spawnY;
 
-    let spawnBuffer = 100;
+    let spawnBuffer = 100 + (20 * (intensityLevel - 1));
     let spawnDistance = 0;
 
     // generate a random spawn location, then reject if too close to the player
@@ -1114,7 +1114,7 @@ function spawnPickups() {
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
     && spawnY < (viewport.y + viewport.height + spawnBuffer)
-        && spawnDistance > pickupMaxSpawnDistance);
+        && spawnDistance > (pickupMaxSpawnDistance + 100 * intensityLevel));
 
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
@@ -1145,9 +1145,9 @@ function spawnEnemies() {
     && spawnX < (viewport.x + viewport.width + spawnBuffer)
     && spawnY > (viewport.y - spawnBuffer)
     && spawnY < (viewport.y + viewport.height + spawnBuffer)
-        && spawnDistance > enemyMaxSpawnDistance);
+        && spawnDistance > (enemyMaxSpawnDistance - 120 * intensityLevel));
     // Spawn a random enemy type
-    let enemyType = Math.random() * 100;
+    let enemyType = Math.random() * 100 + intensityLevel;
     if (enemyType < 45) {
         enemies.push(new ShooterEnemy(spawnX, spawnY));
     } else if (enemyType < 60) {
@@ -1156,10 +1156,10 @@ function spawnEnemies() {
         enemies.push(new Turret(spawnX, spawnY));
     } else if (enemyType < 85) {
         enemies.push(new TwinshotEnemy(spawnX, spawnY));
-    } else if (enemyType < 95) {
-        enemies.push(new TripleshotEnemy(spawnX, spawnY));
-    } else {
+    } else if (enemyType < 90) {
         enemies.push(new CargoEnemy(spawnX, spawnY));
+    } else {
+        enemies.push(new TripleshotEnemy(spawnX, spawnY));
     }
 
 }
