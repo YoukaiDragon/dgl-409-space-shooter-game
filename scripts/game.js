@@ -468,7 +468,7 @@ function render(viewport, canvas, ctx) {
 
         switch (gameState) {
             case GameStates.Menu:
-                ctx.fillText("Space Shooter", canvas.width / 2, canvas.height * 7 / 32);
+                ctx.fillText("Ace of Space", canvas.width / 2, canvas.height * 7 / 32);
                 break;
             case GameStates.Instructions:
                 ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7 / 32);
