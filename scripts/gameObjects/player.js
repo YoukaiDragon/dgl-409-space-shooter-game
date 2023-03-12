@@ -223,6 +223,15 @@ class Player {
             if (this.hp > 0) {
                 hitSound.currentTime = 0;
                 hitSound.play();
+            } else {
+                // Kill player and trigger game over
+                explosion1.currentTime = 0;
+                explosion1.play();
+                effects.push(new Explosion(this.x, this.y, this.width, this.height));
+                // Teleport player away to stop enemies while waiting for game over screen
+                this.x = -2000;
+                this.y = -2000;
+                setTimeout(gameOver, 2000);
             }
         }
     }

@@ -213,32 +213,34 @@ function gameOver() {
 
 function update() {
     if (gameState == GameStates.Playing) {
-        player.update(controller);
-        // Move the viewport when the player gets too close to one side
-        let playerDisplayX = player.x - viewport.x;
-        let playerDisplayY = player.y - viewport.y;
-        let targetAngle = getAngleToViewport(player);
+        if (player.hp > 0) {
+            player.update(controller);
+            // Move the viewport when the player gets too close to one side
+            let playerDisplayX = player.x - viewport.x;
+            let playerDisplayY = player.y - viewport.y;
+            let targetAngle = getAngleToViewport(player);
 
-        if (playerDisplayX < viewport.width * 1 / 3 || playerDisplayX > viewport.width * 2 / 3
-            || playerDisplayY < viewport.height * 3 / 8 || playerDisplayY > viewport.height * 5 / 8) {
-            viewport.speed < viewport.maxSpeed ? viewport.speed += 2 : viewport.speed = viewport.maxSpeed;
-        } else {
-            viewport.speed > 4 ? viewport.speed -= 4 : viewport.speed = 0;
-        }
+            if (playerDisplayX < viewport.width * 1 / 3 || playerDisplayX > viewport.width * 2 / 3
+                || playerDisplayY < viewport.height * 3 / 8 || playerDisplayY > viewport.height * 5 / 8) {
+                viewport.speed < viewport.maxSpeed ? viewport.speed += 2 : viewport.speed = viewport.maxSpeed;
+            } else {
+                viewport.speed > 4 ? viewport.speed -= 4 : viewport.speed = 0;
+            }
 
-        viewport.x += Math.cos(targetAngle * Math.PI / 180) * viewport.speed;
-        viewport.y += Math.sin(targetAngle * Math.PI / 180) * viewport.speed;
+            viewport.x += Math.cos(targetAngle * Math.PI / 180) * viewport.speed;
+            viewport.y += Math.sin(targetAngle * Math.PI / 180) * viewport.speed;
 
-        // Keep the full area of the viewport within bounds
-        if (viewport.x < 0) {
-            viewport.x = 0;
-        } else if (viewport.x > gameWidth - viewport.width) {
-            viewport.x = gameWidth - viewport.width;
-        }
-        if (viewport.y < 0) {
-            viewport.y = 0;
-        } else if (viewport.y > gameHeight - viewport.height) {
-            viewport.y = gameHeight - viewport.height;
+            // Keep the full area of the viewport within bounds
+            if (viewport.x < 0) {
+                viewport.x = 0;
+            } else if (viewport.x > gameWidth - viewport.width) {
+                viewport.x = gameWidth - viewport.width;
+            }
+            if (viewport.y < 0) {
+                viewport.y = 0;
+            } else if (viewport.y > gameHeight - viewport.height) {
+                viewport.y = gameHeight - viewport.height;
+            }
         }
 
         // Update enemies
@@ -766,7 +768,7 @@ function render(viewport, canvas, ctx) {
         }
 
         // Render the player
-        player.render(viewport, ctx);
+        if (player.hp > 0) { player.render(viewport, ctx); }
 
         // Render effects
         for (let i = effects.length - 1; i >= 0; i--) {
