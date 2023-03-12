@@ -6,7 +6,7 @@ class Player {
         this.health = 5;
         this.score = 0;
         this.maxSpeed = 20;
-        this.width = 50;
+        this.width = 60;
         this.height = this.width;
         this.speed = 0;
         this.turnSpeed = 0;
