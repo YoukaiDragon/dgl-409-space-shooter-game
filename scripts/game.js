@@ -178,7 +178,7 @@ function newGame() {
 function countDown() {
     timer--;
     if (timer <= 0) { gameOver() }
-    
+
     // Stop increasing intensity past max level
     if (intensityLevel == intensityMax) { return }
     intensityTimer--;
@@ -190,21 +190,19 @@ function countDown() {
 
 function gameOver() {
     // Check if the score is a high score
-    highScoreString = localStorage.getItem(HIGH_SCORES);
-    if (highScoreString != null) {
+    try {
+        highScoreString = localStorage.getItem(HIGH_SCORES);
         highScores = highScoreString.split(',').map(function (score) {
             return parseInt(score, 10);
-        });
-
-        // Add the new score to the list, sort it, and remove the lowest score if the list is already full
-        highScores.push(score);
-        highScores.sort(function (a, b) { return b - a });
-        if (highScores.length > MAX_HIGH_SCORES) { highScores.pop() }
-        localStorage.setItem(HIGH_SCORES, highScores.toString());
-    } else {
-        highScores = [score];
-        localStorage.setItem(HIGH_SCORES, highScores.toString());
+        })
+    } catch {
+        highScores = [0, 0, 0, 0, 0];
     }
+    // Add the new score to the list, sort it, and remove the lowest score if the list is already full
+    highScores.push(score);
+    highScores.sort(function (a, b) { return b - a });
+    if (highScores.length > MAX_HIGH_SCORES) { highScores.pop() }
+    localStorage.setItem(HIGH_SCORES, highScores.toString());
 
     // Go to game over menu
     gameState = GameStates.GameOver;
@@ -840,11 +838,13 @@ canvas.addEventListener("click", (e) => {
         // Check if "High Scores" button was clicked
         if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
             gameState = GameStates.HighScore;
-            highScoreString = localStorage.getItem(HIGH_SCORES);
-            if (highScoreString != null) {
+            try {
+                highScoreString = localStorage.getItem(HIGH_SCORES);
                 highScores = highScoreString.split(',').map(function (score) {
                     return parseInt(score, 10);
                 });
+            } catch {
+                highScores = [0, 0, 0, 0, 0];
             }
 
             menuButtonSound.currentTime = 0;
