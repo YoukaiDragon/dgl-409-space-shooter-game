@@ -116,7 +116,7 @@ enemyHitSound.volume = quietSoundBaseVolume;
 
 // Images
 const background = document.getElementById("gameBackground");
-let IMAGES = ['Background', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
+let IMAGES = ['Background', 'menu', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
     'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'CargoEnemy', 'TimePickup', 'ScorePickup',
     'HealthPickup', 'TwinshotPickup', 'TripleshotPickup', 'ExplosionFrames', 'BombPickup'];
 let images;
@@ -472,8 +472,7 @@ function render(viewport, canvas, ctx) {
         || gameState == GameStates.Options || gameState == GameStates.Paused
         || gameState == GameStates.GameOver || gameState == GameStates.HighScore) {
         // Draw menu backdrop
-        ctx.fillStyle = lightBlue;
-        ctx.fillRect(canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (6 / 8));
+        ctx.drawImage(images.menu, canvas.width / 8, canvas.height / 8, canvas.width * (6 / 8), canvas.height * (13 / 16));
 
         // Draw Page Title
         ctx.fillStyle = black;
