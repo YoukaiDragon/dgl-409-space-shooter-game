@@ -664,6 +664,7 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = white;
+                ctx.font = "40px Arial";
                 ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 105 / 128);
                 break;
             case GameStates.HighScore:
@@ -908,7 +909,7 @@ canvas.addEventListener("click", (e) => {
         }
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
-            && mouseY >= canvas.height * 20 / 32 && mouseY <= canvas.height * 23 / 32) {
+            && mouseY >= canvas.height * 24 / 32 && mouseY <= canvas.height * 27 / 32) {
             gameState = GameStates.Menu;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
