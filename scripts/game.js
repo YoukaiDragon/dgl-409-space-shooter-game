@@ -81,7 +81,7 @@ const HIGH_SCORES = 'spaceShooterHighScores';
 
 let highScoreInitials;
 let selectionBlink = false;
-let selectedInitial = 0;
+let HSNameIndex = 0;
 
 let highScoreString;
 let highScores;
@@ -171,8 +171,8 @@ function newGame() {
     intensityLevel = 1;
     intensityTimer = 60;
 
-    highScoreInitials = ['A','A','A'];
-    selectedInitial = 0;
+    highScoreInitials = ['A', 'A', 'A'];
+    HSNameIndex = 0;
 
     // spawn initial items / enemies
     for (let i = 0; i < 10; i++) {
@@ -671,14 +671,14 @@ function render(viewport, canvas, ctx) {
 
                 ctx.font = " 72px Arial";
                 // Display highscore initials, blinking the current selection
-                if (selectedInitial != 0 || !selectionBlink) {
+                if (HSNameIndex != 0 || !selectionBlink) {
                     ctx.fillText(highScoreInitials[0], canvas.width / 2 - 70, canvas.height * 19 / 32);
                 }
-                if (selectedInitial != 1 || !selectionBlink) {
-                    ctx.fillText(highScoreInitials[1], canvas.width / 2, canvas.height * 19 / 32);   
+                if (HSNameIndex != 1 || !selectionBlink) {
+                    ctx.fillText(highScoreInitials[1], canvas.width / 2, canvas.height * 19 / 32);
                 }
-                if (selectedInitial != 2 || !selectionBlink) {
-                    ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70, canvas.height * 19 / 32);   
+                if (HSNameIndex != 2 || !selectionBlink) {
+                    ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70, canvas.height * 19 / 32);
                 }
 
                 ctx.beginPath();
@@ -1033,6 +1033,11 @@ window.addEventListener("keydown", (e) => {
     // Handle controller inputs
     if (e.key == 'w' || e.key == 'W' || e.key == "ArrowUp") {
         controller.upPressed = true;
+
+        if (gameState == GameStates.GameOver) {
+            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] == 
+                'A' ? 'Z' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) - 1);
+        }
     }
     if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
         controller.leftPressed = true;
@@ -1041,10 +1046,17 @@ window.addEventListener("keydown", (e) => {
             instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+        } else if (gameState == GameStates.GameOver) {
+            HSNameIndex = HSNameIndex == 0 ? highScoreInitials.length - 1 : HSNameIndex - 1;
         }
     }
     if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
         controller.downPressed = true;
+
+        if (gameState == GameStates.GameOver) {
+            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] == 
+                'Z' ? 'A' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) + 1);
+        }
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
@@ -1053,6 +1065,8 @@ window.addEventListener("keydown", (e) => {
             instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+        } else if (gameState == GameStates.GameOver) {
+            HSNameIndex = HSNameIndex == highScoreInitials.length - 1 ? 0 : HSNameIndex + 1;
         }
     }
     if (e.key == ' ') {
