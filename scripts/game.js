@@ -118,7 +118,8 @@ enemyHitSound.volume = quietSoundBaseVolume;
 const background = document.getElementById("gameBackground");
 let IMAGES = ['Background', 'menu', 'player', 'asteroidA', 'asteroidB', 'BasicShooterEnemy', 'AdvancedShooterEnemy',
     'Turret', 'TwinshotEnemy', 'TripleshotEnemy', 'CargoEnemy', 'TimePickup', 'ScorePickup',
-    'HealthPickup', 'TwinshotPickup', 'TripleshotPickup', 'ExplosionFrames', 'BombPickup'];
+    'HealthPickup', 'TwinshotPickup', 'TripleshotPickup', 'ExplosionFrames', 'BombPickup',
+    'UpArrow', 'DownArrow'];
 let images;
 
 loadImages(IMAGES, startGame);
