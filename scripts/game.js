@@ -955,6 +955,7 @@ canvas.addEventListener("click", (e) => {
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
+        // Detect clicks on HS name entry controls
         if (mouseY >= canvas.height * 27 / 64 && mouseY <= canvas.height * 27 / 64 + 40) {
             switch (HSNameIndex) {
                 case 0:
@@ -996,6 +997,14 @@ canvas.addEventListener("click", (e) => {
                             'Z' ? 'A' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) + 1);
                     }
                     break;
+            }
+        } else if (mouseY >= canvas.height * 19 / 32 - 62 && mouseY <= canvas.height * 19 / 32 + 10) {
+            if (mouseX >= canvas.width / 2 - 106 && mouseX < canvas.width / 2 - 34) {
+                HSNameIndex = 0;
+            } else if (mouseX >= canvas.width / 2 - 34 && mouseX < canvas.width / 2 + 34) {
+                HSNameIndex = 1;
+            } else if (mouseX >= canvas.width / 2 + 34 && mouseX < canvas.width / 2 + 106) {
+                HSNameIndex = 2;
             }
         }
     }
