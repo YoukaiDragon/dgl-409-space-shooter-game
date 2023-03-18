@@ -683,7 +683,7 @@ function render(viewport, canvas, ctx) {
 
                 // Draw Arrows for name entry mouse controls
                 // Horizontal offset is offset of matching HS name letter - half of arrow image width
-                switch(HSNameIndex) {
+                switch (HSNameIndex) {
                     case 0:
                         ctx.drawImage(images.UpArrow, canvas.width / 2 - 90, canvas.height * 27 / 64, 40, 40);
                         ctx.drawImage(images.DownArrow, canvas.width / 2 - 90, canvas.height * 40 / 64, 40, 40);
@@ -955,6 +955,49 @@ canvas.addEventListener("click", (e) => {
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
+        if (mouseY >= canvas.height * 27 / 64 && mouseY <= canvas.height * 27 / 64 + 40) {
+            switch (HSNameIndex) {
+                case 0:
+                    if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                        highScoreInitials[0] = highScoreInitials[0] ==
+                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) - 1);
+                    }
+                    break;
+                case 1:
+                    if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                        highScoreInitials[1] = highScoreInitials[1] ==
+                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) - 1);
+                    }
+                    break;
+                case 2:
+                    if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                        highScoreInitials[2] = highScoreInitials[2] ==
+                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) - 1);
+                    }
+                    break;
+            }
+        } else if (mouseY >= canvas.height * 40 / 64 && mouseY <= canvas.height * 40 / 64 + 40) {
+            switch (HSNameIndex) {
+                case 0:
+                    if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                        highScoreInitials[0] = highScoreInitials[0] ==
+                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) + 1);
+                    }
+                    break;
+                case 1:
+                    if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                        highScoreInitials[1] = highScoreInitials[1] ==
+                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) + 1);
+                    }
+                    break;
+                case 2:
+                    if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                        highScoreInitials[2] = highScoreInitials[2] ==
+                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) + 1);
+                    }
+                    break;
+            }
+        }
     }
 });
 
@@ -1052,7 +1095,7 @@ window.addEventListener("keydown", (e) => {
         controller.upPressed = true;
 
         if (gameState == GameStates.GameOver) {
-            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] == 
+            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] ==
                 'A' ? 'Z' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) - 1);
         }
     }
@@ -1071,7 +1114,7 @@ window.addEventListener("keydown", (e) => {
         controller.downPressed = true;
 
         if (gameState == GameStates.GameOver) {
-            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] == 
+            highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] ==
                 'Z' ? 'A' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) + 1);
         }
     }
