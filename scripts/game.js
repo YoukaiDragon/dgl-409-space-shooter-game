@@ -190,21 +190,6 @@ function countDown() {
 }
 
 function gameOver() {
-    // Check if the score is a high score
-    try {
-        highScoreString = localStorage.getItem(HIGH_SCORES);
-        highScores = highScoreString.split(',').map(function (score) {
-            return parseInt(score, 10);
-        })
-    } catch {
-        highScores = [0, 0, 0, 0, 0];
-    }
-    // Add the new score to the list, sort it, and remove the lowest score if the list is already full
-    highScores.push(score);
-    highScores.sort(function (a, b) { return b - a });
-    if (highScores.length > MAX_HIGH_SCORES) { highScores.pop() }
-    localStorage.setItem(HIGH_SCORES, highScores.toString());
-
     // Go to game over menu
     gameState = GameStates.GameOver;
     gameOverSound.play();
