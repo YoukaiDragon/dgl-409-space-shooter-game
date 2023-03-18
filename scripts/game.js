@@ -145,7 +145,7 @@ function blinkSelection() {
 // Resets game variables / entity holders for a new game
 function newGame() {
     score = 0;
-    timer = 100;
+    timer = 1;
     player = new Player(gameWidth / 2, gameHeight / 2, steeringControls);
     viewport.x = player.x - canvas.width / 2;
     viewport.y = player.y - canvas.height / 2;
@@ -679,6 +679,23 @@ function render(viewport, canvas, ctx) {
                 }
                 if (HSNameIndex != 2 || !selectionBlink) {
                     ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70, canvas.height * 19 / 32);
+                }
+
+                // Draw Arrows for name entry mouse controls
+                // Horizontal offset is offset of matching HS name letter - half of arrow image width
+                switch(HSNameIndex) {
+                    case 0:
+                        ctx.drawImage(images.UpArrow, canvas.width / 2 - 90, canvas.height * 27 / 64, 40, 40);
+                        ctx.drawImage(images.DownArrow, canvas.width / 2 - 90, canvas.height * 40 / 64, 40, 40);
+                        break;
+                    case 1:
+                        ctx.drawImage(images.UpArrow, canvas.width / 2 - 20, canvas.height * 27 / 64, 40, 40);
+                        ctx.drawImage(images.DownArrow, canvas.width / 2 - 20, canvas.height * 40 / 64, 40, 40);
+                        break;
+                    case 2:
+                        ctx.drawImage(images.UpArrow, canvas.width / 2 + 50, canvas.height * 27 / 64, 40, 40);
+                        ctx.drawImage(images.DownArrow, canvas.width / 2 + 50, canvas.height * 40 / 64, 40, 40);
+                        break;
                 }
 
                 ctx.beginPath();
