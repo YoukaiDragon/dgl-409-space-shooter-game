@@ -79,6 +79,10 @@ let specialReady = false;
 const MAX_HIGH_SCORES = 5;
 const HIGH_SCORES = 'spaceShooterHighScores';
 
+let highScoreInitials;
+let selectionBlink = false;
+let selectedInitial = 0;
+
 let highScoreString;
 let highScores;
 
@@ -134,6 +138,10 @@ function gameFrame(viewport, canvas, ctx) {
     render(viewport, canvas, ctx);
 }
 
+function blinkSelection() {
+    selectionBlink = !selectionBlink;
+}
+
 // Resets game variables / entity holders for a new game
 function newGame() {
     score = 0;
@@ -162,6 +170,9 @@ function newGame() {
     asteroidSpawnTimer = Math.floor(Math.random() * asteroidTimerVariance) + asteroidTimerBase;
     intensityLevel = 1;
     intensityTimer = 60;
+
+    highScoreInitials = ['A','A','A'];
+    selectedInitial = 0;
 
     // spawn initial items / enemies
     for (let i = 0; i < 10; i++) {
@@ -195,6 +206,7 @@ function gameOver() {
     gameOverSound.play();
     gameMusic.pause();
     clearInterval(timerIntervalId);
+    setInterval(blinkSelection, 500);
 }
 
 function update() {
@@ -656,6 +668,18 @@ function render(viewport, canvas, ctx) {
             case GameStates.GameOver:
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
                 ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 11 / 32);
+
+                ctx.font = " 72px Arial";
+                // Display highscore initials, blinking the current selection
+                if (selectedInitial != 0 || !selectionBlink) {
+                    ctx.fillText(highScoreInitials[0], canvas.width / 2 - 70, canvas.height * 19 / 32);
+                }
+                if (selectedInitial != 1 || !selectionBlink) {
+                    ctx.fillText(highScoreInitials[1], canvas.width / 2, canvas.height * 19 / 32);   
+                }
+                if (selectedInitial != 2 || !selectionBlink) {
+                    ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70, canvas.height * 19 / 32);   
+                }
 
                 ctx.beginPath();
                 ctx.fillStyle = green;
