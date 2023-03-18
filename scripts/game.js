@@ -655,16 +655,16 @@ function render(viewport, canvas, ctx) {
                 break;
             case GameStates.GameOver:
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
-                ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 16 / 32);
+                ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 11 / 32);
 
                 ctx.beginPath();
                 ctx.fillStyle = green;
                 ctx.strokeStyle = black;
-                ctx.rect(canvas.width / 4, canvas.height * 20 / 32, canvas.width / 2, canvas.height * 3 / 32);
+                ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = white;
-                ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 89 / 128);
+                ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 105 / 128);
                 break;
             case GameStates.HighScore:
                 ctx.fillText("High Scores", canvas.width / 2, canvas.height * 7 / 32);
