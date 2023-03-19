@@ -493,72 +493,63 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
                 // Draw the page indicator
-                ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
+                ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 114 / 128);
                 ctx.fillText('<<', canvas.width * 3 / 16, canvas.height * 9 / 16);
                 ctx.fillText('>>', canvas.width * 13 / 16, canvas.height * 9 / 16);
 
                 // Display the instructions
+                ctx.textAlign = "left";
                 switch (instructionPage) {
                     case 1:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Objective", canvas.width / 2, canvas.height * 5 / 16);
-
-                        ctx.textAlign = "left";
+                        ctx.fillText("Objective", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = "24px Arial";
-                        ctx.fillText("Survive while collecting golden stars and", canvas.width / 4, canvas.height * 6 / 16);
-                        ctx.fillText("powerups and destroying enemies to get", canvas.width / 4, canvas.height * 7 / 16);
-                        ctx.fillText("as many points as possible before time", canvas.width / 4, canvas.height * 8 / 16);
-                        ctx.fillText("runs out.", canvas.width / 4, canvas.height * 9 / 16);
+                        ctx.fillText("Survive while collecting golden stars and", canvas.width / 4, canvas.height * 13 / 32);
+                        ctx.fillText("powerups and destroying enemies to get", canvas.width / 4, canvas.height * 15 / 32);
+                        ctx.fillText("as many points as possible before time", canvas.width / 4, canvas.height * 17 / 32);
+                        ctx.fillText("runs out.", canvas.width / 4, canvas.height * 19 / 32);
                         break;
                     case 2:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Controls", canvas.width / 2, canvas.height * 5 / 16);
-
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
-                        ctx.fillText("Steering Mode:    W / Up: Speed up", canvas.width / 4, canvas.height * 12 / 32);
-                        ctx.fillText("                             S / Down: Slow down / Reverse", canvas.width / 4, canvas.height * 13 / 32);
-                        ctx.fillText("                             A D / Left Right: Rotate", canvas.width / 4, canvas.height * 14 / 32);
-                        ctx.fillText("8-Direction Mode: WASD / Arrow Keys: Move", canvas.width / 4, canvas.height * 16 / 32);
-                        ctx.fillText("Spacebar / Left Mouse: Fire main weapon", canvas.width / 4, canvas.height * 18 / 32);
-                        ctx.fillText("F / Right Mouse: Bomb (Heavy damage to nearby enemies)", canvas.width / 4, canvas.height * 20 / 32);
+                        ctx.fillText("Controls", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
+                        ctx.fillText("Spacebar / LMB: Fire main weapon", canvas.width / 4, canvas.height * 12 / 32);
+                        ctx.fillText("F / RMB: Bomb (Destroy nearby enemies)", canvas.width / 4, canvas.height * 14 / 32);
+                        ctx.fillText("Steering Mode:", canvas.width / 4, canvas.height * 16 / 32);
+                        ctx.fillText("    W / Up : Speed up", canvas.width / 4, canvas.height * 35 / 64);
+                        ctx.fillText("    S / Down: Brake / Reverse", canvas.width / 4, canvas.height * 38 / 64);
+                        ctx.fillText("    A D / Left Right: Rotate", canvas.width / 4, canvas.height * 41 / 64);
+                        ctx.fillText("8-Direction Mode:", canvas.width / 4, canvas.height * 23 / 32);
+                        ctx.fillText("    WASD / Arrow Keys: Move", canvas.width / 4, canvas.height * 49 / 64);
                         break;
                     case 3:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Items", canvas.width / 2, canvas.height * 5 / 16);
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
+                        ctx.fillText("Items", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
                         ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
-                        ctx.fillText("Gain 5(sm)/10(md)/20(lg) points", canvas.width * 5 / 16, canvas.height * 27 / 64);
+                        ctx.fillText("Gain points (more from bigger stars)", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
                         ctx.fillText("Increase remaining time by 10 seconds", canvas.width * 5 / 16, canvas.height * 35 / 64);
                         ctx.drawImage(images.HealthPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
-                        ctx.fillText("Grants 1 additional HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        ctx.fillText("Restores 1 HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 4:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Items (cont.)", canvas.width / 2, canvas.height * 5 / 16);
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
+                        ctx.fillText("Items (cont.)", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
                         ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
-                        ctx.fillText("Grants ammo and upgrades default weapon to", canvas.width * 5 / 16, canvas.height * 26 / 64);
-                        ctx.fillText("fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 28 / 64);
+                        ctx.fillText("Grants ammo and upgrades default", canvas.width * 5 / 16, canvas.height * 26 / 64);
+                        ctx.fillText("weapon to fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 28 / 64);
                         ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
-                        ctx.fillText("Grants ammo and upgrades weapon to fire", canvas.width * 5 / 16, canvas.height * 34 / 64);
-                        ctx.fillText("3 shots at once", canvas.width * 5 / 16, canvas.height * 36 / 64);
+                        ctx.fillText("Grants ammo and upgrades weapon", canvas.width * 5 / 16, canvas.height * 34 / 64);
+                        ctx.fillText("to fire 3 shots at once", canvas.width * 5 / 16, canvas.height * 36 / 64);
                         ctx.drawImage(images.BombPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
                         ctx.fillText("Grants 1 additional bomb", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 5:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Enemies", canvas.width / 2, canvas.height * 5 / 16);
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
+                        ctx.fillText("Enemies", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
                         ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Basic enemy, fires 1 shot at a time", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
@@ -567,24 +558,20 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Fires 2 shots in a 'V' pattern", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 6:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Enemies (cont.)", canvas.width / 2, canvas.height * 5 / 16);
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
+                        ctx.fillText("Enemies (cont.)", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
                         ctx.drawImage(images.TripleshotEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Strong enemy, fires a 3 shot spread", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.Turret, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
                         ctx.fillText("Stationary, fires 8 shots in a ring", canvas.width * 5 / 16, canvas.height * 35 / 64);
                         ctx.drawImage(images.CargoEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
-                        ctx.fillText("Runs away, drops strong pickups on death", canvas.width * 5 / 16, canvas.height * 43 / 64);
+                        ctx.fillText("Runs away, drops strong pickups", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 7:
-                        ctx.textAlign = "center";
                         ctx.font = "32px Arial";
-                        ctx.fillText("Hazards", canvas.width / 2, canvas.height * 5 / 16);
-                        ctx.textAlign = "left";
-                        ctx.font = "20px Arial";
+                        ctx.fillText("Hazards", canvas.width / 4, canvas.height * 10 / 32);
+                        ctx.font = "24px Arial";
                         ctx.drawImage(images.asteroidA, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Blocks ships and bullets", canvas.width * 5 / 16, canvas.height * 26 / 64);
                         ctx.fillText("damages player on contact", canvas.width * 5 / 16, canvas.height * 28 / 64);
