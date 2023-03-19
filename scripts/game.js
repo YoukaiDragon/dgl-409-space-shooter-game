@@ -494,8 +494,8 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the page indicator
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 108 / 128);
-                ctx.fillText('<<', canvas.width * 3 / 16, canvas.height / 2);
-                ctx.fillText('>>', canvas.width * 13 / 16, canvas.height / 2);
+                ctx.fillText('<<', canvas.width * 3 / 16, canvas.height * 9 / 16);
+                ctx.fillText('>>', canvas.width * 13 / 16, canvas.height * 9 / 16);
 
                 // Display the instructions
                 switch (instructionPage) {
@@ -889,7 +889,7 @@ canvas.addEventListener("click", (e) => {
 
         // Check for instruction page buttons
         if (gameState == GameStates.Instructions) {
-            if (mouseY >= canvas.height * 29 / 64 && mouseY <= canvas.height * 33 / 64) {
+            if (mouseY >= canvas.height * 33 / 64 && mouseY <= canvas.height * 36 / 64) {
                 if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32) {
                     instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
                     menuButtonSound.currentTime = 0;
