@@ -163,7 +163,7 @@ class Player {
                     if (this.ammo == 0) { this.shotType = 0 }
                     break;
                 case 2:
-                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 40, 6, true));
+                    this.bullets.push(new Bullet(this.x, this.y, this.angle, 35, 6, true));
                     this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 + 12) % 360, 35, 6, true));
                     this.bullets.push(new Bullet(this.x, this.y, (this.angle + 360 - 12) % 360, 35, 6, true));
                     this.nextShotTime = this.fireRates[2];
