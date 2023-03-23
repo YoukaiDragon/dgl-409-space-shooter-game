@@ -593,7 +593,7 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the control mode buttons
                 ctx.fillText("Control Style", canvas.width / 2, canvas.height * 10 / 32);
-                ctx.textAlign ="left";
+                ctx.textAlign = "left";
                 ctx.fillText("8-Direction", canvas.width * 10 / 32, canvas.height * 52 / 128);
                 ctx.fillText("Steering", canvas.width * 10 / 32, canvas.height * 65 / 128);
                 ctx.beginPath();
@@ -712,11 +712,11 @@ function render(viewport, canvas, ctx) {
                 ctx.fillStyle = black;
                 ctx.textAlign = "left";
                 // Print the top 5 scores, and leave entries blank if there are less than 5 scores saved
-                ctx.fillText(`1: ${highScores[0]}`, canvas.width * 8 / 32, canvas.height * 45 / 128);
-                ctx.fillText(`2: ${highScores[1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 60 / 128);
-                ctx.fillText(`3: ${highScores[2] ?? ''}`, canvas.width * 8 / 32, canvas.height * 75 / 128);
-                ctx.fillText(`4: ${highScores[3] ?? ''}`, canvas.width * 8 / 32, canvas.height * 90 / 128);
-                ctx.fillText(`5: ${highScores[4] ?? ''}`, canvas.width * 8 / 32, canvas.height * 105 / 128);
+                ctx.fillText(`1: ${highScores[0][0] ?? ''}: ${highScores[0][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 45 / 128);
+                ctx.fillText(`2: ${highScores[1][0] ?? ''}: ${highScores[1][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 60 / 128);
+                ctx.fillText(`3: ${highScores[2][0] ?? ''}: ${highScores[2][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 75 / 128);
+                ctx.fillText(`4: ${highScores[3][0] ?? ''}: ${highScores[3][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 90 / 128);
+                ctx.fillText(`5: ${highScores[4][0] ?? ''}: ${highScores[4][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 105 / 128);
                 break;
         }
     }
@@ -856,7 +856,7 @@ canvas.addEventListener("click", (e) => {
         // Check if "High Scores" button was clicked
         if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
             gameState = GameStates.HighScore;
-            highScores= getHighScores();
+            highScores = getHighScores();
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -1347,5 +1347,5 @@ function getHighScores() {
 }
 
 function updateHighScores() {
-    
+
 }
