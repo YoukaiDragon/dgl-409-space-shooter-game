@@ -79,6 +79,8 @@ let specialReady = false;
 const MAX_HIGH_SCORES = 5;
 const HIGH_SCORES = 'spaceShooterHighScores';
 
+localStorage.setItem(HIGH_SCORES, [["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0]])
+
 let highScoreInitials;
 let selectionBlink = false;
 let HSNameIndex = 0;
@@ -854,15 +856,7 @@ canvas.addEventListener("click", (e) => {
         // Check if "High Scores" button was clicked
         if ((mouseY >= canvas.height * 24 / 32) && (mouseY <= canvas.height * 27 / 32)) {
             gameState = GameStates.HighScore;
-            try {
-                highScoreString = localStorage.getItem(HIGH_SCORES);
-                highScores = highScoreString.split(',').map(function (score) {
-                    return parseInt(score, 10);
-                });
-            } catch {
-                highScores = [0, 0, 0, 0, 0];
-            }
-
+            highScores= getHighScores();
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -937,6 +931,7 @@ canvas.addEventListener("click", (e) => {
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 24 / 32 && mouseY <= canvas.height * 27 / 32) {
+            updateHighScores();
             gameState = GameStates.Menu;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -1332,4 +1327,25 @@ function getAngleToViewport(object) {
     let dx = (object.x + object.width / 2) - (viewport.x + viewport.width / 2);
     let dy = (object.y + object.height / 2) - (viewport.y + viewport.height / 2);
     return (Math.atan2(dy, dx) * 180 / Math.PI);
+}
+
+function getHighScores() {
+    let highScores = [];
+    try {
+        highScoreString = localStorage.getItem(HIGH_SCORES);
+        highScoreString.split(',').map(function (item, index) {
+            if (index % 2 == 0) {
+                highScores[index / 2] = [item];
+            } else {
+                highScores[Math.floor(index / 2)].push(parseInt(item, 10));
+            }
+        });
+    } catch {
+        return [["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0]];
+    }
+    return highScores;
+}
+
+function updateHighScores() {
+    
 }
