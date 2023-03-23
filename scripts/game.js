@@ -591,17 +591,18 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the control mode buttons
                 ctx.fillText("Control Style", canvas.width / 2, canvas.height * 10 / 32);
-                ctx.fillText("8-Direction", canvas.width * 6 / 16, canvas.height * 55 / 128);
-                ctx.fillText("Steering", canvas.width * 3 / 4, canvas.height * 55 / 128);
+                ctx.textAlign ="left";
+                ctx.fillText("8-Direction", canvas.width * 10 / 32, canvas.height * 52 / 128);
+                ctx.fillText("Steering", canvas.width * 10 / 32, canvas.height * 65 / 128);
                 ctx.beginPath();
                 ctx.fillStyle = !steeringControls ? green : "gray";
                 ctx.strokeStyle = black;
-                ctx.arc(canvas.width * 7 / 32, canvas.height * 13 / 32, 30, 0, 2 * Math.PI);
+                ctx.rect(canvas.width / 4, canvas.height * 45 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
                 ctx.fillStyle = steeringControls ? green : "gray";
-                ctx.arc(canvas.width * 5 / 8, canvas.height * 13 / 32, 30, 0, 2 * Math.PI);
+                ctx.rect(canvas.width / 4, canvas.height * 58 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
 
@@ -618,6 +619,7 @@ function render(viewport, canvas, ctx) {
                 ctx.fillRect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
                 ctx.fillRect(canvas.width / 4, canvas.height * 26 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
                 ctx.fillStyle = black;
+                ctx.textAlign = "center";
                 ctx.fillText("Music", canvas.width / 2, canvas.height * 19 / 32);
                 ctx.fillText("Sound Effects", canvas.width / 2, canvas.height * 25 / 32);
                 break;
@@ -891,16 +893,13 @@ canvas.addEventListener("click", (e) => {
 
         // Check for options page buttons
         if (gameState == GameStates.Options) {
-            let btnCenterY = canvas.height * 13 / 32;
-            let leftBtnCenterX = canvas.width * 7 / 32;
-            let rightBtnCenterX = canvas.width * 5 / 8;
-            let btnRadius = 30;
-            if (mouseY >= (btnCenterY - btnRadius) && mouseY <= (btnCenterY + btnRadius)) {
-                if (mouseX >= (leftBtnCenterX - btnRadius) && mouseX <= (leftBtnCenterX + btnRadius)) {
+            // Check for control type buttons
+            if (mouseX >= canvas.width / 4 && mouseX <= canvas.width / 4 + 40) {
+                if (mouseY >= canvas.height * 45 / 128 && mouseY <= canvas.height * 45 / 128 + 40) {
                     steeringControls = false;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
-                } else if (mouseX >= (rightBtnCenterX - btnRadius) && mouseX <= (rightBtnCenterX + btnRadius)) {
+                } else if (mouseY >= canvas.height * 58 / 128 && mouseY <= canvas.height * 58 / 128 + 40) {
                     steeringControls = true;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
