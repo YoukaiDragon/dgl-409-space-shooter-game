@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <link rel="stylesheet" href="styles/styles.css">
-    <title>Ace of Space</title> <!-- Title is WIP -->
+    <title>Ace of Space</title>
+    <meta charset="UTF-8">
 </head>
 
 <body>
     <canvas id="gameWindow" oncontextmenu="return false;"></canvas>
+    <script src="scripts/controller.js"></script>
+    <script src="scripts/gameObjects/bullet.js"></script>
+    <script src="scripts/gameObjects/enemies.js"></script>
+    <script src="scripts/gameObjects/pickups.js"></script>
+    <script src="scripts/gameObjects/hazards.js"></script>
+    <script src="scripts/gameObjects/player.js"></script>
+    <script src="scripts/game.js"></script>
 </body>
-<script src="scripts/controller.js"></script>
-<script src="scripts/gameObjects/bullet.js"></script>
-<script src="scripts/gameObjects/enemies.js"></script>
-<script src="scripts/gameObjects/pickups.js"></script>
-<script src="scripts/gameObjects/hazards.js"></script>
-<script src="scripts/gameObjects/player.js"></script>
-<script src="scripts/game.js"></script>
 
 </html>
