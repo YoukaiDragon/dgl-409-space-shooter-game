@@ -79,8 +79,6 @@ let specialReady = false;
 const MAX_HIGH_SCORES = 5;
 const HIGH_SCORES = 'spaceShooterHighScores';
 
-localStorage.setItem(HIGH_SCORES, [["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0], ["AAA", 0]])
-
 let highScoreInitials;
 let selectionBlink = false;
 let HSNameIndex = 0;
@@ -147,7 +145,7 @@ function blinkSelection() {
 // Resets game variables / entity holders for a new game
 function newGame() {
     score = 0;
-    timer = 1;
+    timer = 100;
     player = new Player(gameWidth / 2, gameHeight / 2, steeringControls);
     viewport.x = player.x - canvas.width / 2;
     viewport.y = player.y - canvas.height / 2;
@@ -1347,5 +1345,10 @@ function getHighScores() {
 }
 
 function updateHighScores() {
-
+    // Add the new score to the high score list, sort it, and remove the last item on the list
+    let highScores = getHighScores();
+    highScores.push([highScoreInitials.join().replaceAll(",", ""), score])
+    highScores.sort(function(a, b){return b[1] - a[1]})
+    highScores.pop();
+    localStorage.setItem(HIGH_SCORES,highScores);
 }
