@@ -29,6 +29,9 @@ let height = 640;
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
+let mouseX = 0;
+let mouseY = 0;
+
 let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
@@ -131,6 +134,7 @@ loadImages(IMAGES, startGame);
 function startGame(imageList) {
     images = imageList;
     setInterval(gameFrame, 30, viewport, canvas, ctx);
+    addEventListener("mousemove", getMousePosition);
 }
 
 function gameFrame(viewport, canvas, ctx) {
@@ -451,9 +455,8 @@ function render(viewport, canvas, ctx) {
     //colours
     let black = "rgb(0, 0, 0)";
     let white = "rgb(255, 255, 255)";
-    let lightBlue = "rgb(118, 206, 222)";
-    let green = "rgb(0, 166, 81)";
-    let orange = "rgb(248, 153, 29)";
+    let green = "rgb(0, 126, 71)";
+    let lightGreen = "rgb(0, 166, 81)"
     let red = "rgb(239, 59, 57)";
 
     // clear the canvas
@@ -618,8 +621,17 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                ctx.fillStyle = green;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.fillRect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                if (mouseIsOver(canvas.width / 4, canvas.height * 26 / 32, canvas.width / 2, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.fillRect(canvas.width / 4, canvas.height * 26 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
                 ctx.fillStyle = black;
                 ctx.textAlign = "center";
@@ -631,9 +643,21 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the resume and quit buttons
                 ctx.beginPath();
-                ctx.fillStyle = green;
                 ctx.strokeStyle = black;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                if (mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
                 ctx.stroke();
                 ctx.fill();
@@ -650,8 +674,17 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                ctx.fillStyle = green;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.fillRect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                if (mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.fillRect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth * sfxPercent, canvas.height * 3 / 64);
                 ctx.fillStyle = black;
                 ctx.fillText("Music", canvas.width / 2, canvas.height * 29 / 64);
@@ -728,7 +761,11 @@ function render(viewport, canvas, ctx) {
     if (gameState == GameStates.Menu) {
         // Draw "Start Game" button
         ctx.beginPath();
-        ctx.fillStyle = green;
+        if (mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+            ctx.fillStyle = lightGreen;
+        } else {
+            ctx.fillStyle = green;
+        }
         ctx.strokeStyle = black;
         ctx.rect(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
@@ -740,7 +777,11 @@ function render(viewport, canvas, ctx) {
 
         // Draw "How to Play" button
         ctx.beginPath();
-        ctx.fillStyle = green;
+        if (mouseIsOver(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+            ctx.fillStyle = lightGreen;
+        } else {
+            ctx.fillStyle = green;
+        }
         ctx.rect(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -750,7 +791,11 @@ function render(viewport, canvas, ctx) {
 
         // Draw "Options" button
         ctx.beginPath();
-        ctx.fillStyle = green;
+        if (mouseIsOver(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+            ctx.fillStyle = lightGreen;
+        } else {
+            ctx.fillStyle = green;
+        }
         ctx.rect(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -760,7 +805,11 @@ function render(viewport, canvas, ctx) {
 
         // Draw "High Scores" button
         ctx.beginPath();
-        ctx.fillStyle = green;
+        if (mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+            ctx.fillStyle = lightGreen;
+        } else {
+            ctx.fillStyle = green;
+        }
         ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
         ctx.stroke();
         ctx.fill();
@@ -1035,6 +1084,7 @@ function updateSlider(e) {
     }
 }
 
+
 function setSFXVolume() {
     collectSound.volume = sfxPercent;
     hitSound.volume = quietSoundBaseVolume * sfxPercent;
@@ -1061,6 +1111,11 @@ canvas.addEventListener("contextmenu", (e) => {
     if (gameState == GameStates.Playing && player.bombs > 0) {
         specialReady = true;
     }
+})
+
+canvas.addEventListener("mousemove", (e) => {
+    mouseX = e.offsetX;
+    mouseY = e.offsetY;
 })
 
 window.addEventListener("keydown", (e) => {
@@ -1354,7 +1409,15 @@ function updateHighScores() {
     // Add the new score to the high score list, sort it, and remove the last item on the list
     let highScores = getHighScores();
     highScores.push([highScoreInitials.join().replaceAll(",", ""), score])
-    highScores.sort(function(a, b){return b[1] - a[1]})
+    highScores.sort(function (a, b) { return b[1] - a[1] })
     highScores.pop();
-    localStorage.setItem(HIGH_SCORES,highScores);
+    localStorage.setItem(HIGH_SCORES, highScores);
+}
+
+function mouseIsOver(x, y, width, height) {
+    if (mouseX < x) { return false }
+    if (mouseX > x + width) { return false }
+    if (mouseY < y) { return false }
+    if (mouseY > y + height) { return false }
+    return true;
 }
