@@ -683,7 +683,7 @@ function render(viewport, canvas, ctx) {
                     ctx.fillStyle = green;
                 }
                 ctx.fillRect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
-                if (menuSelection == 3 ||  mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                if (menuSelection == 3 || mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
@@ -1176,12 +1176,29 @@ window.addEventListener("keydown", (e) => {
     if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
         controller.leftPressed = true;
 
-        if (gameState == GameStates.Instructions) {
-            instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
-            menuButtonSound.currentTime = 0;
-            menuButtonSound.play();
-        } else if (gameState == GameStates.GameOver) {
-            HSNameIndex = HSNameIndex == 0 ? highScoreInitials.length - 1 : HSNameIndex - 1;
+        switch (gameState) {
+            case GameStates.Instructions:
+                instructionPage == 1 ? instructionPage = maxInstructionPage : instructionPage--;
+                menuButtonSound.currentTime = 0;
+                menuButtonSound.play();
+                break;
+            case GameStates.GameOver:
+                HSNameIndex = HSNameIndex == 0 ? highScoreInitials.length - 1 : HSNameIndex - 1;
+                break;
+            case GameStates.Options:
+                if (menuSelection == 3) {
+                    volumePercent > 0.05 ? volumePercent -= 0.05 : volumePercent = 0;
+                } else if (menuSelection == 4) {
+                    sfxPercent > 0.05 ? sfxPercent -= 0.05 : sfxPercent = 0;
+                }
+                break;
+            case GameStates.Paused:
+                if (menuSelection == 2) {
+                    volumePercent > 0.05 ? volumePercent -= 0.05 : volumePercent = 0;
+                } else if (menuSelection == 3) {
+                    sfxPercent > 0.05 ? sfxPercent -= 0.05 : sfxPercent = 0;
+                }
+                break;
         }
     }
     if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
@@ -1203,12 +1220,29 @@ window.addEventListener("keydown", (e) => {
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = true;
 
-        if (gameState == GameStates.Instructions) {
-            instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
-            menuButtonSound.currentTime = 0;
-            menuButtonSound.play();
-        } else if (gameState == GameStates.GameOver) {
-            HSNameIndex = HSNameIndex == highScoreInitials.length - 1 ? 0 : HSNameIndex + 1;
+        switch (gameState) {
+            case GameStates.Instructions:
+                instructionPage == maxInstructionPage ? instructionPage = 1 : instructionPage++;
+                menuButtonSound.currentTime = 0;
+                menuButtonSound.play();
+                break;
+            case GameStates.GameOver:
+                HSNameIndex = HSNameIndex == highScoreInitials.length - 1 ? 0 : HSNameIndex + 1;
+                break;
+            case GameStates.Options:
+                if (menuSelection == 3) {
+                    volumePercent < 0.95 ? volumePercent += 0.05 : volumePercent = 1;
+                } else if (menuSelection == 4) {
+                    sfxPercent < 0.95 ? sfxPercent += 0.05 : sfxPercent = 1;
+                }
+                break;
+            case GameStates.Paused:
+                if (menuSelection == 2) {
+                    volumePercent < 0.95 ? volumePercent += 0.05 : volumePercent = 1;
+                } else if (menuSelection == 3) {
+                    sfxPercent < 0.95 ? sfxPercent += 0.05 : sfxPercent = 1;
+                }
+                break;
         }
     }
     if (e.key == ' ') {
