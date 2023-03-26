@@ -131,12 +131,38 @@ let IMAGES = ['Background', 'menu', 'player', 'asteroidA', 'asteroidB', 'BasicSh
     'HealthPickup', 'TwinshotPickup', 'TripleshotPickup', 'ExplosionFrames', 'BombPickup',
     'UpArrow', 'DownArrow'];
 let images;
-
-loadImages(IMAGES, startGame);
+canvas.addEventListener("click", loadGame, { once: true });
+function loadGame() {
+    loadImages(IMAGES, startGame);
+}
 
 function startGame(imageList) {
     images = imageList;
     setInterval(gameFrame, 30, viewport, canvas, ctx);
+    // Add game event listeners
+    canvas.addEventListener("click", menuClicks);
+    window.addEventListener("keydown", keyDownEvent);
+    window.addEventListener("keyup", keyUpEvent);
+    window.addEventListener("mousedown", (e) => {
+        controller.firePressed = true;
+        controller.mousePressed = true;
+    })
+
+    window.addEventListener("mouseup", (e) => {
+        if (!controller.spacePressed) { controller.firePressed = false };
+        controller.mousePressed = false;
+    })
+
+    canvas.addEventListener("contextmenu", (e) => {
+        if (gameState == GameStates.Playing && player.bombs > 0) {
+            specialReady = true;
+        }
+    })
+
+    canvas.addEventListener("mousemove", (e) => {
+        mouseX = e.offsetX;
+        mouseY = e.offsetY;
+    })
 }
 
 function gameFrame(viewport, canvas, ctx) {
@@ -878,7 +904,7 @@ function render(viewport, canvas, ctx) {
     }
 }
 
-canvas.addEventListener("click", (e) => {
+function menuClicks(e) {
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
     if (gameState == GameStates.Menu) {
@@ -1051,7 +1077,7 @@ canvas.addEventListener("click", (e) => {
             }
         }
     }
-});
+}
 
 function updateSlider(e) {
     if (!controller.mousePressed) { return; }
@@ -1106,28 +1132,7 @@ function setSFXVolume() {
     enemyHitSound.volume = quietSoundBaseVolume * sfxPercent;
 }
 
-window.addEventListener("mousedown", (e) => {
-    controller.firePressed = true;
-    controller.mousePressed = true;
-})
-
-window.addEventListener("mouseup", (e) => {
-    if (!controller.spacePressed) { controller.firePressed = false };
-    controller.mousePressed = false;
-})
-
-canvas.addEventListener("contextmenu", (e) => {
-    if (gameState == GameStates.Playing && player.bombs > 0) {
-        specialReady = true;
-    }
-})
-
-canvas.addEventListener("mousemove", (e) => {
-    mouseX = e.offsetX;
-    mouseY = e.offsetY;
-})
-
-window.addEventListener("keydown", (e) => {
+function keyDownEvent(e) {
     // Pause game when escape is pressed
     if (e.key == "Escape") {
         if (gameState == GameStates.Playing) {
@@ -1297,9 +1302,9 @@ window.addEventListener("keydown", (e) => {
             }
         }
     }
-});
+}
 
-window.addEventListener("keyup", (e) => {
+function keyUpEvent(e) {
     // Handle controller inputs
     if (e.key == 'w' || e.key == 'W' || e.key == "ArrowUp") {
         controller.upPressed = false;
@@ -1324,7 +1329,7 @@ window.addEventListener("keyup", (e) => {
         if (!controller.mousePressed) { controller.firePressed = false };
         controller.spacePressed = false;
     }
-});
+}
 
 // Returns if an object is within the viewport
 function isVisible(x, y) {
