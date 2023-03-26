@@ -10,3 +10,8 @@
     font-family: "PressStart2P";
     src: url("../fonts/PressStart2P-vaV7.ttf")
 }
+
+h1 {
+    text-align: center;
+    margin: 24px 0 0 0;
+}
