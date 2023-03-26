@@ -98,6 +98,9 @@ let timerIntervalId;
 let score;
 
 let steeringControls = false;
+let menuSelection = 0;
+let menuUpPressed = false;
+let menuDownPressed = false;
 
 // sounds and music
 let gameMusic = new Audio("./Assets/sounds/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3");
@@ -761,7 +764,7 @@ function render(viewport, canvas, ctx) {
     if (gameState == GameStates.Menu) {
         // Draw "Start Game" button
         ctx.beginPath();
-        if (mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+        if (menuSelection == 1 || mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
             ctx.fillStyle = lightGreen;
         } else {
             ctx.fillStyle = green;
@@ -777,7 +780,7 @@ function render(viewport, canvas, ctx) {
 
         // Draw "How to Play" button
         ctx.beginPath();
-        if (mouseIsOver(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+        if (menuSelection == 2 || mouseIsOver(canvas.width / 4, canvas.height * 14 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
             ctx.fillStyle = lightGreen;
         } else {
             ctx.fillStyle = green;
@@ -791,7 +794,7 @@ function render(viewport, canvas, ctx) {
 
         // Draw "Options" button
         ctx.beginPath();
-        if (mouseIsOver(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+        if (menuSelection == 3 || mouseIsOver(canvas.width / 4, canvas.height * 19 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
             ctx.fillStyle = lightGreen;
         } else {
             ctx.fillStyle = green;
@@ -805,7 +808,7 @@ function render(viewport, canvas, ctx) {
 
         // Draw "High Scores" button
         ctx.beginPath();
-        if (mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+        if (menuSelection == 4 || mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
             ctx.fillStyle = lightGreen;
         } else {
             ctx.fillStyle = green;
@@ -893,6 +896,7 @@ canvas.addEventListener("click", (e) => {
         // Check if "How To Play" button was clicked
         if ((mouseY >= canvas.height * 14 / 32) && (mouseY <= canvas.height * 17 / 32)) {
             gameState = GameStates.Instructions;
+            menuSelection = 0;
             instructionPage = 1;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -901,6 +905,7 @@ canvas.addEventListener("click", (e) => {
         // Check if "Options" button was clicked
         if ((mouseY >= canvas.height * 19 / 32) && (mouseY <= canvas.height * 22 / 32)) {
             gameState = GameStates.Options;
+            menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
             canvas.addEventListener("mousemove", updateSlider);
@@ -918,6 +923,7 @@ canvas.addEventListener("click", (e) => {
         if (mouseX >= canvas.width * 5 / 32 && mouseX <= canvas.width * 7 / 32 &&
             mouseY >= canvas.height * 11 / 64 && mouseY <= canvas.height * 15 / 64) {
             gameState = GameStates.Menu;
+            menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
             canvas.removeEventListener("mousemove", updateSlider);
@@ -959,6 +965,7 @@ canvas.addEventListener("click", (e) => {
             && mouseY >= (canvas.height * 5 / 256)
             && mouseY <= (canvas.height * 5 / 256 + canvas.width + 12 / 256)) {
             gameState = GameStates.Paused;
+            menuSelection = 0;
             clearInterval(timerIntervalId);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -980,12 +987,14 @@ canvas.addEventListener("click", (e) => {
             gameMusic.pause();
             clearInterval(timerIntervalId);
             gameState = GameStates.Menu;
+            menuSelection = 0;
         }
     } else if (gameState == GameStates.GameOver) {
         if (mouseX >= canvas.width / 4 && mouseX <= canvas.width * 3 / 4
             && mouseY >= canvas.height * 24 / 32 && mouseY <= canvas.height * 27 / 32) {
             updateHighScores();
             gameState = GameStates.Menu;
+            menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -1123,6 +1132,7 @@ window.addEventListener("keydown", (e) => {
     if (e.key == "Escape") {
         if (gameState == GameStates.Playing) {
             gameState = GameStates.Paused;
+            menuSelection = 0;
             clearInterval(timerIntervalId);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -1132,8 +1142,15 @@ window.addEventListener("keydown", (e) => {
             timerIntervalId = setInterval(countDown, 1000);
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
+        } else if (gameState == GameStates.GameOver) {
+            updateHighScores();
+            gameState = GameStates.Menu;
+            menuSelection = 0;
+            menuButtonSound.currentTime = 0;
+            menuButtonSound.play();
         } else if (gameState != GameStates.Menu) {
             gameState = GameStates.Menu;
+            menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
         }
@@ -1146,6 +1163,14 @@ window.addEventListener("keydown", (e) => {
         if (gameState == GameStates.GameOver) {
             highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] ==
                 'A' ? 'Z' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) - 1);
+        } else if (gameState != GameStates.Playing) {
+            if (!menuUpPressed) {
+                menuSelection--;
+                menuUpPressed = true;
+                // Change this bit if any menu page does not have exactly 4 things to select
+                if (menuSelection <= 0) { menuSelection = 4 }
+                else if (menuSelection > 4) { menuSelection = 1 }
+            }
         }
     }
     if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
@@ -1165,6 +1190,14 @@ window.addEventListener("keydown", (e) => {
         if (gameState == GameStates.GameOver) {
             highScoreInitials[HSNameIndex] = highScoreInitials[HSNameIndex] ==
                 'Z' ? 'A' : String.fromCharCode(highScoreInitials[HSNameIndex].charCodeAt(0) + 1);
+        } else if (gameState != GameStates.Playing) {
+            if (!menuDownPressed) {
+                menuSelection++;
+                menuDownPressed = true;
+                // Change this bit if any menu page does not have exactly 4 things to select
+                if (menuSelection <= 0) { menuSelection = 4 }
+                else if (menuSelection > 4) { menuSelection = 1 }
+            }
         }
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
@@ -1182,6 +1215,36 @@ window.addEventListener("keydown", (e) => {
         e.preventDefault();
         controller.firePressed = true;
         controller.spacePressed = true;
+
+        if (gameState == GameStates.Menu) {
+            switch (menuSelection) {
+                case 1:
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    newGame();
+                    break;
+                case 2:
+                    gameState = GameStates.Instructions;
+                    menuSelection = 0;
+                    instructionPage = 1;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    break;
+                case 3:
+                    gameState = GameStates.Options;
+                    menuSelection = 0;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    canvas.addEventListener("mousemove", updateSlider);
+                    break;
+                case 4:
+                    gameState = GameStates.HighScore;
+                    highScores = getHighScores();
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    break;
+            }
+        }
     }
 });
 
@@ -1189,12 +1252,14 @@ window.addEventListener("keyup", (e) => {
     // Handle controller inputs
     if (e.key == 'w' || e.key == 'W' || e.key == "ArrowUp") {
         controller.upPressed = false;
+        menuUpPressed = false;
     }
     if (e.key == 'a' || e.key == 'A' || e.key == "ArrowLeft") {
         controller.leftPressed = false;
     }
     if (e.key == 's' || e.key == 'S' || e.key == "ArrowDown") {
         controller.downPressed = false;
+        menuDownPressed = false;
     }
     if (e.key == 'd' || e.key == 'D' || e.key == "ArrowRight") {
         controller.rightPressed = false;
