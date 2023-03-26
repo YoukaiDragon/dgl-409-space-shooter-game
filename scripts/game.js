@@ -134,7 +134,6 @@ loadImages(IMAGES, startGame);
 function startGame(imageList) {
     images = imageList;
     setInterval(gameFrame, 30, viewport, canvas, ctx);
-    addEventListener("mousemove", getMousePosition);
 }
 
 function gameFrame(viewport, canvas, ctx) {
@@ -456,7 +455,8 @@ function render(viewport, canvas, ctx) {
     let black = "rgb(0, 0, 0)";
     let white = "rgb(255, 255, 255)";
     let green = "rgb(0, 126, 71)";
-    let lightGreen = "rgb(0, 166, 81)"
+    let lightGreen = "rgb(0, 166, 81)";
+    let gray = "rgb(150, 150, 150)";
     let red = "rgb(239, 59, 57)";
 
     // clear the canvas
@@ -601,20 +601,20 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("8-Direction", canvas.width * 10 / 32, canvas.height * 52 / 128);
                 ctx.fillText("Steering", canvas.width * 10 / 32, canvas.height * 65 / 128);
                 ctx.beginPath();
-                ctx.fillStyle = !steeringControls ? green : "gray";
+                ctx.fillStyle = !steeringControls ? green : gray;
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 45 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                ctx.fillStyle = steeringControls ? green : "gray";
+                ctx.fillStyle = steeringControls ? green : gray;
                 ctx.rect(canvas.width / 4, canvas.height * 58 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
 
                 // Draw volume control sliders
                 ctx.beginPath();
-                ctx.fillStyle = "gray";
+                ctx.fillStyle = gray;
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64);
                 ctx.rect(canvas.width / 4, canvas.height * 26 / 32, sliderWidth, canvas.height * 3 / 64);
@@ -667,7 +667,7 @@ function render(viewport, canvas, ctx) {
 
                 // Draw volume control sliders
                 ctx.beginPath();
-                ctx.fillStyle = "gray";
+                ctx.fillStyle = gray;
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64);
                 ctx.rect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64);
