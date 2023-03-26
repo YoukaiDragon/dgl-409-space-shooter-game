@@ -624,13 +624,13 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                if (mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                if (menuSelection == 3 || mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
                 }
                 ctx.fillRect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
-                if (mouseIsOver(canvas.width / 4, canvas.height * 26 / 32, canvas.width / 2, canvas.height * 3 / 64)) {
+                if (menuSelection == 4 || mouseIsOver(canvas.width / 4, canvas.height * 26 / 32, canvas.width / 2, canvas.height * 3 / 64)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
@@ -647,7 +647,7 @@ function render(viewport, canvas, ctx) {
                 // Draw the resume and quit buttons
                 ctx.beginPath();
                 ctx.strokeStyle = black;
-                if (mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+                if (menuSelection == 1 || mouseIsOver(canvas.width / 4, canvas.height * 9 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
@@ -656,7 +656,7 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                if (mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+                if (menuSelection == 4 || mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
@@ -677,13 +677,13 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                if (mouseIsOver(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                if (menuSelection == 2 || mouseIsOver(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
                 }
                 ctx.fillRect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
-                if (mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                if (menuSelection == 3 ||  mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
                     ctx.fillStyle = lightGreen;
                 } else {
                     ctx.fillStyle = green;
@@ -1218,30 +1218,47 @@ window.addEventListener("keydown", (e) => {
 
         if (gameState == GameStates.Menu) {
             switch (menuSelection) {
-                case 1:
+                case 1: // Start Game Button
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                     newGame();
                     break;
-                case 2:
+                case 2: // How To Play Button
                     gameState = GameStates.Instructions;
                     menuSelection = 0;
                     instructionPage = 1;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                     break;
-                case 3:
+                case 3: // Options Button
                     gameState = GameStates.Options;
                     menuSelection = 0;
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                     canvas.addEventListener("mousemove", updateSlider);
                     break;
-                case 4:
+                case 4: // High Scores Button
                     gameState = GameStates.HighScore;
                     highScores = getHighScores();
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
+                    break;
+            }
+        } else if (gameState == GameStates.Paused) {
+            switch (menuSelection) {
+                case 1: // Resume Button
+                    // Resume Play
+                    gameState = GameStates.Playing;
+                    timerIntervalId = setInterval(countDown, 1000);
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    break;
+                case 4: // Quite Game Button
+                    // Quit game
+                    gameMusic.pause();
+                    clearInterval(timerIntervalId);
+                    gameState = GameStates.Menu;
+                    menuSelection = 0;
                     break;
             }
         }
