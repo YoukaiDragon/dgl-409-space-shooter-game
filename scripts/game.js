@@ -18,6 +18,8 @@ const GameStates = {
     HighScore: 6
 };
 
+let loaded = false; 
+
 const canvas = document.getElementById("gameWindow");
 const ctx = canvas.getContext("2d");
 let gameState = GameStates.Menu;
@@ -132,8 +134,15 @@ let IMAGES = ['Background', 'menu', 'player', 'asteroidA', 'asteroidB', 'BasicSh
     'UpArrow', 'DownArrow'];
 let images;
 canvas.addEventListener("click", loadGame, { once: true });
-function loadGame() {
-    loadImages(IMAGES, startGame);
+window.addEventListener("keydown", loadGame, { once: true })
+function loadGame(e) {
+    if (e.key == " ") { e.preventDefault } // keep page from scrolling if spacebar was pressed
+    if (loaded) { return } // don't try to load if game is already loaded
+    // start loading the game if space or enter was pressed, or the canvas was clicked on
+    if (e.key == null || e.key == " " || e.key == "Enter") {
+        loaded = true;
+        loadImages(IMAGES, startGame);
+    }
 }
 
 function startGame(imageList) {
