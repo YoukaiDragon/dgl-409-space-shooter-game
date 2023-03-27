@@ -356,7 +356,7 @@ class Turret extends Enemy {
             let bulletRadius = 12;
             // Adjust height using bullet radius so spawning bullets line up properly with the sprite
             enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 0, 10, bulletRadius, false));
-            enemyBullets.push(new Bullet(this.x, this.y, 45, 10, 800, 12, false));
+            enemyBullets.push(new Bullet(this.x, this.y, 45, 10, bulletRadius, false));
             enemyBullets.push(new Bullet(this.x - bulletRadius, this.y, 90, 10, bulletRadius, false));
             enemyBullets.push(new Bullet(this.x - bulletRadius, this.y - bulletRadius, 135, 10, bulletRadius, false));
             enemyBullets.push(new Bullet(this.x, this.y - bulletRadius, 180, 10, bulletRadius, false));
