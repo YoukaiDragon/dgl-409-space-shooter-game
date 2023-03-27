@@ -96,6 +96,7 @@ let maxInstructionPage = 7;
 
 let timer;
 let timerIntervalId;
+let blinkingIntervalId;
 
 let score;
 
@@ -187,6 +188,7 @@ function gameFrame(viewport, canvas, ctx) {
 }
 
 function blinkSelection() {
+    console.log("Blink");
     selectionBlink = !selectionBlink;
 }
 
@@ -269,7 +271,7 @@ function gameOver() {
     gameOverSound.play();
     gameMusic.pause();
     clearInterval(timerIntervalId);
-    setInterval(blinkSelection, 500);
+    blinkingIntervalId = setInterval(blinkSelection, 500);
 }
 
 function update() {
@@ -1051,6 +1053,7 @@ function menuClicks(e) {
             && mouseY >= canvas.height * 24 / 32 && mouseY <= canvas.height * 27 / 32) {
             updateHighScores();
             gameState = GameStates.Menu;
+            clearInterval(blinkingIntervalId);
             menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
@@ -1181,6 +1184,7 @@ function keyDownEvent(e) {
         } else if (gameState == GameStates.GameOver) {
             updateHighScores();
             gameState = GameStates.Menu;
+            clearInterval(blinkingIntervalId);
             menuSelection = 0;
             menuButtonSound.currentTime = 0;
             menuButtonSound.play();
