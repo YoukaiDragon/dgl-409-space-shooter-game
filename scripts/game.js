@@ -18,7 +18,7 @@ const GameStates = {
     HighScore: 6
 };
 
-let loaded = false; 
+let loaded = false;
 
 const canvas = document.getElementById("gameWindow");
 const ctx = canvas.getContext("2d");
@@ -141,6 +141,13 @@ function loadGame(e) {
     // start loading the game if space or enter was pressed, or the canvas was clicked on
     if (e.key == null || e.key == " " || e.key == "Enter") {
         loaded = true;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "gray";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "White";
+        ctx.font = "40px PressStart2P";
+        ctx.textAlign = "center";
+        ctx.fillText("Loading", canvas.width / 2, canvas.height / 2);
         loadImages(IMAGES, startGame);
     }
 }
@@ -188,7 +195,7 @@ ctx.fillStyle = "gray";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.beginPath();
 ctx.strokeStyle = "white";
-ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 5, 0, 2*Math.PI);
+ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 5, 0, 2 * Math.PI);
 ctx.stroke();
 ctx.beginPath();
 ctx.fillStyle = "white";
