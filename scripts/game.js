@@ -391,28 +391,38 @@ function update() {
                     }
                     if (roundCollision(hazards[i], player)) {
                         player.damage();
-                        if (player.x - player.width / 2 < hazards[i].x + hazards[i].radius) {
-                            player.x = hazards[i].x + hazards[i].radius - player.width / 2;
-                        } else if (player.x + player.width / 2 > hazards[i].x + 3 * hazards[i].radius) {
-                            player.x = hazards[i].x + 3 * hazards[i].radius + player.width / 2;
+                        let angle = getAngleToAsteroid(player, hazards[i]);
+                        if (player.x < hazards[i].x + hazards[i].radius) {
+                            player.x -= Math.cos(angle * (Math.PI / 180))
+                                * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
+                        } else {
+                            player.x += Math.cos(angle * (Math.PI / 180))
+                                * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
                         }
-                        if (player.y - player.height / 2 < hazards[i].y + hazards[i].radius) {
-                            player.y = hazards[i].y + hazards[i].radius - player.height / 2;
-                        } else if (player.y + player.height / 2 > hazards[i].y + 3 * hazards[i].radius) {
-                            player.y = hazards[i].y + 3 * hazards[i].radius + player.height / 2;
+                        if (player.y < hazards[i].y + hazards[i].radius) {
+                            player.y -= Math.sin(angle * (Math.PI / 180)) 
+                                * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
+                        } else {
+                            player.y += Math.sin(angle * (Math.PI / 180)) 
+                                * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
                         }
                     }
                     for (let j = enemies.length - 1; j >= 0; j--) {
                         if (roundCollision(hazards[i], enemies[j])) {
-                            if (enemies[j].x - enemies[j].width / 2 < hazards[i].x + hazards[i].radius) {
-                                enemies[j].x = hazards[i].x + hazards[i].radius - enemies[j].width / 2;
-                            } else if (enemies[j].x + enemies[j].width / 2 > hazards[i].x + 3 * hazards[i].radius) {
-                                enemies[j].x = hazards[i].x + 3 * hazards[i].radius + enemies[j].width / 2;
+                            let angle = getAngleToAsteroid(enemies[j], hazards[i]);
+                            if (enemies[j].x < hazards[i].x + hazards[i].radius) {
+                                enemies[j].x -= Math.cos(angle * (Math.PI / 180))
+                                    * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
+                            } else {
+                                enemies[j].x += Math.cos(angle * (Math.PI / 180)) 
+                                    * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             }
-                            if (enemies[j].y - enemies[j].height / 2 < hazards[i].y + hazards[i].radius) {
-                                enemies[j].y = hazards[i].y + hazards[i].radius - enemies[j].height / 2;
-                            } else if (enemies[j].y + enemies[j].height / 2 > hazards[i].y + 3 * hazards[i].radius) {
-                                enemies[j].y = hazards[i].y + 3 * hazards[i].radius + enemies[j].height / 2;
+                            if (enemies[j].y < hazards[i].y + hazards[i].radius) {
+                                enemies[j].y -= Math.sin(angle * (Math.PI / 180)) 
+                                    * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
+                            } else {
+                                enemies[j].y += Math.sin(angle * (Math.PI / 180)) 
+                                    * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             }
                         }
                     }
@@ -1495,7 +1505,7 @@ function spawnPickups() {
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
     } while (spawnDistance < minSpawnDist || spawnDistance > (pickupMaxSpawnDistance + 100 * intensityLevel)
-        || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
+    || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
 
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
@@ -1523,8 +1533,8 @@ function spawnEnemies() {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
-    } while (spawnDistance < minSpawnDist || spawnDistance > (enemyMaxSpawnDistance - 120 * intensityLevel) 
-        || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
+    } while (spawnDistance < minSpawnDist || spawnDistance > (enemyMaxSpawnDistance - 120 * intensityLevel)
+    || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
     // Spawn a random enemy type
     let enemyType = Math.random() * 100 + intensityLevel;
     if (enemyType < 45) {
@@ -1554,8 +1564,8 @@ function spawnAsteroid() {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
-    } while (spawnDistance < minSpawnDist || spawnX < 0 || spawnX > gameWidth 
-        || spawnY < 0 || spawnY > gameHeight);
+    } while (spawnDistance < minSpawnDist || spawnX < 0 || spawnX > gameWidth
+    || spawnY < 0 || spawnY > gameHeight);
 
     hazards.push(new Asteroid(spawnX, spawnY));
 }
@@ -1579,6 +1589,12 @@ function loadImages(names, callback) {
 function getAngleToViewport(object) {
     let dx = (object.x + object.width / 2) - (viewport.x + viewport.width / 2);
     let dy = (object.y + object.height / 2) - (viewport.y + viewport.height / 2);
+    return (Math.atan2(dy, dx) * 180 / Math.PI);
+}
+
+function getAngleToAsteroid(object, asteroid) {
+    let dx = (object.x + object.width / 2) - (asteroid.x + asteroid.radius);
+    let dy = (object.y + object.height / 2) - (asteroid.y + asteroid.radius);
     return (Math.atan2(dy, dx) * 180 / Math.PI);
 }
 
