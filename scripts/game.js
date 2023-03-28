@@ -522,7 +522,8 @@ function render(viewport, canvas, ctx) {
     let green = "rgb(0, 126, 71)";
     let lightGreen = "rgb(0, 166, 81)";
     let gray = "rgb(150, 150, 150)";
-    let red = "rgb(239, 59, 57)";
+    let red = "rgb(200, 40, 40)";
+    let lightRed = "rgb(255, 20, 20)";
 
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -554,7 +555,11 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("How To Play", canvas.width / 2, canvas.height * 7 / 32);
                 // Draw close button
                 ctx.beginPath();
-                ctx.fillStyle = red;
+                if (mouseIsOver(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16)) {
+                    ctx.fillStyle = lightRed;
+                } else {
+                    ctx.fillStyle = red;
+                }
                 ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
                 ctx.stroke();
                 ctx.fill();
@@ -652,7 +657,11 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("Options", canvas.width / 2, canvas.height * 7 / 32);
                 // Draw close button
                 ctx.beginPath();
-                ctx.fillStyle = red;
+                if (mouseIsOver(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16)) {
+                    ctx.fillStyle = lightRed;
+                } else {
+                    ctx.fillStyle = red;
+                }
                 ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
                 ctx.stroke();
                 ctx.fill();
@@ -801,7 +810,11 @@ function render(viewport, canvas, ctx) {
             case GameStates.HighScore:
                 ctx.fillText("High Scores", canvas.width / 2, canvas.height * 7 / 32);
                 ctx.beginPath();
-                ctx.fillStyle = red;
+                if (mouseIsOver(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16)) {
+                    ctx.fillStyle = lightRed;
+                } else {
+                    ctx.fillStyle = red;
+                }
                 ctx.rect(canvas.width * 5 / 32, canvas.height * 11 / 64, canvas.width / 16, canvas.height / 16);
                 ctx.stroke();
                 ctx.fill();
