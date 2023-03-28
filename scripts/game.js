@@ -354,7 +354,8 @@ function update() {
                     enemies[i].damage(10);
                     if (enemies[i].hp <= 0) {
                         //Kill enemy
-                        enemies[i].onDeath();
+                        let item = enemies[i].onDeath();
+                        spawnItem(item, enemies[i].x, enemies[i].y);
                         enemies.splice(i, 1);
                     }
                 }
@@ -370,36 +371,8 @@ function update() {
                     enemies[j].damage();
                     if (enemies[j].hp <= 0) {
                         // Kill enemy
-                        let itemSpawn = enemies[j].onDeath();
-                        switch (itemSpawn) {
-                            case 'scoreLG':
-                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'lg'));
-                                break;
-                            case 'scoreMD':
-                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'md'));
-                                break;
-                            case 'scoreSM':
-                                pickups.push(new scorePickup(enemies[j].x, enemies[j].y, 'sm'));
-                                break;
-                            case 'time':
-                                pickups.push(new timePickup(enemies[j].x, enemies[j].y));
-                                break;
-                            case 'health':
-                                pickups.push(new healthPickup(enemies[j].x, enemies[j].y));
-                                break;
-                            case 'twinShot':
-                                pickups.push(new twinShotPickup(enemies[j].x, enemies[j].y));
-                                break;
-                            case 'tripleShot':
-                                pickups.push(new tripleShotPickup(enemies[j].x, enemies[j].y));
-                                break;
-                            case 'bomb':
-                                pickups.push(new bombPickup(enemies[j].j, enemies[j].y));
-                                break;
-                            default:
-                                // Spawn nothing
-                                break;
-                        }
+                        let item = enemies[j].onDeath();
+                        spawnItem(item, enemies[j].x, enemies[j].y);
                         enemies.splice(j, 1);
                     }
                     player.bullets.splice(i, 1);
@@ -1405,7 +1378,7 @@ function keyDownEvent(e) {
                     menuButtonSound.currentTime = 0;
                     menuButtonSound.play();
                     break;
-            }       
+            }
         }
     }
 }
@@ -1647,4 +1620,36 @@ function mouseIsOver(x, y, width, height) {
     if (mouseY < y) { return false }
     if (mouseY > y + height) { return false }
     return true;
+}
+
+function spawnItem(item, x, y) {
+    switch (item) {
+        case 'scoreLG':
+            pickups.push(new scorePickup(x, y, 'lg'));
+            break;
+        case 'scoreMD':
+            pickups.push(new scorePickup(x, y, 'md'));
+            break;
+        case 'scoreSM':
+            pickups.push(new scorePickup(x, y, 'sm'));
+            break;
+        case 'time':
+            pickups.push(new timePickup(x, y));
+            break;
+        case 'health':
+            pickups.push(new healthPickup(x, y));
+            break;
+        case 'twinShot':
+            pickups.push(new twinShotPickup(x, y));
+            break;
+        case 'tripleShot':
+            pickups.push(new tripleShotPickup(x, y));
+            break;
+        case 'bomb':
+            pickups.push(new bombPickup(j, y));
+            break;
+        default:
+            // Spawn nothing
+            break;
+    }
 }
