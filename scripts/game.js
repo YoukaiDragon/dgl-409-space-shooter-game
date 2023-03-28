@@ -676,7 +676,7 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("8-Direction", canvas.width * 10 / 32, canvas.height * 52 / 128);
                 ctx.fillText("Steering", canvas.width * 10 / 32, canvas.height * 65 / 128);
                 ctx.beginPath();
-                if (mouseIsOver(canvas.width / 4, canvas.height * 45 / 128, 40, 40)) {
+                if (menuSelection == 1 || mouseIsOver(canvas.width / 4, canvas.height * 45 / 128, 40, 40)) {
                     ctx.fillStyle = !steeringControls ? lightGreen : lightGray;
                 } else {
                     ctx.fillStyle = !steeringControls ? green : gray;
@@ -686,7 +686,7 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                if (mouseIsOver(canvas.width / 4, canvas.height * 58 / 128, 40, 40)) {
+                if (menuSelection == 2 || mouseIsOver(canvas.width / 4, canvas.height * 58 / 128, 40, 40)) {
                     ctx.fillStyle = !steeringControls ? lightGray : lightGreen;
                 } else {
                     ctx.fillStyle = !steeringControls ? gray : green;
