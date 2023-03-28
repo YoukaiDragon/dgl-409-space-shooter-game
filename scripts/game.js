@@ -206,6 +206,9 @@ ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 + canvas.heig
 ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 - canvas.height / 16);
 ctx.lineTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
 ctx.fill();
+ctx.textAlign = "center";
+ctx.font = "32px PressStart2P";
+ctx.fillText("Start Game", canvas.width / 2, canvas.height * 4 / 5);
 
 // Resets game variables / entity holders for a new game
 function newGame() {
