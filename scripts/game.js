@@ -1278,15 +1278,19 @@ function keyDownEvent(e) {
             case GameStates.Options:
                 if (menuSelection == 3) {
                     volumePercent > 0.05 ? volumePercent -= 0.05 : volumePercent = 0;
+                    gameMusic.volume = volumePercent;
                 } else if (menuSelection == 4) {
                     sfxPercent > 0.05 ? sfxPercent -= 0.05 : sfxPercent = 0;
+                    setSFXVolume();
                 }
                 break;
             case GameStates.Paused:
                 if (menuSelection == 2) {
                     volumePercent > 0.05 ? volumePercent -= 0.05 : volumePercent = 0;
+                    gameMusic.volume = volumePercent;
                 } else if (menuSelection == 3) {
                     sfxPercent > 0.05 ? sfxPercent -= 0.05 : sfxPercent = 0;
+                    setSFXVolume();
                 }
                 break;
         }
@@ -1322,15 +1326,19 @@ function keyDownEvent(e) {
             case GameStates.Options:
                 if (menuSelection == 3) {
                     volumePercent < 0.95 ? volumePercent += 0.05 : volumePercent = 1;
+                    gameMusic.volume = volumePercent;
                 } else if (menuSelection == 4) {
                     sfxPercent < 0.95 ? sfxPercent += 0.05 : sfxPercent = 1;
+                    setSFXVolume();
                 }
                 break;
             case GameStates.Paused:
                 if (menuSelection == 2) {
                     volumePercent < 0.95 ? volumePercent += 0.05 : volumePercent = 1;
+                    gameMusic.volume = volumePercent;
                 } else if (menuSelection == 3) {
                     sfxPercent < 0.95 ? sfxPercent += 0.05 : sfxPercent = 1;
+                    setSFXVolume();
                 }
                 break;
         }
