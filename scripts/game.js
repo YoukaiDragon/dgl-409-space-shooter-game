@@ -697,9 +697,21 @@ function render(viewport, canvas, ctx) {
 
                 // Draw volume control sliders
                 ctx.beginPath();
-                ctx.fillStyle = gray;
                 ctx.strokeStyle = black;
+                if (menuSelection == 3 || mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGray;
+                } else {
+                    ctx.fillStyle = gray;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                if (menuSelection == 4 || mouseIsOver(canvas.width / 4, canvas.height * 26 / 32, canvas.width / 2, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGray;
+                } else {
+                    ctx.fillStyle = gray;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 26 / 32, sliderWidth, canvas.height * 3 / 64);
                 ctx.stroke();
                 ctx.fill();
@@ -750,9 +762,22 @@ function render(viewport, canvas, ctx) {
 
                 // Draw volume control sliders
                 ctx.beginPath();
-                ctx.fillStyle = gray;
                 ctx.strokeStyle = black;
+                if (menuSelection == 2 || mouseIsOver(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGray;
+                } else {
+                    ctx.fillStyle = gray;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth, canvas.height * 3 / 64);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillRect(canvas.width / 4, canvas.height * 15 / 32, sliderWidth * volumePercent, canvas.height * 3 / 64);
+                if (menuSelection == 3 || mouseIsOver(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64)) {
+                    ctx.fillStyle = lightGray;
+                } else {
+                    ctx.fillStyle = gray;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 20 / 32, sliderWidth, canvas.height * 3 / 64);
                 ctx.stroke();
                 ctx.fill();
