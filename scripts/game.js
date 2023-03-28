@@ -1385,6 +1385,19 @@ function keyDownEvent(e) {
                     menuSelection = 0;
                     break;
             }
+        } else if (gameState == GameStates.Options) {
+            switch (menuSelection) {
+                case 1:
+                    steeringControls = false;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    break;
+                case 2:
+                    steeringControls = true;
+                    menuButtonSound.currentTime = 0;
+                    menuButtonSound.play();
+                    break;
+            }       
         }
     }
 }
