@@ -604,7 +604,7 @@ function render(viewport, canvas, ctx) {
                         ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Gain points (more from bigger stars)", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
-                        ctx.fillText("Increase remaining time by 10 seconds", canvas.width * 5 / 16, canvas.height * 35 / 64);
+                        ctx.fillText("Add 10 seconds to the clock", canvas.width * 5 / 16, canvas.height * 35 / 64);
                         ctx.drawImage(images.HealthPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
                         ctx.fillText("Restores 1 HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
@@ -628,7 +628,7 @@ function render(viewport, canvas, ctx) {
                         ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Basic enemy, fires 1 shot at a time", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
-                        ctx.fillText("Stronger, tougher version of basic enemy", canvas.width * 5 / 16, canvas.height * 35 / 64);
+                        ctx.fillText("Stronger version of basic enemy", canvas.width * 5 / 16, canvas.height * 35 / 64);
                         ctx.drawImage(images.TwinshotEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
                         ctx.fillText("Fires 2 shots in a 'V' pattern", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
