@@ -161,19 +161,18 @@ function startGame(imageList) {
     window.addEventListener("keydown", keyDownEvent);
     window.addEventListener("keyup", keyUpEvent);
     window.addEventListener("mousedown", (e) => {
-        controller.firePressed = true;
-        controller.mousePressed = true;
+        if (e.button == 0) {
+            controller.firePressed = true;
+            controller.mousePressed = true;
+        } else if (e.button == 2 && gameState == GameStates.Playing && player.bombs > 0) {
+            specialReady = true;
+        }
     })
 
     window.addEventListener("mouseup", (e) => {
+        if (e.button == 2) { return }
         if (!controller.spacePressed) { controller.firePressed = false };
         controller.mousePressed = false;
-    })
-
-    canvas.addEventListener("contextmenu", (e) => {
-        if (gameState == GameStates.Playing && player.bombs > 0) {
-            specialReady = true;
-        }
     })
 
     canvas.addEventListener("mousemove", (e) => {
@@ -1487,7 +1486,7 @@ function spawnPickups() {
     let spawnX;
     let spawnY;
 
-    let spawnBuffer = 100 + (20 * (intensityLevel - 1));
+    let minSpawnDist = viewport.width + 100 + (20 * (intensityLevel - 1));
     let spawnDistance = 0;
 
     // generate a random spawn location, then reject if too close to the player
@@ -1495,11 +1494,8 @@ function spawnPickups() {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
-    } while (spawnX > (viewport.x - spawnBuffer)
-    && spawnX < (viewport.x + viewport.width + spawnBuffer)
-    && spawnY > (viewport.y - spawnBuffer)
-    && spawnY < (viewport.y + viewport.height + spawnBuffer)
-        && spawnDistance > (pickupMaxSpawnDistance + 100 * intensityLevel));
+    } while (spawnDistance < minSpawnDist || spawnDistance > (pickupMaxSpawnDistance + 100 * intensityLevel)
+        || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
 
     // spawn a random pickup
     let pickupType = Math.floor(Math.random() * 100);
@@ -1518,19 +1514,17 @@ function spawnEnemies() {
     let spawnX;
     let spawnY;
 
-    let spawnBuffer = 200;
+    let minSpawnDist = viewport.width + 100 + (20 * (intensityLevel - 1));
     let spawnDistance = 0;
+
 
     // generate a random spawn location, then reject if too close to the player
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
         spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
-    } while (spawnX > (viewport.x - spawnBuffer)
-    && spawnX < (viewport.x + viewport.width + spawnBuffer)
-    && spawnY > (viewport.y - spawnBuffer)
-    && spawnY < (viewport.y + viewport.height + spawnBuffer)
-        && spawnDistance > (enemyMaxSpawnDistance - 120 * intensityLevel));
+    } while (spawnDistance < minSpawnDist || spawnDistance > (enemyMaxSpawnDistance - 120 * intensityLevel) 
+        || spawnX < 0 || spawnX > gameWidth || spawnY < 0 || spawnY > gameHeight);
     // Spawn a random enemy type
     let enemyType = Math.random() * 100 + intensityLevel;
     if (enemyType < 45) {
@@ -1552,16 +1546,16 @@ function spawnEnemies() {
 function spawnAsteroid() {
     let spawnX;
     let spawnY;
-    let spawnBuffer = 30;
+    let minSpawnDist = viewport.width;
+    let spawnDistance = 0;
 
-    // generate a random spawn location, then reject if too close to the player
+    // generate a random spawn location
     do {
         spawnX = Math.floor(Math.random() * gameWidth);
         spawnY = Math.floor(Math.random() * gameHeight);
-    } while (spawnX > (viewport.x - spawnBuffer)
-    && spawnX < (viewport.x + viewport.width + spawnBuffer)
-    && spawnY > (viewport.y - spawnBuffer)
-        && spawnY < (viewport.y + viewport.height + spawnBuffer));
+        spawnDistance = Math.hypot(spawnX - player.x, spawnY - player.y);
+    } while (spawnDistance < minSpawnDist || spawnX < 0 || spawnX > gameWidth 
+        || spawnY < 0 || spawnY > gameHeight);
 
     hazards.push(new Asteroid(spawnX, spawnY));
 }
