@@ -522,6 +522,7 @@ function render(viewport, canvas, ctx) {
     let green = "rgb(0, 126, 71)";
     let lightGreen = "rgb(0, 166, 81)";
     let gray = "rgb(150, 150, 150)";
+    let lightGray = "rgb(200, 200, 200)";
     let red = "rgb(200, 40, 40)";
     let lightRed = "rgb(255, 20, 20)";
 
@@ -675,13 +676,21 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("8-Direction", canvas.width * 10 / 32, canvas.height * 52 / 128);
                 ctx.fillText("Steering", canvas.width * 10 / 32, canvas.height * 65 / 128);
                 ctx.beginPath();
-                ctx.fillStyle = !steeringControls ? green : gray;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 45 / 128, 40, 40)) {
+                    ctx.fillStyle = !steeringControls ? lightGreen : lightGray;
+                } else {
+                    ctx.fillStyle = !steeringControls ? green : gray;
+                }
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 45 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
                 ctx.beginPath();
-                ctx.fillStyle = steeringControls ? green : gray;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 58 / 128, 40, 40)) {
+                    ctx.fillStyle = !steeringControls ? lightGray : lightGreen;
+                } else {
+                    ctx.fillStyle = !steeringControls ? gray : green;
+                }
                 ctx.rect(canvas.width / 4, canvas.height * 58 / 128, 40, 40);
                 ctx.stroke();
                 ctx.fill();
