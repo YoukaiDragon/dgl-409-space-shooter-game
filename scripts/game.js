@@ -1055,6 +1055,24 @@ function menuClicks(e) {
                     menuButtonSound.play();
                 }
             }
+
+            if (mouseX >= canvas.width / 4 - 50 && mouseX <= canvas.width / 4 + sliderWidth + 50) {
+                if (mouseY >= canvas.height * 20 / 32
+                    && mouseY <= (canvas.height * 20 / 32) + (canvas.height * 3 / 64)) {
+                    volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                    volumePercent < 0 ? volumePercent = 0 : volumePercent;
+                    volumePercent > 1 ? volumePercent = 1 : volumePercent;
+                    gameMusic.volume = volumePercent;
+                } else if (mouseY >= canvas.height * 26 / 32
+                    && mouseY <= (canvas.height * 26 / 32) + (canvas.height * 3 / 64)) {
+                    sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                    sfxPercent < 0 ? sfxPercent = 0 : sfxPercent;
+                    sfxPercent > 1 ? sfxPercent = 1 : sfxPercent;
+                    setSFXVolume();
+                }
+            }
+
+            // Check for sliders
         }
     } else if (gameState == GameStates.Playing) {
         if (mouseX >= (canvas.width - canvas.width * 18 / 256)
@@ -1069,6 +1087,24 @@ function menuClicks(e) {
             canvas.addEventListener("mousemove", updateSlider);
         }
     } else if (gameState == GameStates.Paused) {
+        // Check for volume sliders
+        if (mouseX >= canvas.width / 4 - 50 && mouseX <= canvas.width / 4 + sliderWidth + 50) {
+            if (mouseY >= canvas.height * 15 / 32
+                && mouseY <= (canvas.height * 15 / 32) + (canvas.height * 3 / 64)) {
+                // Update volume slider
+                volumePercent = (mouseX - canvas.width / 4) / sliderWidth;
+                volumePercent < 0 ? volumePercent = 0 : volumePercent;
+                volumePercent > 1 ? volumePercent = 1 : volumePercent;
+                gameMusic.volume = volumePercent;
+            } else if (mouseY >= canvas.height * 20 / 32
+                && mouseY <= (canvas.height * 20 / 32) + (canvas.height * 3 / 64)) {
+                sfxPercent = (mouseX - canvas.width / 4) / sliderWidth;
+                sfxPercent < 0 ? sfxPercent = 0 : sfxPercent;
+                sfxPercent > 1 ? sfxPercent = 1 : sfxPercent;
+                setSFXVolume();
+            }
+        }
+        // check for other buttons
         if (mouseX < canvas.width / 4 || mouseX > canvas.width * 3 / 4) {
             // Mouse not within horizontal bounds of any button
             return;
