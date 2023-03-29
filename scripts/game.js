@@ -1431,21 +1431,22 @@ function roundCollision(roundObject, object) {
     // difference between the object origin and object center
 
     // Check for collision between two round objects
+    let adjustment = 0.95;
     if (object.hasOwnProperty('radius')) {
         // Check if roundObject is to the right of the other object
-        if (object.x + object.radius < roundObject.x + roundObject.radius) {
+        if (object.x + object.radius < roundObject.x + (roundObject.radius * adjustment)) {
             return false;
         }
         // Check if roundObject is to the left of the other object
-        if (object.x - object.radius > roundObject.x + roundObject.radius * 3) {
+        if (object.x - object.radius > roundObject.x + (roundObject.radius * adjustment) * 3) {
             return false;
         }
         // Check if roundObject is below the other object
-        if (object.y + object.radius < roundObject.y + roundObject.radius) {
+        if (object.y + object.radius < roundObject.y + (roundObject.radius * adjustment)) {
             return false;
         }
         // Check if roundObject is above the other object
-        if (object.y - object.radius > roundObject.y + roundObject.radius * 3) {
+        if (object.y - object.radius > roundObject.y + (roundObject.radius * adjustment) * 3) {
             return false;
         }
         return true;
