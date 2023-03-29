@@ -963,6 +963,11 @@ function render(viewport, canvas, ctx) {
             ctx.rect(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
                 canvas.width * 12 / 256, canvas.width * 12 / 256);
             ctx.stroke();
+            if (mouseIsOver(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
+                canvas.width * 12 / 256, canvas.width * 12 / 256)) {
+                    ctx.fill();
+                    ctx.fillStyle = black;
+            }
             ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 18 / 256);
         }
 
