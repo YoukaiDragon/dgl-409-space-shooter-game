@@ -807,12 +807,41 @@ function render(viewport, canvas, ctx) {
                 }
 
                 // Draw Arrows for name entry mouse controls
-                ctx.drawImage(images.UpArrow, canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40);
-                ctx.drawImage(images.DownArrow, canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40);
-                ctx.drawImage(images.UpArrow, canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40);
-                ctx.drawImage(images.DownArrow, canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40);
-                ctx.drawImage(images.UpArrow, canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40);
-                ctx.drawImage(images.DownArrow, canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40);
+                if (mouseIsOver(canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 100, canvas.height * 24 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40);
+                }
+
+                if (mouseIsOver(canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 100, canvas.height * 40 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40);
+                }
+
+                if (mouseIsOver(canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 28, canvas.height * 24 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40);
+                }
+
+                if (mouseIsOver(canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 28, canvas.height * 40 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40);
+                }
+
+                if (mouseIsOver(canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 40, canvas.height * 24 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40);
+                }
+
+                if (mouseIsOver(canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 40, canvas.height * 40 / 64 - 5, 50, 50);
+                } else {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40);
+                }
 
                 ctx.beginPath();
                 ctx.fillStyle = green;
