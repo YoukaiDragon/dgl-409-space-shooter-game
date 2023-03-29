@@ -97,6 +97,7 @@ let maxInstructionPage = 7;
 let timer;
 let timerIntervalId;
 let blinkingIntervalId;
+let splashScreenId;
 
 let score;
 
@@ -142,6 +143,7 @@ function loadGame(e) {
     // start loading the game if space or enter was pressed, or the canvas was clicked on
     if (e.key == null || e.key == " " || e.key == "Enter") {
         loaded = true;
+        clearInterval(splashScreenId);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "gray";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -192,22 +194,24 @@ function blinkSelection() {
 }
 
 // Draw the loading splash screen
-ctx.fillStyle = "gray";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-ctx.beginPath();
-ctx.strokeStyle = "white";
-ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 5, 0, 2 * Math.PI);
-ctx.stroke();
-ctx.beginPath();
-ctx.fillStyle = "white";
-ctx.moveTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
-ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 + canvas.height / 16);
-ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 - canvas.height / 16);
-ctx.lineTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
-ctx.fill();
-ctx.textAlign = "center";
-ctx.font = "32px PressStart2P";
-ctx.fillText("Start Game", canvas.width / 2, canvas.height * 4 / 5);
+splashScreenId = setInterval(() => {
+    ctx.fillStyle = "gray";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.strokeStyle = "white";
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 5, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.moveTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
+    ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 + canvas.height / 16);
+    ctx.lineTo(canvas.width / 2 - canvas.width / 32, canvas.height / 2 - canvas.height / 16);
+    ctx.lineTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
+    ctx.fill();
+    ctx.textAlign = "center";
+    ctx.font = "32px PressStart2P";
+    ctx.fillText("Start Game", canvas.width / 2, canvas.height * 4 / 5);
+}, 10);
 
 // Resets game variables / entity holders for a new game
 function newGame() {
