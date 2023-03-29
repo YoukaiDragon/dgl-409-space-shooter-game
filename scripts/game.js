@@ -320,7 +320,7 @@ function update() {
         // Update enemy bullets
         for (let i = enemyBullets.length - 1; i >= 0; i--) {
             enemyBullets[i].update();
-            if (roundCollision(enemyBullets[i], player)) {
+            if (bulletCollision(enemyBullets[i], player)) {
                 // Bullet collided with player
                 player.damage();
                 enemyBullets.splice(i, 1);
@@ -366,7 +366,7 @@ function update() {
         // Check collisions between player bullets and enemies
         for (let i = player.bullets.length - 1; i >= 0; i--) {
             for (let j = enemies.length - 1; j >= 0; j--) {
-                if (roundCollision(player.bullets[i], enemies[j])) {
+                if (bulletCollision(player.bullets[i], enemies[j])) {
                     enemies[j].damage();
                     if (enemies[j].hp <= 0) {
                         // Kill enemy
@@ -1466,6 +1466,27 @@ function roundCollision(roundObject, object) {
     }
     // Check if roundObject is above the other object
     if (object.y - object.height / 2 > roundObject.y + roundObject.radius * 3) {
+        return false;
+    }
+    return true;
+}
+
+function bulletCollision(bullet, enemy) {
+    let adjustment = 0.8;
+    // Check if bullet is to the right of the other object
+    if (enemy.x + (enemy.width / 2 * adjustment) < bullet.x + bullet.radius) {
+        return false;
+    }
+    // Check if bullet is to the left of the other object
+    if (enemy.x - (enemy.width / 2 * adjustment) > bullet.x + bullet.radius * 3) {
+        return false;
+    }
+    // Check if bullet is below the other object
+    if (enemy.y + (enemy.height / 2 * adjustment) < bullet.y + bullet.radius) {
+        return false;
+    }
+    // Check if bullet is above the other object
+    if (enemy.y - (enemy.height / 2 * adjustment) > bullet.y + bullet.radius * 3) {
         return false;
     }
     return true;
