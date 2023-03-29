@@ -400,10 +400,10 @@ function update() {
                                 * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
                         }
                         if (player.y < hazards[i].y + hazards[i].radius) {
-                            player.y -= Math.sin(angle * (Math.PI / 180)) 
+                            player.y -= Math.sin(angle * (Math.PI / 180))
                                 * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
                         } else {
-                            player.y += Math.sin(angle * (Math.PI / 180)) 
+                            player.y += Math.sin(angle * (Math.PI / 180))
                                 * player.speed > hazards[i].speed ? player.speed : hazards[i].speed;
                         }
                     }
@@ -414,14 +414,14 @@ function update() {
                                 enemies[j].x -= Math.cos(angle * (Math.PI / 180))
                                     * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             } else {
-                                enemies[j].x += Math.cos(angle * (Math.PI / 180)) 
+                                enemies[j].x += Math.cos(angle * (Math.PI / 180))
                                     * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             }
                             if (enemies[j].y < hazards[i].y + hazards[i].radius) {
-                                enemies[j].y -= Math.sin(angle * (Math.PI / 180)) 
+                                enemies[j].y -= Math.sin(angle * (Math.PI / 180))
                                     * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             } else {
-                                enemies[j].y += Math.sin(angle * (Math.PI / 180)) 
+                                enemies[j].y += Math.sin(angle * (Math.PI / 180))
                                     * enemies[j].speed > hazards[i].speed ? enemies[j].speed : hazards[i].speed;
                             }
                         }
@@ -797,21 +797,12 @@ function render(viewport, canvas, ctx) {
                 }
 
                 // Draw Arrows for name entry mouse controls
-                // Horizontal offset is offset of matching HS name letter - half of arrow image width
-                switch (HSNameIndex) {
-                    case 0:
-                        ctx.drawImage(images.UpArrow, canvas.width / 2 - 90, canvas.height * 27 / 64, 40, 40);
-                        ctx.drawImage(images.DownArrow, canvas.width / 2 - 90, canvas.height * 40 / 64, 40, 40);
-                        break;
-                    case 1:
-                        ctx.drawImage(images.UpArrow, canvas.width / 2 - 20, canvas.height * 27 / 64, 40, 40);
-                        ctx.drawImage(images.DownArrow, canvas.width / 2 - 20, canvas.height * 40 / 64, 40, 40);
-                        break;
-                    case 2:
-                        ctx.drawImage(images.UpArrow, canvas.width / 2 + 50, canvas.height * 27 / 64, 40, 40);
-                        ctx.drawImage(images.DownArrow, canvas.width / 2 + 50, canvas.height * 40 / 64, 40, 40);
-                        break;
-                }
+                ctx.drawImage(images.UpArrow, canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40);
+                ctx.drawImage(images.DownArrow, canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40);
+                ctx.drawImage(images.UpArrow, canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40);
+                ctx.drawImage(images.DownArrow, canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40);
+                ctx.drawImage(images.UpArrow, canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40);
+                ctx.drawImage(images.DownArrow, canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40);
 
                 ctx.beginPath();
                 ctx.fillStyle = green;
@@ -965,8 +956,8 @@ function render(viewport, canvas, ctx) {
             ctx.stroke();
             if (mouseIsOver(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
                 canvas.width * 12 / 256, canvas.width * 12 / 256)) {
-                    ctx.fill();
-                    ctx.fillStyle = black;
+                ctx.fill();
+                ctx.fillStyle = black;
             }
             ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 18 / 256);
         }
@@ -1096,55 +1087,31 @@ function menuClicks(e) {
             menuButtonSound.play();
         }
         // Detect clicks on HS name entry controls
-        if (mouseY >= canvas.height * 27 / 64 && mouseY <= canvas.height * 27 / 64 + 40) {
-            switch (HSNameIndex) {
-                case 0:
-                    if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
-                        highScoreInitials[0] = highScoreInitials[0] ==
-                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) - 1);
-                    }
-                    break;
-                case 1:
-                    if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
-                        highScoreInitials[1] = highScoreInitials[1] ==
-                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) - 1);
-                    }
-                    break;
-                case 2:
-                    if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
-                        highScoreInitials[2] = highScoreInitials[2] ==
-                            'A' ? 'Z' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) - 1);
-                    }
-                    break;
+        if (mouseY >= canvas.height * 24 / 64 && mouseY <= canvas.height * 24 / 64 + 40) {
+            if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                highScoreInitials[0] = highScoreInitials[0] ==
+                    'A' ? 'Z' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) - 1);
+            }
+            if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                highScoreInitials[1] = highScoreInitials[1] ==
+                    'A' ? 'Z' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) - 1);
+            }
+            if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                highScoreInitials[2] = highScoreInitials[2] ==
+                    'A' ? 'Z' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) - 1);
             }
         } else if (mouseY >= canvas.height * 40 / 64 && mouseY <= canvas.height * 40 / 64 + 40) {
-            switch (HSNameIndex) {
-                case 0:
-                    if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
-                        highScoreInitials[0] = highScoreInitials[0] ==
-                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) + 1);
-                    }
-                    break;
-                case 1:
-                    if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
-                        highScoreInitials[1] = highScoreInitials[1] ==
-                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) + 1);
-                    }
-                    break;
-                case 2:
-                    if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
-                        highScoreInitials[2] = highScoreInitials[2] ==
-                            'Z' ? 'A' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) + 1);
-                    }
-                    break;
+            if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                highScoreInitials[0] = highScoreInitials[0] ==
+                    'Z' ? 'A' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) + 1);
             }
-        } else if (mouseY >= canvas.height * 19 / 32 - 62 && mouseY <= canvas.height * 19 / 32 + 10) {
-            if (mouseX >= canvas.width / 2 - 106 && mouseX < canvas.width / 2 - 34) {
-                HSNameIndex = 0;
-            } else if (mouseX >= canvas.width / 2 - 34 && mouseX < canvas.width / 2 + 34) {
-                HSNameIndex = 1;
-            } else if (mouseX >= canvas.width / 2 + 34 && mouseX < canvas.width / 2 + 106) {
-                HSNameIndex = 2;
+            if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                highScoreInitials[1] = highScoreInitials[1] ==
+                    'Z' ? 'A' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) + 1);
+            }
+            if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                highScoreInitials[2] = highScoreInitials[2] ==
+                    'Z' ? 'A' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) + 1);
             }
         }
     }
