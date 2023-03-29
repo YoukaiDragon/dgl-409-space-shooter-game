@@ -552,7 +552,17 @@ function render(viewport, canvas, ctx) {
 
                 // Draw the page indicator
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 114 / 128);
+                if (mouseIsOver(canvas.width * 5 / 32, canvas.height * 33 / 64, canvas.width / 16, canvas.height * 3 / 64)) {
+                    ctx.font = "36px PressStart2P";
+                } else {
+                    ctx.font = "28px PressStart2P";
+                }
                 ctx.fillText('<<', canvas.width * 3 / 16, canvas.height * 9 / 16);
+                if (mouseIsOver(canvas.width * 25 / 32, canvas.height * 33 / 64, canvas.width / 16, canvas.height * 3 / 64)) {
+                    ctx.font = "36px PressStart2P";
+                } else {
+                    ctx.font = "28px PressStart2P";
+                }
                 ctx.fillText('>>', canvas.width * 13 / 16, canvas.height * 9 / 16);
 
                 // Display the instructions
