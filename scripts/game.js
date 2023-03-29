@@ -38,7 +38,7 @@ let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
 ctx.scale(scale, scale);
-ctx.lineWidth = 5;
+ctx.lineWidth = 10;
 
 let sliderWidth = canvas.width / 2;
 let volumePercent = 1.0;
