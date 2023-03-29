@@ -239,7 +239,7 @@ function newGame() {
     intensityTimer = 60;
 
     highScoreInitials = ['A', 'A', 'A'];
-    HSNameIndex = 0;
+    HSNameIndex = -1;
 
     // spawn initial items / enemies
     for (let i = 0; i < 10; i++) {
@@ -1089,27 +1089,33 @@ function menuClicks(e) {
         // Detect clicks on HS name entry controls
         if (mouseY >= canvas.height * 24 / 64 && mouseY <= canvas.height * 24 / 64 + 40) {
             if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                HSNameIndex = -1; // Deselect keyboard selection
                 highScoreInitials[0] = highScoreInitials[0] ==
                     'A' ? 'Z' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) - 1);
             }
             if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                HSNameIndex = -1;
                 highScoreInitials[1] = highScoreInitials[1] ==
                     'A' ? 'Z' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) - 1);
             }
             if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                HSNameIndex = -1;
                 highScoreInitials[2] = highScoreInitials[2] ==
                     'A' ? 'Z' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) - 1);
             }
         } else if (mouseY >= canvas.height * 40 / 64 && mouseY <= canvas.height * 40 / 64 + 40) {
             if (mouseX >= canvas.width / 2 - 90 && mouseX <= canvas.width / 2 - 50) {
+                HSNameIndex = -1;
                 highScoreInitials[0] = highScoreInitials[0] ==
                     'Z' ? 'A' : String.fromCharCode(highScoreInitials[0].charCodeAt(0) + 1);
             }
             if (mouseX >= canvas.width / 2 - 20 && mouseX <= canvas.width / 2 + 20) {
+                HSNameIndex = -1;
                 highScoreInitials[1] = highScoreInitials[1] ==
                     'Z' ? 'A' : String.fromCharCode(highScoreInitials[1].charCodeAt(0) + 1);
             }
             if (mouseX >= canvas.width / 2 + 50 && mouseX <= canvas.width / 2 + 90) {
+                HSNameIndex = -1;
                 highScoreInitials[2] = highScoreInitials[2] ==
                     'Z' ? 'A' : String.fromCharCode(highScoreInitials[2].charCodeAt(0) + 1);
             }
@@ -1227,7 +1233,7 @@ function keyDownEvent(e) {
                 menuButtonSound.play();
                 break;
             case GameStates.GameOver:
-                HSNameIndex = HSNameIndex == 0 ? highScoreInitials.length - 1 : HSNameIndex - 1;
+                HSNameIndex = HSNameIndex <= 0 ? highScoreInitials.length - 1 : HSNameIndex - 1;
                 break;
             case GameStates.Options:
                 if (menuSelection == 3) {
