@@ -848,14 +848,18 @@ function render(viewport, canvas, ctx) {
                 }
 
                 ctx.beginPath();
-                ctx.fillStyle = green;
+                if (mouseIsOver(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32)) {
+                    ctx.fillStyle = lightGreen;
+                } else {
+                    ctx.fillStyle = green;
+                }
                 ctx.strokeStyle = black;
                 ctx.rect(canvas.width / 4, canvas.height * 24 / 32, canvas.width / 2, canvas.height * 3 / 32);
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = white;
                 ctx.font = "40px PressStart2P";
-                ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 105 / 128);
+                ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 107 / 128);
                 break;
             case GameStates.HighScore:
                 ctx.fillText("High Scores", canvas.width / 2, canvas.height * 7 / 32);
