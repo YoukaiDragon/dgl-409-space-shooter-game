@@ -873,18 +873,23 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = black;
+                ctx.fillRect(canvas.width * 8 / 32, canvas.height * 8 / 32, canvas.width / 2, canvas.height * 5 / 8);
                 ctx.font = "28px PressStart2P";
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
-                ctx.fillStyle = black;
                 ctx.textAlign = "left";
                 ctx.font = "32px PressStart2P";
                 // Print the top 5 scores, and leave entries blank if there are less than 5 scores saved
-                ctx.fillText(`1: ${highScores[0][0] ?? ''}: ${highScores[0][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 45 / 128);
-                ctx.fillText(`2: ${highScores[1][0] ?? ''}: ${highScores[1][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 60 / 128);
-                ctx.fillText(`3: ${highScores[2][0] ?? ''}: ${highScores[2][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 75 / 128);
-                ctx.fillText(`4: ${highScores[3][0] ?? ''}: ${highScores[3][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 90 / 128);
-                ctx.fillText(`5: ${highScores[4][0] ?? ''}: ${highScores[4][1] ?? ''}`, canvas.width * 8 / 32, canvas.height * 105 / 128);
+                ctx.fillStyle = "cyan";
+                ctx.fillText(`1: ${highScores[0][0] ?? ''}: ${highScores[0][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 45 / 128);
+                ctx.fillStyle = "lime";
+                ctx.fillText(`2: ${highScores[1][0] ?? ''}: ${highScores[1][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 60 / 128);
+                ctx.fillStyle = "yellow";
+                ctx.fillText(`3: ${highScores[2][0] ?? ''}: ${highScores[2][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 75 / 128);
+                ctx.fillStyle = "orange";
+                ctx.fillText(`4: ${highScores[3][0] ?? ''}: ${highScores[3][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 90 / 128);
+                ctx.fillStyle = "red";
+                ctx.fillText(`5: ${highScores[4][0] ?? ''}: ${highScores[4][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 105 / 128);
                 break;
         }
     }
