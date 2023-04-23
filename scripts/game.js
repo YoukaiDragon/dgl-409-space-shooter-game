@@ -27,7 +27,7 @@ let gameState = GameStates.Menu;
 
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
 let width = 960;
-let height = 640;
+let height = 640 * window.devicePixelRatio;
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
@@ -37,7 +37,6 @@ let mouseY = 0;
 let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
-console.log(`${canvas.width}, ${canvas.height}`)
 ctx.lineWidth = 10;
 
 let sliderWidth = canvas.width / 2;
@@ -988,7 +987,7 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.textAlign = "center";
         ctx.fillStyle = white;
-        ctx.font = `${32 * scale}px PressStart2P`;
+        ctx.font = `${28 * scale}px PressStart2P`;
         ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 3 / 64);
         ctx.beginPath();
         ctx.textAlign = "left";
@@ -1002,7 +1001,7 @@ function render(viewport, canvas, ctx) {
             ctx.beginPath();
             ctx.textAlign = "center";
             ctx.strokeStyle = white;
-            ctx.rect(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
+            ctx.rect(canvas.width - 66 * scale, canvas.height * 5 / 256,
                 canvas.width * 12 / 256, canvas.width * 12 / 256);
             ctx.stroke();
             if (mouseIsOver(canvas.width - canvas.width * 18 / 256, canvas.height * 5 / 256,
@@ -1010,7 +1009,8 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
             }
-            ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 18 / 256);
+            ctx.font = `${22 * scale}px PressStart2P`;
+            ctx.fillText("||", canvas.width - canvas.width * 12 / 256, canvas.height * 18 / 256 - (30 * (scale -1)));
         }
 
     }
