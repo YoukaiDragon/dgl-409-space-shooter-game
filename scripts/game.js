@@ -27,7 +27,7 @@ let gameState = GameStates.Menu;
 
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
 let width = 960;
-let height = 640 * window.devicePixelRatio;
+let height = 640;
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
