@@ -26,8 +26,8 @@ let gameState = GameStates.Menu;
 
 
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
-let width = 960 * window.devicePixelRatio;
-let height = 640 * window.devicePixelRatio;
+let width = 960;
+let height = 640;
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
@@ -37,6 +37,7 @@ let mouseY = 0;
 let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
+console.log(`${canvas.width}, ${canvas.height}`)
 ctx.lineWidth = 10;
 
 let sliderWidth = canvas.width / 2;
