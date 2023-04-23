@@ -7,7 +7,7 @@ class Enemy {
         this.speed = 0;
         this.maxSpeed = 6;
         this.turnSpeed = 3;
-        this.width = 40;
+        this.width = 40 * scale;
         this.height = this.width;
         this.hp = 1;
         this.fireRate = 120;
@@ -92,7 +92,7 @@ class Enemy {
 class ShooterEnemy extends Enemy {
     constructor(x, y) {
         super(x, y);
-        this.width = 60;
+        this.width = 60 * scale;
         this.height = this.width;
         this.turnSpeed = 4;
         this.image = images.BasicShooterEnemy
@@ -152,7 +152,7 @@ class AdvancedShooterEnemy extends Enemy {
         this.fireRate = 60;
         this.turnSpeed = 5;
         this.points = 3;
-        this.width = 60;
+        this.width = 60 * scale;
         this.height = this.width;
         this.colour = "purple";
         this.image = images.AdvancedShooterEnemy;
@@ -212,7 +212,7 @@ class TwinshotEnemy extends Enemy {
         super(x, y)
         this.maxSpeed = 4;
         this.turnSpeed = 3;
-        this.width = 50;
+        this.width = 50 * scale;
         this.height = this.width;
         this.hp = 2;
         this.fireRate = 100;
@@ -276,7 +276,7 @@ class TripleshotEnemy extends Enemy {
         super(x, y)
         this.maxSpeed = 5;
         this.turnSpeed = 5;
-        this.width = 70;
+        this.width = 70 * scale;
         this.height = this.width;
         this.hp = 3;
         this.fireRate = 100;
@@ -338,7 +338,7 @@ class TripleshotEnemy extends Enemy {
 class Turret extends Enemy {
     constructor(x, y) {
         super(x, y);
-        this.width = 180;
+        this.width = 180 * scale;
         this.height = this.width;
         this.maxSpeed = 0;
         this.turnSpeed = 0;
@@ -386,7 +386,7 @@ class Turret extends Enemy {
 class CargoEnemy extends Enemy {
     constructor(x, y) {
         super(x, y);
-        this.width = 75;
+        this.width = 75 * scale;
         this.height = this.width;
         this.maxSpeed = 30;
         this.angle = Math.floor(Math.random() * 360)

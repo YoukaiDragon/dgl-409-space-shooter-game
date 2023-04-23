@@ -4,7 +4,7 @@ class Bullet {
         this.y = y;
         this.angle = angle;
         this.speed = speed;
-        this.radius = radius;
+        this.radius = radius * scale;
         this.playerOwned = playerOwned;
         this.duration = playerOwned ? 40 : 400;
     }

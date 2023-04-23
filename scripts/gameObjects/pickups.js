@@ -20,7 +20,7 @@ class Pickup {
 class twinShotPickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 40;
+        this.width = 40 * scale;
         this.height = this.width;
     }
 
@@ -59,7 +59,7 @@ class twinShotPickup extends Pickup {
 class tripleShotPickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 40;
+        this.width = 40 * scale;
         this.height = this.width;
     }
 
@@ -98,7 +98,7 @@ class tripleShotPickup extends Pickup {
 class healthPickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 35;
+        this.width = 35 * scale;
         this.height = this.width;
     }
 
@@ -126,7 +126,7 @@ class healthPickup extends Pickup {
 class timePickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 30;
+        this.width = 30 * scale;
         this.height = this.width;
     }
 
@@ -157,18 +157,18 @@ class scorePickup extends Pickup {
         super(x, y);
         switch (size) {
             case 'lg':
-                this.width = 60;
+                this.width = 60 * scale;
                 this.height = this.width;
                 this.points = 20;
                 break;
             case 'md':
-                this.width = 40;
+                this.width = 40 * scale;
                 this.height = this.width;
                 this.points = 10;
                 break;
             case 'sm':
             default:
-                this.width = 20;
+                this.width = 20 * scale;
                 this.height = this.width;
                 this.points = 5;
                 break;
@@ -200,7 +200,7 @@ class scorePickup extends Pickup {
 class bombPickup extends Pickup {
     constructor(x, y) {
         super(x, y);
-        this.width = 40;
+        this.width = 40 * scale;
         this.height = this.width;
     }
 

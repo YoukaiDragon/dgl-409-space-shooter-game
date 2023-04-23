@@ -3,7 +3,7 @@ class Asteroid {
         this.type = "asteroid";
         this.x = x;
         this.y = y;
-        this.radius = (Math.random() * 40 + 15);
+        this.radius = (Math.random() * 40 + 15) * scale;
         this.speed = (Math.random() * 6 + 0.1);
         this.angle = (Math.floor(Math.random() * 360));
         this.sprite = (Math.floor(Math.random() * 2));

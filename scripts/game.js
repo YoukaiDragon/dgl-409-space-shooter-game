@@ -28,7 +28,6 @@ let gameState = GameStates.Menu;
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
 let width = 960 * window.devicePixelRatio;
 let height = 640 * window.devicePixelRatio;
-console.log(`${width}, ${height}`)
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
@@ -38,7 +37,6 @@ let mouseY = 0;
 let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
-console.log(canvas.width);
 ctx.lineWidth = 10;
 
 let sliderWidth = canvas.width / 2;
@@ -190,7 +188,6 @@ function gameFrame(viewport, canvas, ctx) {
 }
 
 function blinkSelection() {
-    console.log("Blink");
     selectionBlink = !selectionBlink;
 }
 
@@ -599,53 +596,53 @@ function render(viewport, canvas, ctx) {
                         ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Items", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = `${12 * scale}px PressStart2P`;
-                        ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Gain points (more from bigger stars)", canvas.width * 5 / 16, canvas.height * 27 / 64);
-                        ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Add 10 seconds to the clock", canvas.width * 5 / 16, canvas.height * 35 / 64);
-                        ctx.drawImage(images.HealthPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.drawImage(images.HealthPickup, canvas.width / 4, canvas.height * 20 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Restores 1 HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 4:
                         ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Items (cont.)", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = `${12 * scale}px PressStart2P`;
-                        ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 12 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Grants ammo and upgrades default", canvas.width * 5 / 16, canvas.height * 26 / 64);
                         ctx.fillText("weapon to fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 28 / 64);
-                        ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.drawImage(images.TripleshotPickup, canvas.width / 4, canvas.height * 16 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Grants ammo and upgrades weapon", canvas.width * 5 / 16, canvas.height * 34 / 64);
                         ctx.fillText("to fire 3 shots at once", canvas.width * 5 / 16, canvas.height * 36 / 64);
-                        ctx.drawImage(images.BombPickup, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.drawImage(images.BombPickup, canvas.width / 4, canvas.height * 20 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Grants 1 additional bomb", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 5:
                         ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Enemies", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = `${12 * scale}px PressStart2P`;
-                        ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Basic enemy, fires 1 shot at a time", canvas.width * 5 / 16, canvas.height * 27 / 64);
-                        ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Stronger version of basic enemy", canvas.width * 5 / 16, canvas.height * 35 / 64);
-                        ctx.drawImage(images.TwinshotEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.drawImage(images.TwinshotEnemy, canvas.width / 4, canvas.height * 20 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Fires 2 shots in a 'V' pattern", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 6:
                         ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Enemies (cont.)", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = `${12 * scale}px PressStart2P`;
-                        ctx.drawImage(images.TripleshotEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.drawImage(images.TripleshotEnemy, canvas.width / 4, canvas.height * 12 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Strong enemy, fires a 3 shot spread", canvas.width * 5 / 16, canvas.height * 27 / 64);
-                        ctx.drawImage(images.Turret, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
+                        ctx.drawImage(images.Turret, canvas.width / 4, canvas.height * 16 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Stationary, fires 8 shots in a ring", canvas.width * 5 / 16, canvas.height * 35 / 64);
-                        ctx.drawImage(images.CargoEnemy, canvas.width / 4, canvas.height * 20 / 32, 50, 50);
+                        ctx.drawImage(images.CargoEnemy, canvas.width / 4, canvas.height * 20 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Runs away, drops strong pickups", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 7:
                         ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Hazards", canvas.width / 4, canvas.height * 10 / 32);
                         ctx.font = `${12 * scale}px PressStart2P`;
-                        ctx.drawImage(images.asteroidA, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
+                        ctx.drawImage(images.asteroidA, canvas.width / 4, canvas.height * 12 / 32, 50 * scale, 50 * scale);
                         ctx.fillText("Blocks ships and bullets", canvas.width * 5 / 16, canvas.height * 26 / 64);
                         ctx.fillText("damages player on contact", canvas.width * 5 / 16, canvas.height * 28 / 64);
                         break;
@@ -802,50 +799,50 @@ function render(viewport, canvas, ctx) {
                 ctx.font = `${72 * scale}px PressStart2P`;
                 // Display highscore initials, blinking the current selection
                 if (HSNameIndex != 0 || !selectionBlink) {
-                    ctx.fillText(highScoreInitials[0], canvas.width / 2 - 70, canvas.height * 19 / 32);
+                    ctx.fillText(highScoreInitials[0], canvas.width / 2 - 70 * scale, canvas.height * 19 / 32);
                 }
                 if (HSNameIndex != 1 || !selectionBlink) {
                     ctx.fillText(highScoreInitials[1], canvas.width / 2, canvas.height * 19 / 32);
                 }
                 if (HSNameIndex != 2 || !selectionBlink) {
-                    ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70, canvas.height * 19 / 32);
+                    ctx.fillText(highScoreInitials[2], canvas.width / 2 + 70 * scale, canvas.height * 19 / 32);
                 }
 
                 // Draw Arrows for name entry mouse controls
-                if (mouseIsOver(canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40)) {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 100, canvas.height * 24 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 - 95 * scale, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 100 * scale, canvas.height * 24 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 95, canvas.height * 24 / 64, 40, 40);
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 95 * scale, canvas.height * 24 / 64, 40 * scale, 40 * scale);
                 }
 
-                if (mouseIsOver(canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40)) {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 100, canvas.height * 40 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 - 95 * scale, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 100 * scale, canvas.height * 40 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 95, canvas.height * 40 / 64, 40, 40);
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 95 * scale, canvas.height * 40 / 64, 40 * scale, 40 * scale);
                 }
 
-                if (mouseIsOver(canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40)) {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 28, canvas.height * 24 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 - 23 * scale, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 28 * scale, canvas.height * 24 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 23, canvas.height * 24 / 64, 40, 40);
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 - 23 * scale, canvas.height * 24 / 64, 40 * scale, 40 * scale);
                 }
 
-                if (mouseIsOver(canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40)) {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 28, canvas.height * 40 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 - 23 * scale, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 28 * scale, canvas.height * 40 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 23, canvas.height * 40 / 64, 40, 40);
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 - 23 * scale, canvas.height * 40 / 64, 40 * scale, 40 * scale);
                 }
 
-                if (mouseIsOver(canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40)) {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 40, canvas.height * 24 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 + 45 * scale, canvas.height * 24 / 64, 40, 40)) {
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 40 * scale, canvas.height * 24 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 45, canvas.height * 24 / 64, 40, 40);
+                    ctx.drawImage(images.UpArrow, canvas.width / 2 + 45 * scale, canvas.height * 24 / 64, 40 * scale, 40 * scale);
                 }
 
-                if (mouseIsOver(canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40)) {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 40, canvas.height * 40 / 64 - 5, 50, 50);
+                if (mouseIsOver(canvas.width / 2 + 45 * scale, canvas.height * 40 / 64, 40, 40)) {
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 40 * scale, canvas.height * 40 / 64 - 5 / scale, 50 * scale, 50 * scale);
                 } else {
-                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 45, canvas.height * 40 / 64, 40, 40);
+                    ctx.drawImage(images.DownArrow, canvas.width / 2 + 45 * scale, canvas.height * 40 / 64, 40 * scale, 40 * scale);
                 }
 
                 ctx.beginPath();
@@ -1019,8 +1016,8 @@ function render(viewport, canvas, ctx) {
 }
 
 function menuClicks(e) {
-    let mouseX = e.offsetX;
-    let mouseY = e.offsetY;
+    let mouseX = e.offsetX * scale;
+    let mouseY = e.offsetY * scale;
     if (gameState == GameStates.Menu) {
         // return if mouse is not within the horizontal bounds of the menu buttons
         if (mouseX < canvas.width / 4 || mouseX > canvas.width * 3 / 4) {
@@ -1214,8 +1211,8 @@ function menuClicks(e) {
 
 function updateSlider(e) {
     if (!controller.mousePressed) { return; }
-    let mouseX = e.offsetX;
-    let mouseY = e.offsetY;
+    let mouseX = e.offsetX * scale;
+    let mouseY = e.offsetY * scale;
     // Detect mouse position past the slider on each end, then clamp to a range of 0 - 1
     if (mouseX >= canvas.width / 4 - 50 && mouseX <= canvas.width / 4 + sliderWidth + 50) {
         if (gameState == GameStates.Options) {
@@ -1714,10 +1711,10 @@ function updateHighScores() {
 }
 
 function mouseIsOver(x, y, width, height) {
-    if (mouseX < x) { return false }
-    if (mouseX > x + width) { return false }
-    if (mouseY < y) { return false }
-    if (mouseY > y + height) { return false }
+    if (mouseX * scale < x) { return false }
+    if (mouseX * scale > x + width) { return false }
+    if (mouseY * scale < y) { return false }
+    if (mouseY * scale > y + height) { return false }
     return true;
 }
 
