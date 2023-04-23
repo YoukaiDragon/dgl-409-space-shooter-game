@@ -26,8 +26,9 @@ let gameState = GameStates.Menu;
 
 
 // Pixellation fix from https://www.geeksforgeeks.org/how-to-sharpen-blurry-text-in-html5-canvas/
-let width = 960;
-let height = 640;
+let width = 960 * window.devicePixelRatio;
+let height = 640 * window.devicePixelRatio;
+console.log(`${width}, ${height}`)
 canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 
@@ -37,7 +38,7 @@ let mouseY = 0;
 let scale = window.devicePixelRatio;
 canvas.width = Math.floor(width * scale);
 canvas.height = Math.floor(height * scale);
-ctx.scale(scale, scale);
+console.log(canvas.width);
 ctx.lineWidth = 10;
 
 let sliderWidth = canvas.width / 2;
@@ -148,7 +149,7 @@ function loadGame(e) {
         ctx.fillStyle = "gray";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "White";
-        ctx.font = "40px PressStart2P";
+        ctx.font = `${40 * scale}px PressStart2P`;
         ctx.textAlign = "center";
         ctx.fillText("Loading", canvas.width / 2, canvas.height / 2);
         loadImages(IMAGES, startGame);
@@ -209,7 +210,7 @@ splashScreenId = setInterval(() => {
     ctx.lineTo(canvas.width / 2 + canvas.width / 16, canvas.height / 2);
     ctx.fill();
     ctx.textAlign = "center";
-    ctx.font = "32px PressStart2P";
+    ctx.font = `${32 * scale}px PressStart2P`;
     ctx.fillText("Start Game", canvas.width / 2, canvas.height * 4 / 5);
 }, 10);
 
@@ -530,12 +531,12 @@ function render(viewport, canvas, ctx) {
 
         // Draw Page Title
         ctx.fillStyle = black;
-        ctx.font = "32px PressStart2P"
+        ctx.font = `${32 * scale}px PressStart2P`
         ctx.textAlign = "center";
 
         switch (gameState) {
             case GameStates.Menu:
-                ctx.font = "36px PressStart2P";
+                ctx.font = `${36 * scale}px PressStart2P`;
                 ctx.fillText("Ace of Space", canvas.width / 2, canvas.height * 7 / 32);
                 break;
             case GameStates.Instructions:
@@ -551,21 +552,21 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = black;
-                ctx.font = "28px PressStart2P";
+                ctx.font = `${28 * scale}px PressStart2P`;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
                 // Draw the page indicator
                 ctx.fillText(`${instructionPage} / ${maxInstructionPage}`, canvas.width / 2, canvas.height * 114 / 128);
                 if (mouseIsOver(canvas.width * 5 / 32, canvas.height * 33 / 64, canvas.width / 16, canvas.height * 3 / 64)) {
-                    ctx.font = "36px PressStart2P";
+                    ctx.font = `${36 * scale}px PressStart2P`;
                 } else {
-                    ctx.font = "28px PressStart2P";
+                    ctx.font = `${28 * scale}px PressStart2P`;
                 }
                 ctx.fillText('<<', canvas.width * 3 / 16, canvas.height * 9 / 16);
                 if (mouseIsOver(canvas.width * 25 / 32, canvas.height * 33 / 64, canvas.width / 16, canvas.height * 3 / 64)) {
-                    ctx.font = "36px PressStart2P";
+                    ctx.font = `${36 * scale}px PressStart2P`;
                 } else {
-                    ctx.font = "28px PressStart2P";
+                    ctx.font = `${28 * scale}px PressStart2P`;
                 }
                 ctx.fillText('>>', canvas.width * 13 / 16, canvas.height * 9 / 16);
 
@@ -573,18 +574,18 @@ function render(viewport, canvas, ctx) {
                 ctx.textAlign = "left";
                 switch (instructionPage) {
                     case 1:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Objective", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.fillText("Survive while collecting golden stars", canvas.width / 4, canvas.height * 13 / 32);
                         ctx.fillText("and powerups / destroying enemies to", canvas.width / 4, canvas.height * 15 / 32);
                         ctx.fillText("get as many points as possible", canvas.width / 4, canvas.height * 17 / 32);
                         ctx.fillText("before time runs out", canvas.width / 4, canvas.height * 19 / 32);
                         break;
                     case 2:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Controls", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.fillText("Spacebar / LMB: Fire main weapon", canvas.width / 4, canvas.height * 12 / 32);
                         ctx.fillText("F / RMB: Bomb (Destroy nearby enemies)", canvas.width / 4, canvas.height * 14 / 32);
                         ctx.fillText("Steering Mode:", canvas.width / 4, canvas.height * 16 / 32);
@@ -595,9 +596,9 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("    WASD / Arrow Keys: Move", canvas.width / 4, canvas.height * 49 / 64);
                         break;
                     case 3:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Items", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.drawImage(images.ScorePickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Gain points (more from bigger stars)", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.TimePickup, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
@@ -606,9 +607,9 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Restores 1 HP", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 4:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Items (cont.)", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.drawImage(images.TwinshotPickup, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Grants ammo and upgrades default", canvas.width * 5 / 16, canvas.height * 26 / 64);
                         ctx.fillText("weapon to fire 2 shots at once", canvas.width * 5 / 16, canvas.height * 28 / 64);
@@ -619,9 +620,9 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Grants 1 additional bomb", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 5:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Enemies", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.drawImage(images.BasicShooterEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Basic enemy, fires 1 shot at a time", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.AdvancedShooterEnemy, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
@@ -630,9 +631,9 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Fires 2 shots in a 'V' pattern", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 6:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Enemies (cont.)", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.drawImage(images.TripleshotEnemy, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Strong enemy, fires a 3 shot spread", canvas.width * 5 / 16, canvas.height * 27 / 64);
                         ctx.drawImage(images.Turret, canvas.width / 4, canvas.height * 16 / 32, 50, 50);
@@ -641,9 +642,9 @@ function render(viewport, canvas, ctx) {
                         ctx.fillText("Runs away, drops strong pickups", canvas.width * 5 / 16, canvas.height * 43 / 64);
                         break;
                     case 7:
-                        ctx.font = "24px PressStart2P";
+                        ctx.font = `${24 * scale}px PressStart2P`;
                         ctx.fillText("Hazards", canvas.width / 4, canvas.height * 10 / 32);
-                        ctx.font = "12px PressStart2P";
+                        ctx.font = `${12 * scale}px PressStart2P`;
                         ctx.drawImage(images.asteroidA, canvas.width / 4, canvas.height * 12 / 32, 50, 50);
                         ctx.fillText("Blocks ships and bullets", canvas.width * 5 / 16, canvas.height * 26 / 64);
                         ctx.fillText("damages player on contact", canvas.width * 5 / 16, canvas.height * 28 / 64);
@@ -663,7 +664,7 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = black;
-                ctx.font = "28px PressStart2P"
+                ctx.font = `${28 * scale}px PressStart2P`;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
                 // Draw the control mode buttons
@@ -798,7 +799,7 @@ function render(viewport, canvas, ctx) {
                 ctx.fillText("GAME OVER", canvas.width / 2, canvas.height * 7 / 32);
                 ctx.fillText("Score: " + score, canvas.width / 2, canvas.height * 11 / 32);
 
-                ctx.font = " 72px PressStart2P";
+                ctx.font = `${72 * scale}px PressStart2P`;
                 // Display highscore initials, blinking the current selection
                 if (HSNameIndex != 0 || !selectionBlink) {
                     ctx.fillText(highScoreInitials[0], canvas.width / 2 - 70, canvas.height * 19 / 32);
@@ -858,7 +859,7 @@ function render(viewport, canvas, ctx) {
                 ctx.stroke();
                 ctx.fill();
                 ctx.fillStyle = white;
-                ctx.font = "40px PressStart2P";
+                ctx.font = `${40 * scale}px PressStart2P`;
                 ctx.fillText("Main Menu", canvas.width / 2, canvas.height * 107 / 128);
                 break;
             case GameStates.HighScore:
@@ -874,11 +875,11 @@ function render(viewport, canvas, ctx) {
                 ctx.fill();
                 ctx.fillStyle = black;
                 ctx.fillRect(canvas.width * 8 / 32, canvas.height * 8 / 32, canvas.width / 2, canvas.height * 5 / 8);
-                ctx.font = "28px PressStart2P";
+                ctx.font = `${28 * scale}px PressStart2P`;
                 ctx.fillText("X", canvas.width * 6 / 32, canvas.height * 29 / 128);
 
                 ctx.textAlign = "left";
-                ctx.font = "32px PressStart2P";
+                ctx.font = `${32 * scale}px PressStart2P`;
                 // Print the top 5 scores, and leave entries blank if there are less than 5 scores saved
                 ctx.fillStyle = "cyan";
                 ctx.fillText(`1: ${highScores[0][0] ?? ''}: ${highScores[0][1] ?? ''}`, canvas.width * 10 / 32, canvas.height * 45 / 128);
@@ -909,7 +910,7 @@ function render(viewport, canvas, ctx) {
         ctx.fill();
 
         ctx.fillStyle = white;
-        ctx.font = "32px PressStart2P";
+        ctx.font = `${32 * scale}px PressStart2P`;
         ctx.fillText("Start Game", canvas.width / 2, canvas.height * 46 / 128);
 
         // Draw "How to Play" button
@@ -989,7 +990,7 @@ function render(viewport, canvas, ctx) {
         ctx.beginPath();
         ctx.textAlign = "center";
         ctx.fillStyle = white;
-        ctx.font = "20px PressStart2P";
+        ctx.font = `${32 * scale}px PressStart2P`;
         ctx.fillText("Time: " + timer, canvas.width / 2, canvas.height * 3 / 64);
         ctx.beginPath();
         ctx.textAlign = "left";
